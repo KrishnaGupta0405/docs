@@ -1,0 +1,294 @@
+---
+title: Auto-sync jobs
+description: Keep your chatbot content automatically up to date
+sidebarTitle: Auto-sync jobs
+icon: arrows-rotate
+---
+
+Auto-sync jobs automatically update your chatbot's knowledge base by periodically re-crawling your content sources.
+
+## How it works
+
+When you add content from URLs, sitemaps, websites, or YouTube channels, you can enable automatic syncing to:
+
+* Detect new pages or videos
+* Update modified content
+* Remove deleted content
+* Keep your chatbot's knowledge current
+
+## Sync frequencies
+
+Choose how often to sync your content:
+
+### Daily sync
+
+Updates content every 24 hours. Best for:
+
+* Frequently updated blogs
+* News sites
+* Documentation that changes often
+* Active YouTube channels
+
+### Weekly sync
+
+Updates content every 7 days. Best for:
+
+* Marketing websites
+* Product pages
+* Knowledge bases with moderate updates
+* Educational content
+
+### Monthly sync
+
+Updates content every 30 days. Best for:
+
+* Static websites
+* Infrequently updated content
+* Large content libraries
+* Cost-conscious implementations
+
+### Manual only
+
+No automatic syncing. You control when to update content manually.
+
+## Setting up auto-sync
+
+### For new content
+
+When adding content:
+
+<Steps>
+  <Step title="Add your content source">
+    Go to **Content** and add URLs, sitemap, website, or YouTube channel.
+  </Step>
+
+  <Step title="Choose sync frequency">
+    Select Daily, Weekly, Monthly, or Manual from the dropdown.
+  </Step>
+
+  <Step title="Complete setup">
+    Finish adding your content. Auto-sync will begin based on your selected frequency.
+  </Step>
+</Steps>
+
+### For existing content
+
+To enable auto-sync on existing content:
+
+<Steps>
+  <Step title="Go to auto-sync jobs">
+    Navigate to **Content** > **Auto-Sync Jobs** in your dashboard.
+  </Step>
+
+  <Step title="Find your content">
+    Locate the content source you want to auto-sync.
+  </Step>
+
+  <Step title="Update frequency">
+    Click the sync frequency dropdown and select your preferred schedule.
+  </Step>
+
+  <Step title="Save changes">
+    The new sync schedule takes effect immediately.
+  </Step>
+</Steps>
+
+## Managing sync jobs
+
+### View all sync jobs
+
+The Auto-Sync Jobs page shows:
+
+* All content sources with auto-sync enabled
+* Current sync frequency
+* Last sync date and time
+* Next scheduled sync
+* Sync status (successful, failed, in progress)
+
+### Filter by source type
+
+Filter jobs by content type:
+
+* URLs
+* Sitemap
+* Website
+* YouTube
+
+### Filter by frequency
+
+View jobs by sync schedule:
+
+* Daily
+* Weekly
+* Monthly
+* Manual only
+
+### Sync statistics
+
+Track sync performance:
+
+* **Total jobs** - Number of auto-sync jobs configured
+* **Active jobs** - Jobs with automatic syncing enabled
+* **Successful** - Jobs that completed successfully
+* **Running** - Jobs currently in progress
+
+## Sync job details
+
+Click on any sync job to view:
+
+### Job information
+
+* Content source URL or identifier
+* Sync frequency
+* Date created
+* Last modified
+
+### Sync history
+
+* All previous sync runs
+* Start and end times
+* Status (completed, failed, in progress)
+* Pages/videos processed
+* Changes detected
+
+### Sync results
+
+* New content added
+* Updated content
+* Removed content
+* Errors encountered
+
+## Troubleshooting
+
+### Sync failures
+
+If a sync job fails:
+
+**Check source availability**\
+Ensure the website or content source is accessible and hasn't moved.
+
+**Review error messages**\
+Click on the failed sync to see specific error details.
+
+**Verify permissions**\
+Confirm you have access to the content source (e.g., YouTube channel is public).
+
+**Check rate limits**\
+Some websites may block frequent crawling. Consider reducing sync frequency.
+
+### Missing content
+
+If new content isn't appearing:
+
+**Wait for next sync**\
+Content updates only during scheduled syncs or manual triggers.
+
+**Check sync status**\
+Verify the last sync completed successfully.
+
+**Review content filters**\
+Ensure your content isn't being filtered out by URL patterns or exclusions.
+
+**Trigger manual sync**\
+Force an immediate sync to test if content is detected.
+
+### Slow syncs
+
+If syncs take too long:
+
+**Reduce scope**\
+Limit the number of pages or videos being synced.
+
+**Increase frequency**\
+More frequent syncs process fewer changes each time.
+
+**Check content size**\
+Large pages or videos take longer to process.
+
+**Review server response**\
+Slow source websites delay sync completion.
+
+## Rate limiting
+
+To ensure optimal performance and fair usage, auto-sync jobs are subject to rate limits:
+
+### Per-conversation limits
+
+You can configure rate limits per conversation to prevent excessive API usage:
+
+* Set maximum messages per conversation
+* Applies to both user and bot messages
+* Configurable in chatbot settings
+* Helps control costs and prevent abuse
+
+### Sync frequency limits
+
+* **Daily syncs** - Maximum once per 24 hours
+* **Weekly syncs** - Maximum once per 7 days
+* **Monthly syncs** - Maximum once per 30 days
+* Manual syncs can be triggered anytime between scheduled runs
+
+## Best practices
+
+### Choose appropriate frequencies
+
+* **Daily** - Only for content that changes daily
+* **Weekly** - Good balance for most use cases
+* **Monthly** - Sufficient for stable content
+* **Manual** - For complete control over updates
+
+### Monitor sync health
+
+Check your Auto-Sync Jobs page regularly to:
+
+* Identify failed syncs
+* Review sync patterns
+* Optimize sync schedules
+* Remove unnecessary jobs
+
+### Optimize content sources
+
+* Use sitemaps instead of full website crawls when possible
+* Limit URL lists to essential pages
+* Exclude irrelevant sections of your website
+* Remove outdated content sources
+
+### Balance freshness and costs
+
+More frequent syncing:
+
+* Keeps content more current
+* Uses more processing resources
+* May hit rate limits
+* Increases costs on higher-tier plans
+
+## Pricing
+
+Auto-sync availability depends on your plan:
+
+* **Daily sync** - Available on Pro and Enterprise plans
+* **Weekly sync** - Available on all paid plans
+* **Monthly sync** - Available on all paid plans
+* **Manual only** - Available on all plans including Free
+
+Check your plan details for specific limits on the number of sync jobs.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Adding content" icon="plus" href="/setup/training-your-chatbot">
+    Learn how to add content sources
+  </Card>
+
+  <Card title="Content management" icon="folder" href="/navigating-your-chatbot/adding-content-to-your-chatbot">
+    Manage your chatbot's knowledge base
+  </Card>
+
+  <Card title="Webhooks" icon="webhook" href="/developers/webhooks">
+    Get notified when syncs complete
+  </Card>
+
+  <Card title="API reference" icon="code" href="/api-reference/v2/getting-started">
+    Manage sync jobs via API
+  </Card>
+</CardGroup>

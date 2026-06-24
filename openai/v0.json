@@ -1,0 +1,708 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "ContextGPT API",
+    "description": "This collection contains the documentation of all the API endpoints.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000/api"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/v1/chatbots": {
+      "get": {
+        "tags": [
+          "Chatbot"
+        ],
+        "summary": "Fetch All Chatbots",
+        "description": "Fetch all the chatbots",
+        "operationId": "fetch-all-chatbots",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "default": ",",
+              "example": ","
+            },
+            "in": "query",
+            "name": "delimeter",
+            "description": "Delimeter to identify multiple values in other parameters"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "example": "key1,key2"
+            },
+            "in": "query",
+            "name": "metadataKeys",
+            "description": "Array of keys to be searched in metadata (separated by delimeter)"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "example": "value1,value2"
+            },
+            "in": "query",
+            "name": "metadataValues",
+            "description": "Array of values to be searched against above metadata keys (separated by delimeter)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "chatbots": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Chatbot"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "success": true,
+                      "message": "Fetched all the chatbots successfully",
+                      "data": {
+                        "chatbots": [
+                          {
+                            "id": "361628903185318481",
+                            "title": "My First Bot",
+                            "description": "This is my first chat bot",
+                            "settings": {
+                              "userPrompt": "",
+                              "welcomeMessage": "",
+                              "systemPrompt": "",
+                              "promptId": null,
+                              "hideTooltip": true
+                            },
+                            "createdById": "360596271623307865",
+                            "createdByEmail": "user@example.com",
+                            "suggestions": [
+                              {
+                                "id": "6b3ae643-257f-4ede-a28c-6ef02ed2737a",
+                                "title": "What is this?",
+                                "description": "What is ContextGPT?"
+                              }
+                            ],
+                            "nextSuggestions": [],
+                            "prompts": []
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "ValidationError": {
+                    "value": {
+                      "success": false,
+                      "message": "Failed to fetch all the chatbots",
+                      "data": null,
+                      "error": {
+                        "code": "REQUEST_VALIDATION_FAILED",
+                        "message": "Numbers of keys in metadataKeys and number of values in metadataValues should be equal",
+                        "details": null
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "AuthenticationError": {
+                    "value": {
+                      "success": false,
+                      "message": "Failed to fetch all the chatbots",
+                      "data": null,
+                      "error": {
+                        "code": "API_KEY_NOT_VALID",
+                        "message": "Authorization header does not contain valid API key",
+                        "details": null
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "ServerError": {
+                    "value": {
+                      "success": false,
+                      "message": "Failed to fetch all the chatbots",
+                      "data": null,
+                      "error": {
+                        "code": "FETCH_ALL_CHATBOTS_FAILED",
+                        "message": "Some technical error has occurred",
+                        "details": null
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Chatbot"
+        ],
+        "summary": "Create Chatbot",
+        "description": "Create a new chatbot in the system",
+        "operationId": "create-chatbot",
+        "requestBody": {
+          "required": true,
+          "description": "Request body to create the chatbot",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "chatbotName": {
+                    "type": "string",
+                    "description": "Title of the chatbot"
+                  }
+                },
+                "required": [
+                  "chatbotName"
+                ]
+              },
+              "examples": {
+                "RequestBody": {
+                  "value": {
+                    "chatbotName": "Test Bot"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "nullable": true
+                    }
+                  }
+                },
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "success": true,
+                      "message": "Chatbot created successfully",
+                      "data": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "InvalidRequestBody": {
+                    "value": {
+                      "success": false,
+                      "message": "Failed to create the chatbot",
+                      "data": null,
+                      "error": {
+                        "code": "REQUEST_VALIDATION_FAILED",
+                        "message": "Request body is not valid",
+                        "details": [
+                          {
+                            "path": [
+                              "chatbotName"
+                            ],
+                            "message": "Required"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Chatbot": {
+        "type": "object",
+        "description": "Chatbot",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Id of the chatbot"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the chatbot"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the chatbot"
+          },
+          "createdById": {
+            "type": "string",
+            "description": "Id of the user that created this chatbot"
+          },
+          "createdByEmail": {
+            "type": "string",
+            "description": "Email of the user that created this chatbot"
+          },
+          "customContent": {
+            "type": "string",
+            "description": "Custom content of the chatbot",
+            "nullable": true
+          },
+          "suggestions": {
+            "type": "array",
+            "description": "Quick prompts of the chatbot",
+            "items": {
+              "$ref": "#/components/schemas/QuickPrompt"
+            }
+          },
+          "prompts": {
+            "type": "array",
+            "description": "List of prompts set by the user",
+            "items": {
+              "$ref": "#/components/schemas/ChatbotPrompt"
+            }
+          },
+          "nextSuggestions": {
+            "type": "array",
+            "description": "Follow-up prompts of the chatbot",
+            "items": {
+              "$ref": "#/components/schemas/FollowUpPrompt"
+            }
+          },
+          "settings": {
+            "$ref": "#/components/schemas/ChatbotSettings"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "description": "Error Response",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "nullable": true
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "details": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "integer"
+                          }
+                        ]
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "QuickPrompt": {
+        "type": "object",
+        "description": "Chatbot Conversation Starter",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "ChatbotPrompt": {
+        "type": "object",
+        "description": "Chatbot Prompt",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "instructions": {
+            "type": "string"
+          },
+          "temperature": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      },
+      "FollowUpPrompt": {
+        "type": "object",
+        "description": "Follow Up Prompt",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string"
+          },
+          "isEscalationPrompt": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ChatbotSettings": {
+        "type": "object",
+        "description": "Settings of the chatbot",
+        "properties": {
+          "tooltip": {
+            "type": "string",
+            "nullable": true
+          },
+          "welcomeMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "placeholderText": {
+            "type": "string",
+            "nullable": true
+          },
+          "brandColor": {
+            "type": "string",
+            "nullable": true
+          },
+          "brandTextColor": {
+            "type": "string",
+            "nullable": true
+          },
+          "hideSources": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "hideTooltip": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "hideFeedbackButtons": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "rtl": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "watermarkText": {
+            "type": "string",
+            "nullable": true
+          },
+          "hideWatermark": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "watermarkLink": {
+            "type": "string",
+            "nullable": true
+          },
+          "distanceFromBottom": {
+            "type": "integer",
+            "nullable": true
+          },
+          "horizontalDistance": {
+            "type": "integer",
+            "nullable": true
+          },
+          "fontSize": {
+            "type": "integer",
+            "nullable": true
+          },
+          "iconSize": {
+            "type": "string",
+            "enum": [
+              "SMALL",
+              "MEDIUM",
+              "LARGE",
+              "XL",
+              "2XL",
+              "3XL",
+              "4XL",
+              "5XL"
+            ],
+            "nullable": true
+          },
+          "iconPosition": {
+            "type": "string",
+            "enum": [
+              "LEFT",
+              "RIGHT"
+            ],
+            "nullable": true
+          },
+          "height": {
+            "type": "number",
+            "nullable": true
+          },
+          "maxWidth": {
+            "type": "number",
+            "nullable": true
+          },
+          "ctaText": {
+            "type": "string",
+            "nullable": true
+          },
+          "ctaLink": {
+            "type": "string",
+            "nullable": true
+          },
+          "iconSrcId": {
+            "type": "string",
+            "nullable": true
+          },
+          "personIconSrcId": {
+            "type": "string",
+            "nullable": true
+          },
+          "agentIconSrcId": {
+            "type": "string",
+            "nullable": true
+          },
+          "watermarkIconSrcId": {
+            "type": "string",
+            "nullable": true
+          },
+          "bubbleIconSrcId": {
+            "type": "string",
+            "nullable": true
+          },
+          "systemPrompt": {
+            "type": "string",
+            "nullable": true
+          },
+          "userPrompt": {
+            "type": "string",
+            "nullable": true
+          },
+          "promptId": {
+            "type": "string",
+            "nullable": true
+          },
+          "historyCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 50,
+            "nullable": true
+          },
+          "temperature": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2,
+            "nullable": true
+          },
+          "topK": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 5,
+            "nullable": true
+          },
+          "gptModel": {
+            "type": "string",
+            "enum": [
+              "gpt-3.5-turbo",
+              "gpt-4"
+            ],
+            "nullable": true
+          },
+          "creativity": {
+            "type": "string",
+            "enum": [
+              "restricted",
+              "conservative",
+              "creative",
+              "custom"
+            ],
+            "nullable": true
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "AI",
+              "AGENT"
+            ],
+            "nullable": true
+          },
+          "webhookUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "webhookToken": {
+            "type": "string",
+            "nullable": true
+          },
+          "collectUserDetails": {
+            "type": "string",
+            "enum": [
+              "MANDATORY",
+              "OPTIONAL",
+              "DO_NOT_COLLECT"
+            ],
+            "nullable": true
+          },
+          "collectUserData": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "boolean"
+              },
+              "phone": {
+                "type": "boolean"
+              }
+            }
+          },
+          "disableSmartFollowUpPrompts": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "smartFollowUpPromptsCount": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "nullable": true
+          },
+          "disableLeadNotifications": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "extraData": {
+            "type": "string",
+            "nullable": true
+          },
+          "metadata": {
+            "type": "object",
+            "nullable": true
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

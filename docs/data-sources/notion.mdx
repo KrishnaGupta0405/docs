@@ -1,0 +1,220 @@
+---
+title: Notion
+description: Train your chatbot on pages from your Notion workspace
+sidebarTitle: Notion
+icon: notion
+---
+
+# Notion Integration
+
+Connect your Notion workspace to train your ContextGPT chatbot on internal documentation, wikis, knowledge bases, and more. Perfect for teams that use Notion as their central knowledge hub.
+
+## Prerequisites
+
+* A Notion account with access to the pages you want to import
+* Admin or Editor permissions on the Notion pages
+* Owner or Editor permissions on the ContextGPT chatbot
+
+## Connecting Notion
+
+<Steps>
+  <Step title="Navigate to Training">
+    Go to your chatbot dashboard and click the **Training** tab
+  </Step>
+
+  <Step title="Add Data Source">
+    Click **Add Data Source** and select **Notion**
+  </Step>
+
+  <Step title="Authenticate">
+    Click **Connect Notion** to begin the OAuth flow. You'll be redirected to Notion to grant access.
+  </Step>
+
+  <Step title="Select Pages">
+    During authorization, Notion will ask which pages ContextGPT can access. You can grant access to:
+
+    * Specific pages
+    * Entire databases
+    * Your full workspace (with admin permissions)
+  </Step>
+
+  <Step title="Import Content">
+    After connecting, select which pages to import from the available content. Click **Start Training** to process.
+  </Step>
+</Steps>
+
+<Note>
+  Notion's permission system means ContextGPT can only see pages you explicitly grant access to during connection.
+</Note>
+
+## What Gets Imported
+
+| Content Type                  | Supported                    |
+| ----------------------------- | ---------------------------- |
+| Text blocks                   | ✅                            |
+| Headers & formatting          | ✅                            |
+| Bullet lists & numbered lists | ✅                            |
+| Tables                        | ✅                            |
+| Toggle blocks                 | ✅                            |
+| Callout blocks                | ✅                            |
+| Databases (as text)           | ✅                            |
+| Embedded files                | ⚠️ Links only                |
+| Images                        | ❌ Text alt descriptions only |
+
+## Best Practices
+
+### Organize for Import
+
+Structure your Notion workspace with chatbot training in mind:
+
+```
+📁 Company Wiki/
+  ├── 📄 Getting Started
+  ├── 📄 Product FAQ
+  ├── 📁 Features/
+  │   ├── 📄 Feature A Guide
+  │   └── 📄 Feature B Guide
+  └── 📁 Support Articles/
+      ├── 📄 Troubleshooting
+      └── 📄 Common Issues
+```
+
+<Tip>
+  Create a dedicated "Public Knowledge Base" section in Notion for content you want the chatbot to reference.
+</Tip>
+
+### Database Pages
+
+If you use Notion databases (e.g., for FAQ entries), each database entry will be imported as a separate piece of content. This works great for:
+
+* FAQ databases with Question/Answer properties
+* Help article databases
+* Product feature catalogs
+
+### Content Quality
+
+<AccordionGroup>
+  <Accordion title="Good candidates for import">
+    * Product documentation
+    * Customer-facing FAQs
+    * How-to guides
+    * Feature descriptions
+    * Pricing information
+    * Onboarding guides
+  </Accordion>
+
+  <Accordion title="Avoid importing">
+    * Internal team notes
+    * Meeting agendas
+    * Personal workspaces
+    * Draft content
+    * Sensitive HR or financial documents
+  </Accordion>
+</AccordionGroup>
+
+## Keeping Content Synced
+
+Notion content changes frequently. To keep your chatbot current:
+
+### Manual Refresh
+
+1. Go to the **Training** tab
+2. Find your Notion source
+3. Click **Refresh** to pull latest content
+4. Re-train to update the chatbot
+
+### Recommended Sync Frequency
+
+| Content Type             | Sync Frequency      |
+| ------------------------ | ------------------- |
+| Stable documentation     | Monthly             |
+| Active knowledge base    | Weekly              |
+| Frequently updated pages | After major changes |
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Can't see my pages after connecting">
+    Notion uses explicit page sharing. During connection:
+
+    * Click "Select pages" instead of "Allow access to all"
+    * Individually select the pages you want ContextGPT to access
+    * To add more pages later, disconnect and reconnect
+  </Accordion>
+
+  <Accordion title="Page content missing or incomplete">
+    Some block types have limited support:
+
+    * Embedded files show as links
+    * Synced blocks may not resolve
+    * Complex database views simplify to text
+  </Accordion>
+
+  <Accordion title="Import is very slow">
+    Large workspaces take time to process. Try:
+
+    * Importing specific pages instead of entire workspace
+    * Breaking imports into smaller batches
+    * Checking your internet connection
+  </Accordion>
+</AccordionGroup>
+
+## Disconnecting Notion
+
+To revoke access:
+
+1. Go to **Settings & Members** in Notion
+2. Click **Connections** in the sidebar
+3. Find "ContextGPT" and click **Disconnect**
+
+Or in ContextGPT:
+
+1. Go to the **Training** tab
+2. Find the Notion source
+3. Click the menu (⋮) and select **Disconnect**
+
+<Warning>
+  Disconnecting does not remove already-trained content from your chatbot. Delete the training source manually if needed.
+</Warning>
+
+## Use Cases
+
+### Team Wiki as Support Bot
+
+Turn your internal Notion wiki into a customer-facing support bot:
+
+> **Customer**: How do I export my data?
+>
+> **Chatbot**: According to our documentation, you can export your data by going to Settings → Export → Choose format...
+
+### Onboarding Knowledge Base
+
+Import your onboarding docs to help new users:
+
+> **New User**: What should I do first?
+>
+> **Chatbot**: Based on our Getting Started guide, the first step is to create your account and...
+
+### FAQ Database
+
+If you maintain FAQs in a Notion database, the chatbot learns each entry:
+
+> **User**: Do you offer refunds?
+>
+> **Chatbot**: Yes! According to our FAQ, we offer a 30-day money-back guarantee on all plans.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Can I import from multiple workspaces?">
+    Yes, connect each workspace separately by repeating the connection flow.
+  </Accordion>
+
+  <Accordion title="Are linked databases supported?">
+    Linked databases are resolved to their source content when possible.
+  </Accordion>
+
+  <Accordion title="Can I import private pages?">
+    Only pages you grant ContextGPT access to during connection. Personal pages not shared to the connection won't be visible.
+  </Accordion>
+</AccordionGroup>

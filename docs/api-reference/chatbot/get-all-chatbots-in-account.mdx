@@ -1,0 +1,10 @@
+---
+title: Get All Chatbots in Account
+description: Fetch all chatbots in a specific account with no per-user filtering applied 
+sidebarTitle: Get All Chatbots in Account
+openapi: "GET /v1/chatbots/account/{accountId}/all-chatbots"
+---
+
+Use this endpoint when you need an account-level view of all chatbots within a specific account — for example, on an account settings or management page where an admin or owner wants to see every chatbot regardless of who created it or who is assigned to it. No per-user filtering is applied; any member with the `CHATBOT_VIEW` permission will receive the full list.
+
+If you instead need to fetch all chatbots a specific user has access to across all their accounts (filtered by their role), use the [Get All My Chatbots](/api-reference/chatbot/get-all-my-chatbots) endpoint.

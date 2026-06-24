@@ -1,0 +1,13 @@
+---
+title: Get My Chatbots
+description: Returns all chatbots accessible to the authenticated user, grouped by account
+sidebarTitle: Get My Chatbots
+openapi: GET /v1/chatbots/my-chatbots
+---
+Returns all chatbots the authenticated user personally has access to, grouped by account — across every account they belong to. No `accountId` is required.
+
+**Access rules per account:**
+- `SUPER_ADMIN` or account owner → sees all chatbots in that account, with their per-chatbot role resolved via a left join on `chatbot_members`
+- Regular member → sees only chatbots they are explicitly added to in `chatbot_members`
+
+> **Contrast with [Get All Chatbots in Account](#operation/getAllChatbotsInAccount):** that endpoint is scoped to a single account, requires `accountId`, returns a flat unfiltered list.

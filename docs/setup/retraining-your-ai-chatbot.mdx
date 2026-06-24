@@ -1,0 +1,167 @@
+---
+title: Retraining and updating your AI chatbot
+description: Keep your chatbot up-to-date by resyncing your data sources as your content evolves.
+sidebarTitle: Retraining your chatbot
+icon: loader
+---
+
+
+## Resyncing links
+
+Navigate to the **Links** section in your chatbot dashboard to manage and resync your website content.
+
+<Tabs>
+  <Tab title="Individual links">
+    <Steps>
+      <Step title="Navigate to links">
+        Go to **Links** in your chatbot dashboard
+      </Step>
+
+      <Step title="Find the link">
+        Find the link you want to resync
+      </Step>
+
+      <Step title="Resync">
+        Click the **Resync** button in the actions menu for that link
+      </Step>
+
+      <Step title="Wait for processing">
+        The link will be reprocessed and your chatbot will be updated with the latest content
+      </Step>
+    </Steps>
+  </Tab>
+
+  <Tab title="Multiple links">
+    <Steps>
+      <Step title="Navigate to links">
+        Go to **Links** in your chatbot dashboard
+      </Step>
+
+      <Step title="Select links">
+        Select multiple links using the checkboxes
+      </Step>
+
+      <Step title="Resync selected">
+        Click **Resync Selected** in the selection bar
+      </Step>
+
+      <Step title="Confirm">
+        Confirm the action to resync all selected links at once
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+<Accordion title="Filter and search options" icon="filter">
+  Use the status filters to find specific links:
+
+  * **All** - View all links
+  * **Trained** - Successfully processed links
+  * **Pending** - Links currently being processed
+  * **Failed** - Links that encountered errors
+
+  Use the search bar to find specific URLs quickly.
+</Accordion>
+
+## Resyncing files
+
+Navigate to the **Files & Data Sources** section to manage your uploaded files and cloud storage connections.
+
+<Tabs>
+  <Tab title="Individual files">
+    <Steps>
+      <Step title="Navigate to files">
+        Go to **Files & Data Sources** in your chatbot dashboard
+      </Step>
+
+      <Step title="Find the file">
+        Find the file you want to resync
+      </Step>
+
+      <Step title="Resync">
+        Click the **Resync** button in the actions menu for that file
+      </Step>
+
+      <Step title="Wait for processing">
+        The file will be reprocessed with the latest content
+      </Step>
+    </Steps>
+  </Tab>
+
+  <Tab title="Multiple files">
+    <Steps>
+      <Step title="Navigate to files">
+        Go to **Files & Data Sources** in your chatbot dashboard
+      </Step>
+
+      <Step title="Select files">
+        Select multiple files using the checkboxes
+      </Step>
+
+      <Step title="Resync selected">
+        Click **Resync Selected** in the selection bar
+      </Step>
+
+      <Step title="Confirm">
+        Confirm the action to resync all selected files at once
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+## Auto-sync for automated updates
+
+For links added via sitemap or multiple URLs, you can enable auto-sync to automatically keep your chatbot updated:
+
+<Steps>
+  <Step title="Choose frequency">
+    When adding links, select an **Auto-sync frequency**:
+
+    * Never (manual only)
+    * Daily
+    * Weekly
+    * Monthly
+  </Step>
+
+  <Step title="Automatic syncing">
+    ContextGPT will automatically resync these links at the specified interval
+  </Step>
+
+  <Step title="Monitor jobs">
+    View auto-sync jobs in the **Auto-sync Jobs** section to monitor automated updates
+  </Step>
+</Steps>
+
+<Tip>Auto-sync is perfect for documentation sites, blogs, and knowledge bases that update frequently.</Tip>
+
+## When to resync
+
+<AccordionGroup>
+  <Accordion title="Content updates" icon="pen-to-square">
+    Resync when you've updated content on your website or modified documentation and help articles.
+  </Accordion>
+
+  <Accordion title="File updates" icon="file-arrow-up">
+    Resync when you've uploaded a new version of a file or replaced existing documents.
+  </Accordion>
+
+  <Accordion title="Failed syncs" icon="triangle-exclamation">
+    Resync when a link or file shows a "Failed" status to retry processing.
+  </Accordion>
+
+  <Accordion title="Ensure freshness" icon="clock-rotate-left">
+    Resync periodically to ensure your chatbot has the latest information, even if you're not sure what changed.
+  </Accordion>
+</AccordionGroup>
+
+## Monitoring sync status
+
+<Info>
+  Each data source shows its current status:
+
+  * **Trained** - Successfully processed and ready to use
+  * **Pending** - Currently being processed
+  * **Failed** - Encountered an error during processing
+
+  Click on a failed item to view error details and troubleshooting steps.
+</Info>

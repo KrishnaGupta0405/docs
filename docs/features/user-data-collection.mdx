@@ -1,0 +1,177 @@
+---
+title: User data collection
+description: Configure basic user data collection settings for your chatbot
+sidebarTitle: User data collection
+icon: database
+---
+
+Use user data collection settings to gather basic information from visitors before or during their chat conversations. This feature helps you identify and contact users who interact with your chatbot.
+
+<Note>
+  These are basic user data settings. For advanced lead collection with AI-powered forms, industry templates, custom fields, and booking integration, use the [Lead Collection](/features/lead-collection) feature.
+</Note>
+
+## Accessing user data settings
+
+Navigate to your chatbot dashboard and select **Settings** → **User Data** to configure data collection options.
+
+## Collection modes
+
+Choose how strictly you want to enforce user data collection:
+
+### Mandatory
+
+Users must enter their details before they can continue the conversation.
+
+**When to use:**
+
+* High-value sales conversations
+* Support tickets requiring contact information
+* Compliance requirements for user identification
+
+**User experience:** The chatbot displays a form that must be completed before any conversation can begin.
+
+### Optional
+
+The chatbot attempts to collect user details, but users can skip the form and continue chatting.
+
+**When to use:**
+
+* General information chatbots
+* Balancing lead collection with user experience
+* Reducing friction while still capturing some leads
+
+**User experience:** Users see a form but can choose to skip it and start chatting immediately.
+
+### Do not collect
+
+The chatbot will not collect any user details.
+
+**When to use:**
+
+* Privacy-focused implementations
+* Anonymous support chatbots
+* Information-only chatbots where leads aren't needed
+
+**User experience:** No data collection form appears; users can chat immediately without providing any information.
+
+## Data types
+
+Select which information you want to collect from visitors:
+
+### Name
+
+Collect the user's full name.
+
+**Optional field** - Can be enabled or disabled based on your needs.
+
+### Email address
+
+Collect the user's email address.
+
+**Required field** - Always collected when user data collection is enabled. Email is the primary identifier for leads and conversations.
+
+### Phone number
+
+Collect the user's phone number.
+
+**Optional field** - Can be enabled or disabled based on your needs.
+
+## How it works
+
+When user data collection is enabled:
+
+1. **First interaction:** When a user opens the chatbot, they see a form requesting their information
+2. **Form submission:** Users enter their details and submit the form
+3. **Conversation begins:** After submission (or skipping in Optional mode), the chat conversation starts
+4. **Lead creation:** The collected information is saved as a lead in your dashboard
+5. **Persistent identity:** The user's information is associated with all their messages in that conversation
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Use Optional mode for better conversion">
+    Optional mode provides a good balance between lead collection and user experience. Users who are serious about getting help will provide their information.
+  </Accordion>
+
+  <Accordion title="Keep forms minimal">
+    Only collect the data you actually need. Shorter forms have higher completion rates.
+  </Accordion>
+
+  <Accordion title="Explain why you're collecting data">
+    Use the welcome message to explain how you'll use their information (e.g., "to send you a transcript" or "to follow up on your inquiry").
+  </Accordion>
+
+  <Accordion title="Consider privacy regulations">
+    Ensure your data collection complies with GDPR, CCPA, and other privacy regulations in your jurisdiction.
+  </Accordion>
+
+  <Accordion title="Use advanced lead collection for complex needs">
+    If you need custom fields, conditional logic, or booking integration, use the [Lead Collection](/features/lead-collection) feature instead.
+  </Accordion>
+</AccordionGroup>
+
+## Viewing collected data
+
+All collected user data appears in two places:
+
+1. **Leads dashboard:** Navigate to **Leads** to see all collected contact information
+2. **Chat history:** Each conversation shows the associated user's information
+
+Learn more about managing leads in the [Leads documentation](/navigating-your-chatbot/leads).
+
+## Advanced lead collection
+
+For more sophisticated lead collection needs, use the dedicated [Lead Collection](/features/lead-collection) feature, which offers:
+
+* AI-powered lead qualification
+* Industry-specific templates
+* Custom form fields
+* Conditional logic
+* Calendar booking integration
+* CRM integrations
+* Lead scoring
+
+## Difference from lead collection
+
+| Feature           | User Data Collection | Lead Collection                  |
+| ----------------- | -------------------- | -------------------------------- |
+| **Purpose**       | Basic contact info   | Advanced lead qualification      |
+| **Fields**        | Name, email, phone   | Custom fields, unlimited options |
+| **Timing**        | Before/during chat   | Intelligent, context-aware       |
+| **AI-powered**    | No                   | Yes                              |
+| **Templates**     | No                   | Industry-specific templates      |
+| **Integrations**  | Basic                | CRM, calendar, webhooks          |
+| **Customization** | Limited              | Extensive                        |
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Users not seeing the data collection form">
+    * Verify collection mode is set to Mandatory or Optional (not "Do Not Collect")
+    * Clear browser cache and test in an incognito window
+    * Check that the chatbot is properly embedded on your website
+    * Ensure no custom CSS is hiding the form
+  </Accordion>
+
+  <Accordion title="Form appearing every time">
+    User data is stored in browser cookies. If users clear cookies or use incognito mode, they'll see the form again. This is expected behavior.
+  </Accordion>
+
+  <Accordion title="Want to collect more information">
+    Basic user data collection only supports name, email, and phone. For custom fields, use the [Lead Collection](/features/lead-collection) feature.
+  </Accordion>
+
+  <Accordion title="Data not appearing in leads">
+    * Ensure the form was submitted (not skipped in Optional mode)
+    * Check the Leads dashboard after a few minutes for data to sync
+    * Verify the user completed the form before closing the chat
+  </Accordion>
+</AccordionGroup>
+
+## Related features
+
+* [Lead collection](/features/lead-collection) - Advanced lead qualification and custom forms
+* [Leads dashboard](/navigating-your-chatbot/leads) - View and manage collected leads
+* [Human support](/features/human-support) - Configure escalation to human agents
+* [Chat history](/navigating-your-chatbot/chat-history) - View conversations with user information

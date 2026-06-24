@@ -1,0 +1,231 @@
+---
+title: Create new chatbot
+description: Creating a chatbot with ContextGPT is a streamlined two-step process customize the appearance, then add your data sources.
+sidebarTitle: Create new chatbot
+icon: screwdriver-wrench
+---
+
+## Step 1: Customize appearance
+
+When you click "Create New Chatbot" from your dashboard, you'll immediately see the appearance customization interface where you can configure how your chatbot looks and behaves before it's created.
+
+<AccordionGroup>
+  <Accordion title="Content settings" icon="text">
+    Configure the text elements of your chatbot:
+
+    <ParamField path="Chatbot Name" type="string" required>
+      Give your chatbot a descriptive name
+    </ParamField>
+
+    <ParamField path="Tooltip" type="string">
+      Text shown when hovering over the chat icon (defaults to welcome message if empty)
+    </ParamField>
+
+    <ParamField path="Welcome Message" type="string">
+      The first message users see when opening the chat
+    </ParamField>
+
+    <ParamField path="Input Placeholder Text" type="string">
+      Placeholder text in the message input field
+    </ParamField>
+  </Accordion>
+
+  <Accordion title="Chat interface" icon="palette">
+    Customize the visual appearance:
+
+    <ParamField path="Primary Color" type="color">
+      Main brand color for the chatbot interface
+    </ParamField>
+
+    <ParamField path="Text Color" type="color">
+      Color for text on primary color backgrounds
+    </ParamField>
+
+    <ParamField path="Font Size" type="number" default={14}>
+      Text size in pixels (default: 14px)
+    </ParamField>
+
+    <ParamField path="Chat Height" type="number">
+      Height of the chat window as a percentage (1-100%)
+    </ParamField>
+  </Accordion>
+
+  <Accordion title="Display options" icon="eye">
+    Control what elements are visible:
+
+    <ParamField path="Hide Sources" type="boolean" default={false}>
+      Don't show source links where responses came from
+    </ParamField>
+
+    <ParamField path="Hide Tooltip" type="boolean" default={false}>
+      Don't show the tooltip on the chat icon
+    </ParamField>
+
+    <ParamField path="Hide Feedback Buttons" type="boolean" default={false}>
+      Remove thumbs up/down buttons
+    </ParamField>
+
+    <ParamField path="RTL Mode" type="boolean" default={false}>
+      Enable right-to-left text direction for RTL languages
+    </ParamField>
+  </Accordion>
+
+  <Accordion title="Auto-open settings" icon="window-maximize">
+    Configure automatic chat window opening:
+
+    <Tabs>
+      <Tab title="Desktop">
+        Choose whether to auto-open and set delay in seconds
+      </Tab>
+
+      <Tab title="Mobile">
+        Separate settings for mobile devices
+      </Tab>
+    </Tabs>
+  </Accordion>
+
+  <Accordion title="Chat icon customization" icon="message-bot">
+    Position and style the chat icon:
+
+    <ParamField path="Distance from Bottom" type="number">
+      Spacing from bottom edge (in pixels)
+    </ParamField>
+
+    <ParamField path="Horizontal Distance" type="number">
+      Spacing from left/right edge (in pixels)
+    </ParamField>
+
+    <ParamField path="Icon Size" type="select">
+      Choose from Small to 5XL
+    </ParamField>
+
+    <ParamField path="Position" type="select">
+      Bottom-right or bottom-left
+    </ParamField>
+
+    <ParamField path="Custom Icons" type="file">
+      Upload custom bot, user, agent, and bubble icons
+    </ParamField>
+  </Accordion>
+
+  <Accordion title="Branding customization" icon="sliders">
+    Control the chatbot watermark and branding:
+
+    <ParamField path="Watermark Text" type="string">
+      Customize the watermark text (e.g., "Powered by Your Company")
+    </ParamField>
+
+    <ParamField path="Watermark Link" type="string">
+      Set a custom URL for the watermark link
+    </ParamField>
+
+    <ParamField path="Watermark Icon" type="file">
+      Upload a custom icon for the watermark
+    </ParamField>
+
+    <ParamField path="Hide Powered By" type="boolean">
+      Completely remove the watermark (requires "Remove ContextGPT Branding" addon)
+    </ParamField>
+
+    <Note>
+      Watermark customization requires the **Remove ContextGPT Branding** addon. Visit your [billing page](/navigating-your-account/billing) to add this feature to your plan.
+    </Note>
+  </Accordion>
+</AccordionGroup>
+
+Once you've configured the appearance to your liking, click **Create Chatbot** at the bottom of the page. Your chatbot will be created and you'll be automatically redirected to add data sources.
+
+## Step 2: Add data sources
+
+After clicking "Create Chatbot", you'll be redirected to the Files page where you can immediately start adding content to train your chatbot.
+
+### Available data source options
+
+<Tabs>
+  <Tab title="Files" icon="file">
+    <CardGroup cols={2}>
+      <Card title="Local Files" icon="file-arrow-up">
+        Upload documents from your computer (PDF, DOCX, TXT, CSV, etc.)
+      </Card>
+
+      <Card title="Notion" icon="book">
+        Import pages and databases from your Notion workspace
+      </Card>
+
+      <Card title="Google Drive" icon="google">
+        Connect and import files from Google Drive
+      </Card>
+
+      <Card title="Dropbox" icon="dropbox">
+        Import files from your Dropbox account
+      </Card>
+
+      <Card title="OneDrive" icon="microsoft">
+        Connect Microsoft OneDrive for file imports
+      </Card>
+
+      <Card title="Box" icon="box">
+        Import files from Box cloud storage
+      </Card>
+    </CardGroup>
+  </Tab>
+
+  <Tab title="Links" icon="link">
+    <CardGroup cols={2}>
+      <Card title="Multiple Links" icon="link">
+        Add multiple URLs at once for bulk content import
+      </Card>
+
+      <Card title="Sitemap" icon="sitemap">
+        Import all URLs from your website's sitemap automatically
+      </Card>
+
+      <Card title="Scrape Website" icon="globe">
+        Recursively crawl and extract content from an entire website
+      </Card>
+
+      <Card title="YouTube" icon="youtube">
+        Import transcripts from YouTube videos, playlists, or channels
+      </Card>
+    </CardGroup>
+  </Tab>
+</Tabs>
+
+See [Training your chatbot](/setup/training-your-chatbot) for detailed instructions on each data source type.
+
+<Tip>
+  You can always return to customize your chatbot's appearance later from the [Appearance page](/navigating-your-chatbot/customizing-your-chatbot) in your chatbot dashboard.
+</Tip>
+
+<Note>
+  **Remove Powered by ContextGPT Addon**
+
+  The "Remove ContextGPT Branding" addon allows you to customize or completely hide the "Powered by ContextGPT" watermark from your chatbot. This addon gives you full control over:
+
+  * Custom watermark text
+  * Custom watermark link
+  * Custom watermark icon
+  * Complete removal of the watermark
+
+  To purchase this addon, visit your [billing page](/navigating-your-account/billing) and add the "Remove ContextGPT Branding" feature to your plan.
+</Note>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Train your chatbot" icon="brain" href="/setup/training-your-chatbot">
+    Add content from websites, files, and documents
+  </Card>
+
+  <Card title="Integrate with your website" icon="code" href="/setup/integrating-with-your-website">
+    Deploy your chatbot on your website
+  </Card>
+
+  <Card title="Customize appearance" icon="palette" href="/navigating-your-chatbot/customizing-your-chatbot">
+    Fine-tune colors, text, and branding
+  </Card>
+
+  <Card title="Configure settings" icon="gear" href="/navigating-your-chatbot/settings">
+    Set up lead collection, personas, and more
+  </Card>
+</CardGroup>

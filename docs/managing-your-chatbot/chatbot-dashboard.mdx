@@ -1,0 +1,169 @@
+---
+title: Chatbot dashboard
+description: Monitor your chatbot performance and manage content from a centralized dashboard. The chatbot dashboard provides an overview of your chatbot's performance, content, and user interactions. Access it by selecting your chatbot from your account dashboard.
+sidebarTitle: Chatbot dashboard
+icon: grid-horizontal
+---
+## Dashboard metrics
+
+The dashboard displays key metrics about your chatbot's content and performance:
+
+<AccordionGroup>
+  <Accordion title="Content metrics" icon="folder-open">
+    Track the training data powering your chatbot:
+
+    * **Total Links** - Number of website URLs your chatbot is trained on (from sitemaps, websites, YouTube, or bulk links)
+    * **Total Files** - Number of uploaded files and connected data sources (PDFs, DOCX, Notion, Google Drive, Dropbox, OneDrive, Box)
+    * **Total Custom Responses** - Number of custom Q\&A pairs you've created for specific questions
+
+    Each metric card shows the current count and provides quick access to view or add more content.
+  </Accordion>
+
+  <Accordion title="Conversation metrics" icon="messages">
+    Monitor your chatbot's interactions with users:
+
+    * **Total Messages** - Total number of messages exchanged (both user and bot messages combined)
+    * **Positive Feedback** - Percentage of bot responses users rated as helpful (thumbs up)
+    * **Negative Feedback** - Percentage of bot responses users rated as unhelpful (thumbs down)
+
+    Click any metric to view the full chat history with relevant filters applied.
+
+    <Tip>
+      Use feedback data to identify areas for improvement and create custom responses for frequently downvoted answers.
+    </Tip>
+  </Accordion>
+</AccordionGroup>
+
+## Training status
+
+The dashboard shows your chatbot's current training status with a color-coded indicator:
+
+<AccordionGroup>
+  <Accordion title="Ready (Green)" icon="circle-check">
+    Your chatbot is fully trained and ready to use. All documents have been successfully processed and your chatbot can answer questions based on your content.
+
+    **What you can do:**
+
+    * Share your chatbot link with users
+    * Test it by clicking "Chat with your chatbot"
+    * Embed it on your website
+  </Accordion>
+
+  <Accordion title="In progress (Blue)" icon="arrows-rotate">
+    Your chatbot is already functional with some trained documents, but additional content is still being processed. You can use your chatbot while training continues in the background.
+
+    **Status details:**
+
+    * Shows how many documents are already trained
+    * Indicates how many are still being processed
+    * Your chatbot works with currently trained content
+  </Accordion>
+
+  <Accordion title="Partial issues (Orange)" icon="triangle-exclamation">
+    Your chatbot is ready to use based on successfully trained documents, but some documents failed to process. You can still use your chatbot while you fix the failed documents.
+
+    **What to do:**
+
+    * Review failed documents in your Links or Files sections
+    * Fix any issues (broken URLs, corrupted files, etc.)
+    * Your chatbot continues working with successfully trained content
+  </Accordion>
+
+  <Accordion title="No knowledge (Gray)" icon="pen-to-square">
+    Your chatbot hasn't been trained on any content yet. Add links, files, or custom responses to get started.
+
+    **Quick actions:**
+
+    * Click "Add Links" to train on website content
+    * Click "Add Files" to upload documents
+    * Click "Add Custom Responses" to create Q\&A pairs
+  </Accordion>
+
+  <Accordion title="Not ready (Red)" icon="circle-xmark">
+    All documents are either still processing or failed to train. Your chatbot cannot answer questions yet.
+
+    **What to do:**
+
+    * Wait for processing to complete if documents are pending
+    * Review and fix failed documents
+    * Ensure your content is accessible and in supported formats
+  </Accordion>
+</AccordionGroup>
+
+## Installation
+
+The dashboard provides everything you need to integrate your chatbot:
+
+<AccordionGroup>
+  <Accordion title="Chatbot ID" icon="fingerprint">
+    Your unique chatbot identifier used for integrations with third-party platforms like WordPress plugins.
+
+    **How to use:**
+
+    * Copy the ID displayed on your dashboard
+    * Use it when configuring integrations
+    * Keep it handy for API calls and SDK implementations
+  </Accordion>
+
+  <Accordion title="Embed code" icon="code">
+    JavaScript snippet to add your chatbot to any website.
+
+    **Installation steps:**
+
+    1. Copy the embed code from your dashboard
+    2. Paste it in your website's HTML (preferably in the `<head>` section)
+    3. Your chatbot will appear automatically on all pages
+
+    <Tip>
+      The embed code is customized for your chatbot and includes your unique chatbot ID.
+    </Tip>
+  </Accordion>
+</AccordionGroup>
+
+## Navigation
+
+<AccordionGroup>
+  <Accordion title="Content" icon="folder-open">
+    Manage training data including links, files, text snippets, and custom responses.
+  </Accordion>
+
+  <Accordion title="Customizations" icon="palette">
+    Configure appearance, prompts, and personas to match your brand.
+  </Accordion>
+
+  <Accordion title="Advanced" icon="gear">
+    Set up integrations, webhooks, and team members for advanced functionality.
+  </Accordion>
+
+  <Accordion title="Settings" icon="sliders">
+    Adjust chatbot behavior and preferences to optimize performance.
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Add content" icon="file-plus" href="/navigating-your-chatbot/adding-content-to-your-chatbot">
+    Train your chatbot with more data
+  </Card>
+
+  <Card title="View conversations" icon="messages" href="/navigating-your-chatbot/chat-history">
+    Review chat history and user interactions
+  </Card>
+
+  <Card title="Customize appearance" icon="palette" href="/navigating-your-chatbot/customizing-your-chatbot">
+    Personalize your chatbot's look and feel
+  </Card>
+
+  <Card title="Configure settings" icon="gear" href="/navigating-your-chatbot/settings">
+    Adjust chatbot behavior and features
+  </Card>
+
+  <Card title="Manage leads" icon="users" href="/navigating-your-chatbot/leads">
+    View and manage captured leads
+  </Card>
+
+  <Card title="Advanced features" icon="sliders" href="/navigating-your-chatbot/advanced">
+    Explore advanced chatbot capabilities
+  </Card>
+</CardGroup>

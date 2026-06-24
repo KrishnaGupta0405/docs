@@ -1,0 +1,163 @@
+---
+title: Pages Quota
+description: Understand how ContextGPT measures and manages your training content quota
+sidebarTitle: Pages Quota
+icon: file-lines
+---
+
+Your ContextGPT chatbot is trained on content measured in **pages**. This unified system makes it easy to understand your usage limits regardless of whether you're adding web pages, uploading files, or pasting text.
+
+## What is a page?
+
+A **page** equals **2,500 cleaned characters** of text content. This is roughly equivalent to:
+
+* A typical web page with moderate content
+* 1-2 pages of a PDF document
+* About 400-500 words of text
+
+<Note>
+  "Cleaned characters" means the actual text content after removing HTML tags, scripts, styling, and other non-content elements.
+</Note>
+
+## Why pages?
+
+The pages-based quota system provides several benefits:
+
+<CardGroup cols={2}>
+  <Card title="Simplicity" icon="check">
+    One number to track instead of separate limits for links and files
+  </Card>
+
+  <Card title="Flexibility" icon="shuffle">
+    Use your quota however you want — all web pages, all files, or any mix
+  </Card>
+
+  <Card title="Transparency" icon="eye">
+    Clear understanding of exactly how much content you can add
+  </Card>
+
+  <Card title="Fairness" icon="scale-balanced">
+    You pay for content, not arbitrary file counts
+  </Card>
+</CardGroup>
+
+## Plan limits
+
+Each plan includes a generous pages quota:
+
+| Plan           | Pages Quota   | Approximate Content |
+| -------------- | ------------- | ------------------- |
+| **Starter**    | 1,000 pages   | \~400,000 words     |
+| **Growth**     | 10,000 pages  | \~4 million words   |
+| **Scale**      | 50,000 pages  | \~20 million words  |
+| **Enterprise** | Custom | - |
+
+<Tip>
+  Not sure which plan you need? Most small to medium websites fit comfortably within the Starter plan. If you have extensive documentation or knowledge bases, consider Growth or Scale.
+</Tip>
+
+## How pages are calculated
+
+When you add content to your chatbot, ContextGPT automatically calculates how many pages it will consume:
+
+### Web pages
+
+Each URL you add is processed to extract the text content. The cleaned text is measured in characters, then divided by 2,500 to determine the page count.
+
+**Example:** A blog post with 5,000 characters of clean text = 2 pages
+
+### Files
+
+Uploaded files (PDFs, DOCXs, etc.) are converted to text and measured the same way.
+
+**Example:** A 10-page PDF with \~25,000 characters = 10 pages
+
+### Raw text
+
+When you paste text directly, the character count determines the pages.
+
+**Example:** 7,500 characters of pasted content = 3 pages
+
+## Viewing your usage
+
+You can check your pages usage in several places:
+
+<Steps>
+  <Step title="Dashboard overview">
+    Your chatbot dashboard shows current pages used vs. your limit
+  </Step>
+
+  <Step title="Content pages">
+    The Links and Files pages show page counts for each item
+  </Step>
+
+  <Step title="Usage page">
+    Navigate to Account → Usage for a detailed breakdown over time
+  </Step>
+</Steps>
+
+## Managing your quota
+
+### Before adding content
+
+When you add new links or files, ContextGPT estimates the page count before processing. If the content would exceed your quota, you'll see a warning.
+
+### Removing content
+
+Deleting links or files immediately frees up those pages for new content.
+
+### Upgrading your plan
+
+If you need more pages, you can upgrade your plan at any time from your [billing page](/navigating-your-account/billing).
+
+## Tips for optimizing page usage
+
+<AccordionGroup>
+  <Accordion title="Be selective with URLs" icon="bullseye">
+    Instead of adding your entire sitemap, focus on the most relevant pages — product docs, FAQs, and key landing pages.
+  </Accordion>
+
+  <Accordion title="Use exclude patterns" icon="filter">
+    When adding sitemaps, use exclude patterns to skip pages that aren't relevant for support (e.g., `/blog/*` if blog content isn't needed).
+  </Accordion>
+
+  <Accordion title="Consolidate documents" icon="layer-group">
+    If you have many small files, consider combining them into fewer, larger documents.
+  </Accordion>
+
+  <Accordion title="Review periodically" icon="calendar-check">
+    Use the content management pages to identify and remove outdated or low-value content.
+  </Accordion>
+</AccordionGroup>
+
+## FAQs
+
+<AccordionGroup>
+  <Accordion title="What counts as a 'cleaned character'?">
+    Cleaned characters are the actual readable text content after removing HTML tags, JavaScript, CSS, navigation menus, footers, and other non-content elements. This ensures you're only using quota for meaningful training content.
+  </Accordion>
+
+  <Accordion title="Do images count toward my pages quota?">
+    No. Only text content counts toward your pages quota. Images, videos, and other media are not included in the calculation.
+  </Accordion>
+
+  <Accordion title="What happens if I exceed my quota?">
+    You won't be able to add new content until you either remove existing content or upgrade your plan. Your chatbot will continue to work normally with its current training data.
+  </Accordion>
+
+  <Accordion title="Can I see how many pages each item uses?">
+    Yes! The Links and Files pages show the page count for each item. Hover over the page count for a tooltip explaining the calculation.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Training Your Chatbot" icon="graduation-cap" href="/setup/training-your-chatbot">
+    Learn how to add content effectively
+  </Card>
+
+  <Card title="Billing" icon="credit-card" href="/navigating-your-account/billing">
+    Manage your plan and usage
+  </Card>
+</CardGroup>

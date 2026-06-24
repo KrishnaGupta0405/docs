@@ -1,0 +1,143 @@
+---
+title: Google Drive
+description: Train your chatbot on documents from Google Drive
+sidebarTitle: Google Drive
+icon: google-drive
+---
+
+# Google Drive Integration
+
+Import documents, spreadsheets, and presentations from your Google Drive to train your ContextGPT chatbot. Perfect for teams that store FAQs, product documentation, or support guides in Google Workspace.
+
+## Prerequisites
+
+* A Google account with access to Google Drive
+* Files you want to import must be accessible to your Google account
+* Owner or Editor permissions on the ContextGPT chatbot
+
+## Connecting Google Drive
+
+<Steps>
+  <Step title="Navigate to Training">
+    Go to your chatbot dashboard and click the **Training** tab
+  </Step>
+
+  <Step title="Add Data Source">
+    Click **Add Data Source** and select **Google Drive**
+  </Step>
+
+  <Step title="Authenticate">
+    Click **Connect Google Drive** and sign in with your Google account. Grant ContextGPT permission to read your files.
+  </Step>
+
+  <Step title="Select Content">
+    Browse your Drive and select the files or folders you want to import. You can select:
+
+    * Individual files
+    * Entire folders (all supported files within)
+    * Shared drives (if you have access)
+  </Step>
+
+  <Step title="Start Training">
+    Click **Import Selected** to begin training. ContextGPT will process each file and add the content to your chatbot's knowledge base.
+  </Step>
+</Steps>
+
+## Supported File Types
+
+| Google Format | Also Supports           |
+| ------------- | ----------------------- |
+| Google Docs   | .doc, .docx, .txt, .rtf |
+| Google Sheets | .xls, .xlsx, .csv       |
+| Google Slides | .ppt, .pptx             |
+| -             | .pdf, .html             |
+
+<Note>
+  Google Docs, Sheets, and Slides are automatically converted to text for training. Formatting is preserved where relevant.
+</Note>
+
+## Best Practices
+
+### Organize with Folders
+
+Create a dedicated "Chatbot Training" folder in your Drive. Add documents you want the chatbot to reference, and import the entire folder.
+
+```
+📁 Chatbot Training/
+  ├── 📄 Product FAQ.docx
+  ├── 📄 Pricing Guide.pdf
+  ├── 📁 Support Articles/
+  │   ├── 📄 Getting Started.docx
+  │   └── 📄 Troubleshooting.docx
+  └── 📊 Feature Comparison.xlsx
+```
+
+### Keep Content Current
+
+* **Manual refresh**: Re-import the folder periodically to pick up changes
+* **Naming convention**: Use clear, descriptive file names — these help organize your training content
+
+### What to Include
+
+<AccordionGroup>
+  <Accordion title="Good candidates for import">
+    * Customer FAQ documents
+    * Product documentation
+    * Support guides and how-tos
+    * Pricing and feature comparisons
+    * Onboarding materials
+    * Policy documents
+  </Accordion>
+
+  <Accordion title="Avoid importing">
+    * Internal meeting notes
+    * Confidential HR documents
+    * Draft or work-in-progress content
+    * Personal files
+    * Sensitive financial data
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Can't see my files after connecting">
+    Make sure you granted ContextGPT read access during authentication. You can disconnect and reconnect to update permissions.
+  </Accordion>
+
+  <Accordion title="File import failed">
+    Check that the file isn't corrupted and is under 25MB. Very large files may timeout during processing.
+  </Accordion>
+
+  <Accordion title="Changes not reflected in chatbot">
+    Re-import the updated files to sync changes. Google Drive imports are point-in-time snapshots.
+  </Accordion>
+</AccordionGroup>
+
+## Disconnecting Google Drive
+
+To revoke ContextGPT's access:
+
+1. Go to your [Google Account Security settings](https://myaccount.google.com/permissions)
+2. Find "ContextGPT" in the list of connected apps
+3. Click **Remove Access**
+
+<Warning>
+  Disconnecting does not remove already-imported content from your chatbot. To remove that content, delete the training sources manually from the Training tab.
+</Warning>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Can I import from Shared Drives?">
+    Yes, if you have access to the Shared Drive, you can browse and import files from it.
+  </Accordion>
+
+  <Accordion title="Is there a file limit?">
+    No hard limit, but we recommend keeping total import size under 1000 files for optimal performance.
+  </Accordion>
+
+  <Accordion title="Are my files stored by ContextGPT?">
+    ContextGPT processes your files to extract text for training. The extracted text becomes part of your chatbot's knowledge base. Original files are not stored permanently.
+  </Accordion>
+</AccordionGroup>

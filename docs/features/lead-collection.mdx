@@ -1,0 +1,397 @@
+---
+title: Lead collection
+description: Capture and manage leads through your chatbot with industry-optimized templates and custom forms
+sidebarTitle: Lead collection
+icon: address-book
+---
+
+Lead collection allows you to capture contact information and custom data from visitors during chatbot conversations. ContextGPT provides industry-specific templates with pre-configured fields and intelligent triggers, or you can build completely custom lead forms.
+
+## How it works
+
+<CardGroup cols={2}>
+  <Card title="Intent-based" icon="lightbulb">
+    When users show interest through specific keywords (pricing, demo, consultation, etc.)
+  </Card>
+
+  <Card title="Unable to answer" icon="circle-question">
+    When the chatbot can't find a relevant answer
+  </Card>
+
+  <Card title="After X messages" icon="messages">
+    Automatically after a set number of conversation exchanges
+  </Card>
+
+  <Card title="Booking integration" icon="calendar">
+    Seamlessly collect information before scheduling appointments
+  </Card>
+</CardGroup>
+
+## Lead settings hierarchy
+
+ContextGPT provides two ways to configure lead collection, with the advanced settings taking priority:
+
+### Advanced lead settings (Recommended)
+
+Located at **Leads** > **Settings**, these provide:
+
+* Industry-specific templates with pre-configured fields
+* Custom form builder with unlimited fields
+* AI-powered collection triggers
+* Booking system integration
+* Email notifications
+
+**When to use:** For full control over lead collection with industry templates, custom fields, and intelligent triggers.
+
+### Basic user data settings (Legacy)
+
+Located at **Settings** > **User Data**, these provide:
+
+* Simple email, name, and phone collection
+* Basic collection modes (mandatory, optional, do not collect)
+* Limited customization
+
+**When to use:** Only for backward compatibility or very simple use cases. If advanced lead settings are enabled, they take priority over these basic settings.
+
+<Warning>
+  If you configure advanced lead settings, those will be used instead of the basic user data settings. The basic settings are maintained primarily for backward compatibility.
+</Warning>
+
+## Setting up lead collection
+
+<Note>
+  Lead collection is enabled by default when creating a new chatbot. You can customize the settings or disable it if needed.
+</Note>
+
+<Steps>
+  <Step title="Navigate to leads settings">
+    Go to your chatbot dashboard and click **Leads** > **Settings** for advanced configuration.
+  </Step>
+
+  <Step title="Enable lead collection">
+    Toggle **Enable Lead Collection** to activate the feature (enabled by default for new chatbots).
+  </Step>
+
+  <Step title="Choose basic contact fields">
+    Select which basic fields to collect:
+
+    * **Email** (always required for lead identification)
+    * **Name** (optional)
+    * **Phone** (optional)
+  </Step>
+
+  <Step title="Select an industry template or go custom">
+    Choose from 10 industry-specific templates or select "Custom" to build your own form from scratch.
+  </Step>
+
+  <Step title="Configure collection triggers">
+    Choose when to collect leads:
+
+    * **When user shows interest** (recommended) - Based on keywords
+    * **When unable to answer** - When chatbot can't help
+    * **After X messages** - Static form after set number of exchanges
+  </Step>
+
+  <Step title="Set up booking integration (optional)">
+    Connect Calendly, Acuity, or other booking systems for appointment scheduling.
+  </Step>
+
+  <Step title="Configure email notifications">
+    Add email addresses to receive notifications when new leads are captured.
+  </Step>
+</Steps>
+
+## Industry templates
+
+ContextGPT provides 10 pre-configured industry templates with optimized fields and trigger keywords:
+
+<Accordion title="Dental Clinic" icon="tooth">
+  Pre-configured for dental practices with fields for phone, preferred appointment time, and insurance provider. Includes keywords like "appointment", "toothache", "cleaning", "emergency".
+</Accordion>
+
+<Accordion title="HVAC Services" icon="fan">
+  Optimized for heating/cooling services with fields for phone, service address, and service type. Includes keywords like "repair", "installation", "AC", "furnace", "emergency".
+</Accordion>
+
+<Accordion title="Legal Services" icon="scale-balanced">
+  Designed for law firms with fields for phone, company, case type, and urgency level. Triggers on "consultation", "lawyer", "case", "lawsuit", "legal advice".
+</Accordion>
+
+<Accordion title="Real Estate" icon="house">
+  Built for realtors with fields for phone, interest type (buying/selling/renting), location, and budget range. Triggers on "property", "house", "buy", "sell", "mortgage".
+</Accordion>
+
+<Accordion title="Automotive" icon="car">
+  For auto repair and dealerships with fields for phone, vehicle details, and service needed. Triggers on "repair", "service", "maintenance", "oil change", "brakes".
+</Accordion>
+
+<Accordion title="Healthcare" icon="heart-pulse">
+  Medical practices template with fields for phone, date of birth, insurance, and reason for visit. Triggers on "appointment", "symptoms", "doctor", "insurance", "urgent".
+</Accordion>
+
+<Accordion title="SaaS/Software" icon="laptop-code">
+  Software companies template with fields for company name, job title, company size, and use case. Triggers on "demo", "trial", "pricing", "features", "API".
+</Accordion>
+
+<Accordion title="E-commerce" icon="shopping-cart">
+  Online stores template with fields for phone, business name, order type, and special requirements. Triggers on "order", "shipping", "bulk order", "wholesale", "custom".
+</Accordion>
+
+<Accordion title="Consulting" icon="briefcase">
+  Professional services template with fields for phone, company, project scope, and timeline. Triggers on "consultation", "strategy", "proposal", "project", "expertise".
+</Accordion>
+
+<Accordion title="Custom" icon="wrench">
+  Build your own form from scratch with complete control over fields, triggers, and booking integration.
+</Accordion>
+
+## Custom fields (Custom template only)
+
+When using the Custom template, you can create unlimited custom fields:
+
+### Field types
+
+* **Text** - Short text input
+* **Email** - Email address with validation
+* **Phone** - Phone number with formatting
+* **Textarea** - Multi-line text area
+* **Select** - Dropdown with predefined options
+
+### Creating custom fields
+
+1. Select "Custom" as your industry template
+2. Click **Add Field** in the Custom Form Fields section
+3. Configure the field:
+   * **Display Label**: What users see
+   * **Field Name**: Internal identifier (auto-formatted)
+   * **Field Type**: Choose from text, email, phone, textarea, or select
+   * **Required**: Toggle whether field is mandatory
+   * **Placeholder Text**: Hint text inside the field
+   * **Options**: For select fields, enter options (one per line)
+4. Click **Add Another Field** to create more fields
+5. Reorder fields by dragging (if needed)
+
+### Automatic context fields
+
+ContextGPT automatically captures additional context when collecting leads:
+
+* **page\_url**: The URL of the page where the user initiated the conversation (automatically captured, up to 2048 characters)
+
+This information is stored in the lead's custom data and helps you understand where your leads are coming from and what content they were viewing when they engaged with your chatbot.
+
+## Collection triggers
+
+Choose when your chatbot should attempt to collect lead information:
+
+### When user shows interest (Recommended)
+
+The AI detects intent based on keywords in the conversation. This is the most natural and least intrusive method.
+
+**For industry templates**: Keywords are pre-configured (e.g., "appointment", "pricing", "demo")
+
+**For custom template**: Define your own trigger keywords separated by commas (e.g., "pricing, demo, consultation, quote, appointment")
+
+### When unable to answer
+
+The chatbot collects lead information when it cannot find a relevant answer in your training data. This helps you:
+
+* Capture leads even when content is missing
+* Identify gaps in your knowledge base
+* Connect users with human support
+
+### After X messages (Static form)
+
+Display a lead collection form automatically after a set number of conversation exchanges (1-20 messages). This is a more aggressive approach that guarantees lead collection but may feel less natural.
+
+**Note**: When using this trigger, custom keywords are not used since the form appears automatically.
+
+## Booking integration
+
+Connect your scheduling system to allow visitors to book appointments directly through the chat.
+
+### Supported platforms
+
+* Calendly
+* Acuity Scheduling
+* Bookly
+* Google Calendar (via iframe)
+* Outlook Calendar (via iframe)
+* Any iframe-compatible booking system
+
+### Setting up booking
+
+1. Enable booking in your lead settings (available for most industry templates)
+2. Enter your booking system URL (e.g., `https://calendly.com/your-username`)
+3. The chatbot will automatically display the booking widget after collecting lead information
+4. The widget is optimized for size and appearance within the chat interface
+
+## Email notifications
+
+Get notified immediately when new leads are captured:
+
+1. Toggle **Enable Lead Notifications** in the settings
+2. Add email addresses (comma-separated or use the Add button)
+3. Notifications include:
+   * Lead contact information
+   * All custom field data
+   * Link to view full conversation
+   * Timestamp of capture
+
+If no emails are provided, notifications are sent to default recipients (chatbot owner).
+
+## Managing leads
+
+### View all leads
+
+Access your leads from the dashboard:
+
+1. Go to **Leads** in the sidebar
+2. View the complete list of captured leads
+3. Filter by date or search for specific leads
+4. Click on any lead to view full details
+
+### Lead details
+
+Each lead shows:
+
+* Contact information (email, name, phone)
+* All custom field responses
+* Full conversation transcript
+* Capture date and time
+* Booking information (if applicable)
+
+## Integration with other tools
+
+### CRM integration via Zapier
+
+Automatically send leads to your CRM:
+
+1. Set up Zapier integration
+2. Create a Zap with "New Lead" trigger
+3. Connect to your CRM (HubSpot, Salesforce, Pipedrive, etc.)
+4. Map ContextGPT fields to CRM fields
+5. Activate the Zap
+
+### Email marketing
+
+Add leads to your email list:
+
+1. Use Zapier or webhooks
+2. Connect to Mailchimp, ConvertKit, or ActiveCampaign
+3. Automatically add new leads to campaigns
+4. Segment based on custom fields
+
+### Webhooks
+
+Receive real-time lead notifications:
+
+```json theme={null}
+{
+  "event": "NEW_LEAD",
+  "data": {
+    "chatbotId": "your-chatbot-id",
+    "chatbotName": "Support Bot",
+    "leadDetails": {
+      "id": "visitor-123",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1234567890",
+      "capturedAt": "2024-01-15T10:30:00Z"
+    }
+  }
+}
+```
+
+Learn more in the [Webhooks documentation](/developers/webhooks).
+
+## Best practices
+
+### Choose the right template
+
+Start with an industry template if available - they're optimized with proven fields and keywords for your business type.
+
+### Use intent-based triggers
+
+The "When user shows interest" trigger provides the most natural experience and highest conversion rates.
+
+### Keep forms short
+
+Only collect information you actually need. Email is always required, but make other fields optional when possible.
+
+### Explain the value
+
+Let users know what they'll get in return (free consultation, quote, appointment, etc.).
+
+### Test your keywords
+
+If using custom triggers, test different keyword combinations to find what works best for your audience.
+
+### Enable booking for service businesses
+
+If you schedule appointments, booking integration dramatically improves conversion by removing friction.
+
+### Set up notifications
+
+Configure email notifications so your team can respond to leads quickly.
+
+### Respect privacy
+
+* Be transparent about data usage
+* Provide a privacy policy link
+* Comply with GDPR and other regulations
+* Only collect data you need
+
+## Example configurations
+
+### Dental practice
+
+```
+Template: Dental Clinic
+Trigger: When user shows interest
+Keywords: (pre-configured)
+Fields: Phone, Preferred Time, Insurance
+Booking: Enabled (Calendly)
+```
+
+### SaaS company
+
+```
+Template: SaaS/Software
+Trigger: When user shows interest  
+Keywords: (pre-configured)
+Fields: Company, Job Title, Company Size, Use Case
+Booking: Enabled (Calendly for demos)
+```
+
+### Custom consulting business
+
+```
+Template: Custom
+Trigger: When user shows interest
+Keywords: consultation, quote, pricing, hire, project
+Custom Fields:
+  - Budget Range (select)
+  - Project Timeline (select)
+  - Industry (text)
+Booking: Enabled (Acuity)
+```
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Human support" icon="user" href="/features/human-support">
+    Combine lead collection with escalation
+  </Card>
+
+  <Card title="Webhooks" icon="webhook" href="/developers/webhooks">
+    Set up real-time lead notifications
+  </Card>
+
+  <Card title="Zapier" icon="bolt" href="/integrations/zapier">
+    Automate lead workflows
+  </Card>
+
+  <Card title="Conversations" icon="messages" href="/navigating-your-chatbot/chat-history">
+    View lead conversations
+  </Card>
+</CardGroup>

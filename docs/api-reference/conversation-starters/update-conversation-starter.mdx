@@ -1,0 +1,22 @@
+---
+title: Update Conversation Starter
+description: Update an existing conversation starter by ID
+sidebarTitle: Update Conversation Starter
+openapi: PATCH /v1/chatbots/chatbot/{chatbotId}/conversation-starters
+---
+
+The `id` field (starter ID) is required in the request body.
+
+Provide **exactly one** of the following combinations to update the starter type:
+
+| Type   | Required Fields                  |
+| ------ | -------------------------------- |
+| Button | `buttonTitle` + `buttonMessage`  |
+| Link   | `linkText` + `linkSrc`           |
+
+**Rules:**
+- Providing fields from **both** types returns `400 Cannot provide both button fields and link fields.`
+- Providing **neither** type returns `400 Must provide either (buttonTitle + buttonMessage) or (linkText + linkSrc).`
+- Providing only **one** field from a pair returns `400` as well.
+- Switching type (e.g. button → link) is supported — the opposing fields are automatically cleared.
+- Returns `404` if the starter ID does not exist.

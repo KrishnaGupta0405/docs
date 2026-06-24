@@ -1,0 +1,210 @@
+---
+title: Chat modes
+description: Configure whether new conversations start with AI or human agents
+sidebarTitle: Chat modes
+icon: toggle-on
+---
+
+Use chat modes to control whether new conversations automatically start with AI responses or are immediately routed to human agents. This setting determines the default behavior for all new chat sessions.
+
+## Accessing chat modes
+
+Navigate to your chatbot dashboard and select **Settings** → **Chat Modes** to configure how conversations begin.
+
+## Available modes
+
+### Always starts new conversation with AI
+
+Every new conversation begins in AI mode, where the chatbot automatically responds to user questions using your trained knowledge base.
+
+**When to use:**
+
+* Standard chatbot deployments
+* High-volume support scenarios
+* 24/7 automated assistance
+* Filtering and qualifying leads before human involvement
+
+**How it works:**
+
+1. User opens the chatbot
+2. AI responds to all questions automatically
+3. Users can escalate to human support if needed
+4. Agents can take over conversations manually
+
+**Best for:** Most use cases where you want AI to handle initial interactions and common questions.
+
+### Always starts new conversation with human
+
+Every new conversation begins in human mode, where messages are immediately routed to your team without AI responses.
+
+**When to use:**
+
+* High-touch sales processes
+* Premium support tiers
+* Complex consultations requiring human expertise
+* Situations where AI responses aren't appropriate
+
+**How it works:**
+
+1. User opens the chatbot
+2. Messages go directly to your team
+3. No AI responses are generated
+4. Agents must respond manually to all messages
+
+**Best for:** Businesses that want to use the chat interface for human-only conversations without AI involvement.
+
+<Warning>
+  When using "Always starts with human" mode, ensure your team is available to respond. Users will not receive any automated responses until a human agent replies.
+</Warning>
+
+## Switching between modes
+
+Users and agents can switch between AI and human modes during a conversation:
+
+**From AI to human:**
+
+* Users can click escalation buttons (if configured)
+* Agents can manually take over conversations
+* Automatic escalation triggers can activate
+
+**From human to AI:**
+
+* Agents can switch conversations back to AI mode
+* Useful after resolving complex issues to let AI handle follow-ups
+
+Learn more about managing conversations in the [Human Support](/features/human-support) documentation.
+
+## How chat modes affect features
+
+| Feature                   | AI Mode            | Human Mode                    |
+| ------------------------- | ------------------ | ----------------------------- |
+| **Automatic responses**   | ✓ Enabled          | ✗ Disabled                    |
+| **Knowledge base**        | ✓ Used             | ✗ Not used                    |
+| **Conversation starters** | ✓ Shown            | ✓ Shown                       |
+| **Lead collection**       | ✓ Works            | ✓ Works                       |
+| **Chat history**          | ✓ Recorded         | ✓ Recorded                    |
+| **Agent notifications**   | Only on escalation | All messages                  |
+| **Response time**         | Instant            | Depends on agent availability |
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Start with AI mode for most use cases">
+    AI mode handles common questions instantly and escalates complex issues to humans. This provides the best balance of automation and human touch.
+  </Accordion>
+
+  <Accordion title="Use human mode for VIP customers">
+    Create separate chatbots for different customer segments. Use human mode for premium customers who expect immediate personal attention.
+  </Accordion>
+
+  <Accordion title="Configure escalation options">
+    Even in AI mode, provide clear escalation paths through [conversation followups](/features/conversation-followups) or [human support](/features/human-support) settings.
+  </Accordion>
+
+  <Accordion title="Set up agent notifications">
+    When using human mode, ensure your team receives notifications for new conversations through [integrations](/integrations/overview) like Slack or email.
+  </Accordion>
+
+  <Accordion title="Monitor response times">
+    In human mode, track how quickly your team responds. Long wait times can frustrate users who expect instant chatbot responses.
+  </Accordion>
+</AccordionGroup>
+
+## Common use cases
+
+### Standard support chatbot (AI mode)
+
+```
+Configuration:
+- Mode: Always starts with AI
+- Escalation: Available via followup buttons
+- Hours: 24/7 AI, human support during business hours
+
+Benefits:
+- Instant responses to common questions
+- Reduces support team workload
+- Escalation available when needed
+```
+
+### Premium sales concierge (Human mode)
+
+```
+Configuration:
+- Mode: Always starts with human
+- Team: Dedicated sales representatives
+- Hours: Business hours only
+
+Benefits:
+- Personal touch for high-value prospects
+- Complex product consultations
+- Relationship building from first contact
+```
+
+### Hybrid approach (AI mode with quick escalation)
+
+```
+Configuration:
+- Mode: Always starts with AI
+- Escalation: Prominent "Talk to Sales" button
+- Routing: AI for support, human for sales
+
+Benefits:
+- AI handles support efficiently
+- Sales conversations get immediate human attention
+- Best of both worlds
+```
+
+## Changing chat modes
+
+To change the default chat mode:
+
+1. Navigate to **Settings** → **Chat Modes**
+2. Select your preferred mode:
+   * **Always starts with AI** (recommended)
+   * **Always starts with human**
+3. Changes apply immediately to new conversations
+4. Existing conversations maintain their current mode
+
+<Note>
+  Changing the chat mode only affects new conversations. Ongoing conversations continue in their current mode until manually switched.
+</Note>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="AI not responding in AI mode">
+    * Verify chat mode is set to "Always starts with AI"
+    * Check that your chatbot has training data
+    * Ensure the conversation hasn't been escalated to human mode
+    * Test in an incognito window to rule out caching issues
+  </Accordion>
+
+  <Accordion title="No notifications in human mode">
+    * Configure [human support](/features/human-support) settings
+    * Set up [integrations](/integrations/overview) for notifications (Slack, email, etc.)
+    * Verify team members have proper access permissions
+    * Check notification settings in your integration platform
+  </Accordion>
+
+  <Accordion title="Want different modes for different scenarios">
+    Create multiple chatbots with different chat modes:
+
+    * Support chatbot (AI mode)
+    * Sales chatbot (Human mode)
+    * Use different embed codes on different pages
+  </Accordion>
+
+  <Accordion title="Users can't escalate to human">
+    * Add [conversation followup](/features/conversation-followups) buttons for escalation
+    * Configure [human support](/features/human-support) settings
+    * Ensure escalation options are visible in the chat interface
+  </Accordion>
+</AccordionGroup>
+
+## Related features
+
+* [Human support](/features/human-support) - Configure escalation and agent notifications
+* [Conversation followups](/features/conversation-followups) - Add escalation buttons
+* [Chat history](/navigating-your-chatbot/chat-history) - View and manage conversations
+* [Members](/features/members) - Manage team access for handling human conversations
+* [Integrations](/integrations/overview) - Connect notification channels for human mode

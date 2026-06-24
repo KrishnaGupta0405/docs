@@ -1,0 +1,48 @@
+---
+title: Create Lead Settings
+description: Create lead collection settings for a chatbot
+sidebarTitle: Create Lead Settings
+openapi: POST /v1/chatbots/chatbot/{chatbotId}/lead-settings
+---
+
+## customerFormField
+
+`customerFormField` is an array of custom form field objects that appear in the lead capture form alongside the built-in name/email/phone fields.
+
+Each object in the array has the following shape:
+
+| Property | Type | Required | Description |
+|---|---|---|---|
+| `display_label` | `string` | Yes | The label shown to the user above the field |
+| `field_name` | `string` | Yes | Internal key used to store the value (snake_case, e.g. `company_name`) |
+| `field_type` | `string` | Yes | Input type — one of `"text"`, `"textarea"`, `"email"`, `"phone"` |
+| `required` | `boolean` | Yes | Whether the field is mandatory before form submission |
+| `placeholder_text` | `string` | No | Placeholder hint shown inside the input |
+| `options` | `string` | No | Reserved for future use; pass an empty string `""` |
+
+### Example
+
+```json
+"customerFormField": [
+  {
+    "display_label": "Company Name",
+    "field_name": "company_name",
+    "field_type": "text",
+    "required": true,
+    "placeholder_text": "e.g. Acme Corp",
+    "options": ""
+  },
+  {
+    "display_label": "Reason for Visit",
+    "field_name": "reason_for_visit",
+    "field_type": "textarea",
+    "required": false,
+    "placeholder_text": "Briefly describe your reason for contacting us",
+    "options": ""
+  }
+]
+```
+
+<Note>
+  Fields with an empty `display_label` are ignored by the chatbot UI and will not be rendered in the form preview.
+</Note>

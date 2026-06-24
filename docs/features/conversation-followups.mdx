@@ -1,0 +1,340 @@
+---
+title: Conversation followups
+description: Add interactive buttons that appear after chatbot responses to guide users through conversations
+sidebarTitle: Conversation followups
+icon: message-arrow-up
+---
+
+Use conversation followups to display interactive buttons after your chatbot responds to user questions. These buttons help guide users to relevant information, external links, or human support.
+
+## What are conversation followups?
+
+Conversation followups are clickable buttons that appear below chatbot responses. Unlike [conversation starters](/features/conversation-starters) that appear at the beginning of a chat, followups appear after the chatbot provides an answer, helping users continue the conversation or take specific actions.
+
+ContextGPT offers two types of conversation followups:
+
+1. **Manual followup buttons** - Custom buttons you create with specific actions
+2. **Smart follow-up questions** - AI-generated contextual questions based on the conversation
+
+## Smart follow-up questions
+
+Smart follow-up questions are AI-generated contextual suggestions that appear after each chatbot response. These questions help users explore related topics and get more detailed information without having to think of what to ask next.
+
+### How smart followups work
+
+After the chatbot responds to a user's question, the AI analyzes the conversation context and generates relevant follow-up questions automatically. These questions are tailored to the specific response and help users dive deeper into the topic.
+
+**Example:**
+
+```
+User: "What are your pricing plans?"
+Chatbot: [Explains pricing plans]
+
+Smart followups:
+- "What features are included in each plan?"
+- "Do you offer annual discounts?"
+- "Can I upgrade or downgrade my plan later?"
+```
+
+### Configuring smart followups
+
+Navigate to **Settings** > **General** to configure smart follow-up questions:
+
+1. **Enable/Disable smart followups**
+   * Toggle "Disable smart follow up questions" to turn the feature on or off
+   * When disabled, only manual followup buttons will appear
+
+2. **Number of questions**
+   * Choose how many smart follow-up questions to display (1-5)
+   * Default: 3 questions
+   * Fewer questions reduce clutter; more questions provide more exploration options
+
+<Note>
+  Smart follow-up questions are generated in real-time based on conversation context. The AI considers the chatbot's response, user's question, and overall conversation flow to suggest relevant next questions.
+</Note>
+
+## Manual followup buttons
+
+Manual followup buttons are custom buttons you create with specific actions. These buttons appear alongside or instead of smart follow-up questions, depending on your configuration.
+
+### Types of manual followup buttons
+
+#### Send message
+
+Automatically sends a predefined message when clicked, prompting the chatbot to respond with relevant information.
+
+**Use cases:**
+
+* "Tell me more about pricing"
+* "How does this feature work?"
+* "Show me examples"
+
+#### Open link
+
+Opens an external URL in a new tab when clicked, directing users to specific pages on your website.
+
+**Use cases:**
+
+* "Contact us" → Opens contact form
+* "View documentation" → Opens help center
+* "Schedule a demo" → Opens booking page
+
+#### Escalate to human support
+
+Transfers the conversation to a human agent when clicked, useful for complex inquiries that require personal assistance.
+
+**Use cases:**
+
+* "Talk to a human"
+* "Escalate to support"
+* "Request callback"
+
+<Note>
+  The escalation option is only available for conversation followups, not conversation starters.
+</Note>
+
+## Human support integration
+
+When [human support](/features/human-support) is enabled, ContextGPT automatically adds escalation buttons to conversation followups. This provides users with an easy way to request human assistance.
+
+### Automatic escalation buttons
+
+When you enable human support in **Leads** > **Human Support**, two buttons are automatically added after each chatbot response:
+
+1. **Positive feedback button** - "That answered my question 👍" (customizable)
+2. **Request human support button** - "Connect to an agent 👤" (customizable)
+
+These buttons appear automatically without needing to create manual followup buttons.
+
+### Human support followup options
+
+In **Leads** > **Human Support**, you can configure how escalation buttons interact with other followups:
+
+**Show escalation buttons after responses**
+
+* When enabled: Escalation buttons appear after each chatbot response
+* When disabled: Users can only request human support through conversation (no buttons)
+
+**Replace other suggestions with escalation buttons**
+
+* When enabled: Escalation buttons replace all other suggestions (smart followups and manual followup buttons)
+* When disabled: Escalation buttons appear alongside smart followups and manual followup buttons
+
+### Adding escalation via manual followups
+
+You can also add escalation buttons through manual conversation followups:
+
+1. Navigate to **Conversation Followups**
+2. Click **Add Button**
+3. Select **Escalate** as the action type
+4. Configure the button label and escalation message
+5. Click **Add Button**
+
+This approach gives you more control over button placement and messaging, but requires manual configuration.
+
+<Note>
+  If human support is enabled with "Show escalation buttons" turned on, you don't need to create manual escalation followup buttons - they're added automatically.
+</Note>
+
+## Adding manual followup buttons
+
+1. Navigate to your chatbot dashboard
+2. Select **Conversation Followups** from the Customization section
+3. Click **Add Button**
+4. Choose the button action type:
+   * **Send Message** - Sends a predefined question
+   * **Open Link** - Opens an external URL
+   * **Escalate** - Transfers to human support
+5. Configure the button:
+   * **Button Label:** The text displayed on the button
+   * **Message Text:** (For Send Message) The question to send
+   * **Link:** (For Open Link) The URL to open
+   * **Escalation Message:** (For Escalate) Confirmation message shown to user
+6. Click **Add Button**
+
+## Configuring button types
+
+### Send message button
+
+**Button Label:** Short, action-oriented text (e.g., "Pricing Details")
+
+**Message Text:** The complete question the chatbot will answer (e.g., "What is the pricing of ContextGPT?")
+
+```
+Button Label: "Learn about features"
+Message Text: "What features does ContextGPT offer?"
+```
+
+### Open link button
+
+**Button Label:** Clear call-to-action (e.g., "Contact Sales")
+
+**Link:** Full URL including https\:// (e.g., "[https://example.com/contact](https://example.com/contact)")
+
+```
+Button Label: "Schedule a demo"
+Link: "https://example.com/book-demo"
+```
+
+### Escalate button
+
+**Button Label:** Clear escalation intent (e.g., "Talk to Support")
+
+**Escalation Message:** Confirmation message explaining what happens next
+
+```
+Button Label: "Escalate to human support"
+Escalation Message: "We have escalated the conversation to human support. Please share any additional details you want to include in the support request."
+```
+
+## Managing followup buttons
+
+### Viewing all followups
+
+Navigate to **Conversation Followups** to see all configured buttons. Each button displays:
+
+* Button label
+* Action type (Message, Link, or Escalation)
+* Preview of the message or link
+
+### Editing followups
+
+1. Click on a followup button from the list
+2. Update the button label, message, or link
+3. Click **Save Changes**
+
+### Deleting followups
+
+1. Navigate to the followup button you want to remove
+2. Click **Delete**
+3. Confirm the deletion
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Balance smart and manual followups">
+    Use smart follow-up questions for general exploration and manual buttons for specific actions (like scheduling demos or contacting sales). Consider disabling smart followups if you have many manual buttons to avoid overwhelming users.
+  </Accordion>
+
+  <Accordion title="Keep button labels concise">
+    Use 2-4 words for button labels. Short labels are easier to scan and more likely to be clicked.
+  </Accordion>
+
+  <Accordion title="Use action-oriented language">
+    Start button labels with verbs: "View pricing," "Contact sales," "Learn more" rather than passive phrases.
+  </Accordion>
+
+  <Accordion title="Limit the number of followups">
+    Display 3-5 total followup options (smart + manual combined). Too many options can overwhelm users and reduce engagement. Adjust the smart followup count accordingly.
+  </Accordion>
+
+  <Accordion title="Match followups to common questions">
+    Analyze your chat history to identify frequently asked follow-up questions and create manual buttons for them if smart followups aren't covering them well.
+  </Accordion>
+
+  <Accordion title="Test escalation flows">
+    Ensure your [human support](/features/human-support) is properly configured before adding escalation buttons. Test both automatic escalation buttons and manual escalation followups.
+  </Accordion>
+
+  <Accordion title="Use descriptive escalation messages">
+    Clearly explain what happens when users escalate, including expected response times.
+  </Accordion>
+
+  <Accordion title="Monitor smart followup quality">
+    Review conversations to see if smart follow-up questions are relevant and helpful. If they're not adding value, consider reducing the count or disabling them.
+  </Accordion>
+</AccordionGroup>
+
+## Common use cases
+
+### Product information flow
+
+```
+Initial Question: "Tell me about your product"
+Followup Buttons:
+- "View pricing" (Send Message)
+- "See features" (Send Message)
+- "Schedule demo" (Open Link)
+```
+
+### Support escalation
+
+```
+Initial Question: "I'm having trouble with my account"
+Followup Buttons:
+- "Reset password" (Send Message)
+- "Contact support" (Open Link)
+- "Talk to agent" (Escalate)
+```
+
+### Sales qualification
+
+```
+Initial Question: "How can ContextGPT help my business?"
+Followup Buttons:
+- "Pricing options" (Send Message)
+- "Case studies" (Open Link)
+- "Talk to sales" (Escalate)
+```
+
+## Difference from conversation starters
+
+| Feature                  | Conversation Starters        | Conversation Followups                      |
+| ------------------------ | ---------------------------- | ------------------------------------------- |
+| **When displayed**       | At the start of conversation | After chatbot responses                     |
+| **Purpose**              | Initiate conversation        | Continue conversation                       |
+| **AI-generated options** | No                           | Yes (smart followups)                       |
+| **Escalation option**    | No                           | Yes                                         |
+| **Typical use**          | Common questions             | Next steps, related topics                  |
+| **Context-aware**        | No                           | Yes (smart followups adapt to conversation) |
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Smart follow-up questions not appearing">
+    * Check Settings > General to ensure "Disable smart follow up questions" is turned OFF
+    * Verify the "Number of smart follow up questions" is set to at least 1
+    * If human support is enabled with "Replace other suggestions" turned ON, smart followups will be hidden
+    * Smart followups may not appear if the conversation context is insufficient
+  </Accordion>
+
+  <Accordion title="Manual followup buttons not appearing">
+    * Ensure you've saved the followup buttons
+    * Check that your chatbot is properly embedded on your website
+    * Verify the buttons are not hidden by custom CSS
+    * Test in an incognito window to rule out caching issues
+    * If human support is enabled with "Replace other suggestions" turned ON, manual followups will be hidden
+  </Accordion>
+
+  <Accordion title="Too many followup options showing">
+    * Reduce the smart followup count in Settings > General
+    * Remove unnecessary manual followup buttons
+    * Enable "Replace other suggestions" in human support settings to show only escalation buttons
+  </Accordion>
+
+  <Accordion title="Escalation button not working">
+    * Verify [human support](/features/human-support) is enabled
+    * Check that you've configured escalation settings
+    * Ensure team members have access to view escalated conversations
+    * If using manual escalation buttons, verify the escalation message is configured
+  </Accordion>
+
+  <Accordion title="Links opening incorrectly">
+    * Ensure URLs include the full protocol (https\://)
+    * Test links in a separate browser tab first
+    * Check for typos in the URL
+  </Accordion>
+
+  <Accordion title="Smart followups not relevant to conversation">
+    * Smart followups are AI-generated and may occasionally be off-topic
+    * Consider reducing the smart followup count to show only the most relevant questions
+    * Add manual followup buttons for critical actions you want to ensure are always available
+  </Accordion>
+</AccordionGroup>
+
+## Related features
+
+* [Conversation starters](/features/conversation-starters) - Buttons that appear at the start of conversations
+* [Human support](/features/human-support) - Configure escalation to human agents
+* [Custom responses](/features/custom-responses) - Create specific answers for exact questions
+* [Chatbot instructions](/features/chatbot-instructions-personas) - Guide overall chatbot behavior

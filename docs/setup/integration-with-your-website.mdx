@@ -1,0 +1,509 @@
+---
+title: Integrating your ContextGPT Chatbot with your Website
+description:  Once your chatbot is created and trained, you can integrate it with your website using the Installation page. ContextGPT provides multiple embedding options and platform-specific instructions to make integration seamless.
+sidebarTitle: Integration with your website
+icon: plug
+---
+
+<Steps>
+  <Step title="Access installation instructions">
+    Navigate to your chatbot's **Installation** page from the sidebar. This page provides everything you need to embed your chatbot on your website.
+  </Step>
+
+  <Step title="Copy your chatbot ID">
+    Your unique chatbot identifier is displayed at the top of the Installation page. Click the **Copy** button to copy it to your clipboard.
+  </Step>
+
+  <Step title="Choose your embedding method">
+    Select either the **Floating Widget** (recommended) or the **Embedded Floating iFrame** based on your needs.
+  </Step>
+
+  <Step title="Follow platform-specific instructions">
+    Use the detailed instructions below for your specific platform.
+  </Step>
+</Steps>
+
+<Info>
+  **Your chatbot ID is required for:**
+
+  * Using the WordPress plugin
+  * Integrating with third-party platforms
+  * Making API calls
+  * Setting up custom integrations
+</Info>
+
+## Embed options
+
+<Tabs>
+  <Tab title="Floating Widget (Recommended)">
+    The floating widget is the best option for most websites. It loads a chat bubble fixed to the bottom-right corner of the page and opens a full chat window when clicked.
+
+    <Check>
+      **Why choose the Floating Widget:**
+
+      * Automatic positioning and responsive design
+      * Works across all pages when added once
+      * Supports all SDK methods for programmatic control
+      * Async loading with minimal performance impact
+    </Check>
+
+    **Code snippet:**
+
+    ```html theme={null}
+    <script
+      type="module"
+      src="https://widget.contextgpt.in/loader.js"
+      data-chatbot-id="YOUR_CHATBOT_ID">
+    </script>
+    ```
+
+    <Note>
+      Replace `YOUR_CHATBOT_ID` with your actual chatbot ID. The Installation page provides this snippet pre-filled with your ID.
+    </Note>
+
+    Add this snippet just before the closing `</body>` tag on every page where you want the chatbot to appear (or in your site-wide layout/footer template).
+  </Tab>
+
+  <Tab title="Embedded Floating iFrame">
+    The embedded widget renders the full chat interface directly inside a container element you define — no floating bubble. The chat window is always visible and fills the container.
+
+    Use this when you want to:
+
+    * Embed the chatbot in a sidebar, drawer, or dedicated support page section
+    * Keep the chat interface persistently open without a toggle bubble
+    * Control exactly where on the page the chatbot appears
+
+    **Step 1 — Add a container element:**
+
+    ```html theme={null}
+    <div
+      id="my-chat-container"
+      style="width: 100%; height: 600px; border-radius: 16px; overflow: hidden;">
+    </div>
+    ```
+
+    **Step 2 — Add the widget script pointing at that container:**
+
+    ```html theme={null}
+    <script
+      type="module"
+      src="https://widget.contextgpt.in/loader.js"
+      data-chatbot-id="YOUR_CHATBOT_ID"
+      data-mode="embedded"
+      data-container="#my-chat-container">
+    </script>
+    ```
+
+    <Tip>
+      You can adjust the `width`, `height`, and `border-radius` on the container to fit your design. The chatbot fills the container completely.
+    </Tip>
+
+    <Check>
+      **How embedded mode works:**
+
+      * The floating bubble is automatically suppressed — the chat opens immediately inside the container
+      * The widget is isolated inside a shadow DOM, so your page styles don't interfere
+      * Scrolling inside the chat does not scroll the parent page
+      * All SDK methods (`$cgpt.push(...)`) work the same as in floating mode
+    </Check>
+
+    **Multiple embedded instances on the same page:**
+
+    You can embed the same chatbot into multiple containers. Give each script tag a unique `data-instance` name so you can target them individually with SDK commands.
+
+    ```html theme={null}
+    <!-- Container 1 -->
+    <div id="chat-sidebar" style="width: 100%; height: 400px;"></div>
+
+    <!-- Container 2 -->
+    <div id="chat-inline" style="width: 100%; height: 400px;"></div>
+
+    <script
+      type="module"
+      src="https://widget.contextgpt.in/loader.js?instance=sidebar"
+      data-chatbot-id="YOUR_CHATBOT_ID"
+      data-mode="embedded"
+      data-container="#chat-sidebar"
+      data-instance="sidebar">
+    </script>
+
+    <script
+      type="module"
+      src="https://widget.contextgpt.in/loader.js?instance=inline"
+      data-chatbot-id="YOUR_CHATBOT_ID"
+      data-mode="embedded"
+      data-container="#chat-inline"
+      data-instance="inline">
+    </script>
+    ```
+
+    <Note>
+      Replace `YOUR_CHATBOT_ID` with your actual chatbot ID. The `?instance=` query string is required when loading two scripts from the same source on the same page so the browser treats them as separate modules.
+    </Note>
+  </Tab>
+</Tabs>
+
+## Platform-specific instructions
+
+<AccordionGroup>
+  <Accordion title="WordPress" icon="wordpress">
+    <Tabs>
+      <Tab title="Official Plugin (Recommended)">
+        <Steps>
+          <Step title="Access plugins">
+            Log into your WordPress admin panel and go to **Plugins → Add New Plugin**
+          </Step>
+
+          <Step title="Install ContextGPT">
+            Search for **"ContextGPT"**, click **Install Now**, then **Activate**
+          </Step>
+
+          <Step title="Configure">
+            Go to **Settings → ContextGPT** in your WordPress dashboard
+          </Step>
+
+          <Step title="Add chatbot ID">
+            Paste your chatbot ID and click **Save Changes**
+          </Step>
+        </Steps>
+      </Tab>
+
+      <Tab title="Manual Embed">
+        <Tabs>
+          <Tab title="WPCode Plugin (Safer)">
+            <Steps>
+              <Step title="Install WPCode">
+                Install the **"WPCode - Insert Headers and Footers"** plugin
+              </Step>
+
+              <Step title="Access settings">
+                Go to **Code Snippets → Header & Footer**
+              </Step>
+
+              <Step title="Add code">
+                Paste the embed code in the **Footer** section
+              </Step>
+
+              <Step title="Save">
+                Click **Save Changes**
+              </Step>
+            </Steps>
+          </Tab>
+
+          <Tab title="Theme Editor (Advanced)">
+            <Warning>
+              Theme editor changes may be lost during theme updates. Use WPCode plugin instead for a safer approach.
+            </Warning>
+
+            <Steps>
+              <Step title="Open theme editor">
+                Go to **Appearance → Theme Editor**
+              </Step>
+
+              <Step title="Edit footer">
+                Select your active theme and open `footer.php`
+              </Step>
+
+              <Step title="Add code">
+                Paste the embed code just before the closing `</body>` tag
+              </Step>
+
+              <Step title="Update">
+                Click **Update File**
+              </Step>
+            </Steps>
+          </Tab>
+        </Tabs>
+      </Tab>
+    </Tabs>
+  </Accordion>
+
+  <Accordion title="Shopify" icon="shopify">
+    <Steps>
+      <Step title="Access themes">
+        From your Shopify admin, go to **Online Store → Themes**
+      </Step>
+
+      <Step title="Edit code">
+        Find your current theme and click **Actions → Edit code**
+      </Step>
+
+      <Step title="Open theme.liquid">
+        In the Layout section, click on `theme.liquid`
+      </Step>
+
+      <Step title="Add embed code">
+        Scroll down and find the closing `</body>` tag, then paste the embed code just before it
+      </Step>
+
+      <Step title="Save changes">
+        Click **Save**
+      </Step>
+    </Steps>
+
+    <Tip>
+      The chatbot will appear on all pages of your store. To add it to specific pages only, edit individual templates instead of `theme.liquid`.
+    </Tip>
+  </Accordion>
+
+  <Accordion title="Squarespace" icon="square">
+    <Steps>
+      <Step title="Access settings">
+        Log in to your Squarespace account and click **Settings** in the main menu
+      </Step>
+
+      <Step title="Open code injection">
+        Click **Advanced**, then **Code Injection**
+      </Step>
+
+      <Step title="Add code">
+        In the **FOOTER** section, paste the embed code
+      </Step>
+
+      <Step title="Save">
+        Click **Save**
+      </Step>
+    </Steps>
+
+    <Info>
+      Code Injection is available on Business plans and higher. Personal plans require an upgrade.
+    </Info>
+  </Accordion>
+
+  <Accordion title="Wix" icon="wix">
+    <Steps>
+      <Step title="Open editor">
+        Open your Wix Editor
+      </Step>
+
+      <Step title="Access settings">
+        Click **Settings** in the top menu
+      </Step>
+
+      <Step title="Open custom code">
+        Go to **Custom Code** in the Advanced section
+      </Step>
+
+      <Step title="Add new code">
+        Click **+ Add Custom Code**
+      </Step>
+
+      <Step title="Paste code">
+        Paste the embed code in the code box
+      </Step>
+
+      <Step title="Configure placement">
+        Set "Add Code to Pages" to **All Pages** and "Place Code in" to **Body - end**
+      </Step>
+
+      <Step title="Apply">
+        Click **Apply**
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="Webflow" icon="wind">
+    <Steps>
+      <Step title="Open designer">
+        Open your Webflow project in the Designer
+      </Step>
+
+      <Step title="Access project settings">
+        Go to **Project Settings** (gear icon)
+      </Step>
+
+      <Step title="Open custom code">
+        Click on the **Custom Code** tab
+      </Step>
+
+      <Step title="Add footer code">
+        In the **Footer Code** section, paste the embed code
+      </Step>
+
+      <Step title="Save and publish">
+        Click **Save Changes** and publish your site to see the chatbot
+      </Step>
+    </Steps>
+
+    <Tip>
+      You can also add the code to specific pages by using an Embed element and pasting the code there.
+    </Tip>
+  </Accordion>
+
+  <Accordion title="Custom HTML" icon="code">
+    For custom websites or static HTML:
+
+    <Steps>
+      <Step title="Copy embed code">
+        Copy the JavaScript embed code from the Installation page
+      </Step>
+
+      <Step title="Open HTML file">
+        Open your website's HTML file in a text editor or IDE
+      </Step>
+
+      <Step title="Choose placement">
+        Paste the code in one of these locations:
+
+        * **Recommended**: Just before the closing `</body>` tag for best performance
+        * **Alternative**: In the `<head>` section
+      </Step>
+
+      <Step title="Save and upload">
+        Save the file and upload to your web server
+      </Step>
+
+      <Step title="Test">
+        Test the installation by visiting your website
+      </Step>
+    </Steps>
+
+    **Example:**
+
+    ```html theme={null}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>My Website</title>
+        <!-- You can place the embed code here in <head> -->
+    </head>
+    <body>
+        <h1>Welcome to my website</h1>
+
+        <!-- Or place it here before </body> (recommended) -->
+        <script type="text/javascript">
+        window.$ContextGPT=[];(function(){d=document;s=d.createElement("script");
+        s.src="https://ContextGPT.in/widget/YOUR_CHATBOT_ID.js";s.async=1;
+        d.getElementsByTagName("head")[0].appendChild(s);})();
+        </script>
+    </body>
+    </html>
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Verifying installation
+
+<Steps>
+  <Step title="Clear cache">
+    Clear your browser cache
+  </Step>
+
+  <Step title="Open incognito window">
+    Visit your website in an incognito/private window
+  </Step>
+
+  <Step title="Locate chat icon">
+    Look for the chat icon in the bottom corner
+  </Step>
+
+  <Step title="Open chatbot">
+    Click the icon to open the chatbot
+  </Step>
+
+  <Step title="Test functionality">
+    Send a test message to verify it's working
+  </Step>
+</Steps>
+
+<Accordion title="Chatbot not appearing? Try these solutions" icon="circle-question">
+  <Check>Check that the embed code was pasted correctly</Check>
+  <Check>Verify there are no JavaScript errors in the browser console (F12)</Check>
+  <Check>Ensure your chatbot has been trained with content</Check>
+  <Check>Try a different browser or device</Check>
+</Accordion>
+
+## Advanced customization
+
+<AccordionGroup>
+  <Accordion title="Using the SDK" icon="code">
+    The JavaScript embed includes the ContextGPT SDK, which allows you to programmatically control the chatbot:
+
+    <CodeGroup>
+      ```javascript Open chatbot theme={null}
+      window.$ContextGPT.push(['open']);
+      ```
+
+      ```javascript Close chatbot theme={null}
+      window.$ContextGPT.push(['close']);
+      ```
+
+      ```javascript Send a message theme={null}
+      window.$ContextGPT.push(['do', 'message:send', 'Hello!']);
+      ```
+
+      ```javascript Auto-login user theme={null}
+      window.$ContextGPT.push(['set', 'user:email', [
+        'user@example.com',
+        'signature-from-backend'
+      ]]);
+      ```
+    </CodeGroup>
+
+    <Tip>
+      See the [SDK documentation](/developers/sdk) for complete details on all available methods.
+    </Tip>
+  </Accordion>
+
+  <Accordion title="Custom positioning" icon="arrows-up-down-left-right">
+    If you need to customize the chatbot position beyond the settings in the Appearance page, you can use CSS:
+
+    ```html theme={null}
+    <style>
+      #ContextGPT-chat-icon {
+        bottom: 20px !important;
+        right: 20px !important;
+      }
+    </style>
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Chatbot not appearing" icon="eye-slash">
+    <Check>Verify the embed code is present in your page source (View Page Source)</Check>
+    <Check>Check browser console for JavaScript errors</Check>
+    <Check>Ensure your chatbot has training data</Check>
+    <Check>Try clearing cache and hard refresh (Ctrl+Shift+R or Cmd+Shift+R)</Check>
+  </Accordion>
+
+  <Accordion title="Chatbot appears but doesn't respond" icon="message-slash">
+    <Check>Verify your chatbot has been trained with content</Check>
+    <Check>Check that your chatbot is not paused or disabled</Check>
+    <Check>Test in the playground first to ensure it's working</Check>
+  </Accordion>
+
+  <Accordion title="Multiple chatbots appearing" icon="copy">
+    <Check>Check that you haven't added the embed code multiple times</Check>
+    <Check>Verify you're only using one embed method (JavaScript OR iframe, not both)</Check>
+    <Check>Search your code for duplicate script tags</Check>
+  </Accordion>
+
+  <Accordion title="Conflicts with other scripts" icon="triangle-exclamation">
+    <Check>Try moving the embed code to the end of the `<body>` tag</Check>
+    <Check>Ensure other scripts aren't blocking async loading</Check>
+    <Check>Check browser console for specific error messages</Check>
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Customize appearance" icon="palette" href="/navigating-your-chatbot/customizing-your-chatbot">
+    Adjust colors, icons, and positioning
+  </Card>
+
+  <Card title="SDK methods" icon="code" href="/developers/sdk">
+    Control the chatbot programmatically
+  </Card>
+
+  <Card title="Lead collection" icon="user-plus" href="/features/lead-collection">
+    Capture visitor information
+  </Card>
+
+  <Card title="Integrations" icon="plug" href="/integrations/overview">
+    Connect to Slack, Messenger, and more
+  </Card>
+</CardGroup>

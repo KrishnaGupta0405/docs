@@ -1,0 +1,144 @@
+---
+title: OneDrive
+description: Train your chatbot on files from Microsoft OneDrive
+sidebarTitle: OneDrive
+icon: microsoft
+---
+
+# OneDrive Integration
+
+Import documents from Microsoft OneDrive to train your ContextGPT chatbot. Ideal for teams using Microsoft 365 for document management, especially those with Word docs, Excel sheets, and PowerPoint presentations.
+
+## Prerequisites
+
+* A Microsoft account with OneDrive access (personal or Microsoft 365)
+* Files you want to import must be accessible to your account
+* Owner or Editor permissions on the ContextGPT chatbot
+
+## Connecting OneDrive
+
+<Steps>
+  <Step title="Navigate to Training">
+    Go to your chatbot dashboard and click the **Training** tab
+  </Step>
+
+  <Step title="Add Data Source">
+    Click **Add Data Source** and select **OneDrive**
+  </Step>
+
+  <Step title="Authenticate">
+    Click **Connect OneDrive** and sign in with your Microsoft account. Grant ContextGPT permission to read your files.
+  </Step>
+
+  <Step title="Select Content">
+    Browse your OneDrive and select the files or folders you want to import:
+
+    * Individual files
+    * Entire folders
+    * Shared folders (files shared with you)
+  </Step>
+
+  <Step title="Start Training">
+    Click **Import Selected** to begin training. ContextGPT will process each file and add the content to your chatbot's knowledge base.
+  </Step>
+</Steps>
+
+## Supported File Types
+
+| Microsoft Format   | Also Supports    |
+| ------------------ | ---------------- |
+| Word (.docx)       | .doc, .txt, .rtf |
+| Excel (.xlsx)      | .xls, .csv       |
+| PowerPoint (.pptx) | .ppt             |
+| -                  | .pdf, .html, .md |
+
+<Note>
+  Microsoft Office Online documents are automatically converted to their equivalent desktop formats for processing.
+</Note>
+
+## Best Practices
+
+### Folder Organization
+
+Create a dedicated folder for chatbot training content:
+
+```
+📁 Chatbot Knowledge Base/
+  ├── 📄 Company FAQ.docx
+  ├── 📄 Product Overview.pptx
+  ├── 📁 Support Docs/
+  │   ├── 📄 Getting Started.docx
+  │   ├── 📄 Advanced Features.docx
+  │   └── 📄 Troubleshooting.pdf
+  └── 📁 Policies/
+      ├── 📄 Terms of Service.docx
+      └── 📄 Privacy Policy.docx
+```
+
+### Content Management
+
+* **Regular syncs**: Re-import folders periodically to capture document updates
+* **Clear naming**: Use descriptive file names to keep training data organized
+* **Version control**: OneDrive keeps version history — always import the latest
+
+### What to Include
+
+<AccordionGroup>
+  <Accordion title="Recommended Content">
+    * Customer-facing documentation
+    * Product guides and tutorials
+    * FAQ documents
+    * Support articles and knowledge base content
+    * Onboarding materials
+  </Accordion>
+
+  <Accordion title="Content to Skip">
+    * Confidential or internal-only documents
+    * Outdated versions of documents
+    * Files with mostly images (minimal text value)
+    * Sensitive personal or financial data
+  </Accordion>
+</AccordionGroup>
+
+## Microsoft 365 Business
+
+For Microsoft 365 Business accounts:
+
+* **Shared drives**: Access team drives and shared folders
+* **Permissions**: Only content you have read access to will appear
+
+<Info>
+  OneDrive for Business stores files in the cloud and syncs them across your devices. Connect the OneDrive account that holds the documents you want your chatbot to learn from.
+</Info>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Can't see certain files">
+    * Verify you have read access to the files
+    * Check that files are in supported formats
+    * Ensure files aren't in a restricted or compliance-hold folder
+  </Accordion>
+
+  <Accordion title="Authentication issues">
+    * Try signing out and reconnecting your Microsoft account
+    * Ensure your organization allows third-party app access
+    * Check with your IT admin if using a corporate account
+  </Accordion>
+
+  <Accordion title="Large files timing out">
+    * Import very large files individually
+    * Split large documents into smaller sections if possible
+    * Consider extracting key content into a summary document
+  </Accordion>
+</AccordionGroup>
+
+## Data Privacy
+
+ContextGPT only reads the content of files you explicitly select for import. We do not:
+
+* Access files you haven't selected
+* Store your Microsoft credentials
+* Modify any files in your OneDrive
+
+Your data is processed securely and used only to train your chatbot.

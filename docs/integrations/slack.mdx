@@ -1,0 +1,328 @@
+---
+title: Slack integration
+description: Deploy your AI chatbot in Slack workspaces for team support
+sidebarTitle: Slack integration
+icon: slack
+---
+
+<video controls className="w-full aspect-video" src="https://mintcdn.com/" data-path="videos/slack.mp4" />
+
+Connect your ContextGPT chatbot to Slack to provide instant AI-powered support directly in your team's workspace. Your bot responds to direct messages, channel mentions, and maintains conversation context across all interactions.
+
+## How it works
+
+Once connected, your chatbot integrates seamlessly with Slack:
+
+<CardGroup cols={2}>
+  <Card title="Direct messages" icon="message">
+    Responds to private DMs for one-on-one support
+  </Card>
+
+  <Card title="Channel mentions" icon="at">
+    Answers when mentioned in any channel
+  </Card>
+
+  <Card title="Context awareness" icon="brain">
+    Maintains conversation history across messages
+  </Card>
+
+  <Card title="Dashboard sync" icon="arrows-rotate">
+    All conversations sync to your ContextGPT dashboard
+  </Card>
+</CardGroup>
+
+## Prerequisites
+
+<Check>A Slack workspace where you can install and manage apps</Check>
+<Check>Workspace admin or owner permissions to create custom apps</Check>
+<Check>A trained ContextGPT chatbot ready to deploy</Check>
+
+## Setup
+
+<Steps>
+  <Step title="Open the Slack integration in ContextGPT">
+    Navigate to **Integrations** in your ContextGPT dashboard, locate the **Slack** card, and click **Get Started**. A modal titled "Connecting Slack to ContextGPT" will appear.
+  </Step>
+
+  <Step title="Copy the Slack app manifest">
+    Inside the integration modal, you'll see a **Manifest** section containing JSON configuration. Click the copy icon to copy the entire manifest to your clipboard.
+
+    <Info>This manifest defines your Slack app's features including bot user, OAuth scopes, and event subscriptions.</Info>
+  </Step>
+
+  <Step title="Create a Slack app from the manifest">
+    Visit [api.slack.com/apps](https://api.slack.com/apps) and click **Create New App** → **From an app manifest**.
+
+    Select your Slack workspace, paste the JSON manifest, and click **Next** → **Create**.
+
+    <Tip>Slack automatically configures all required permissions and settings from the manifest.</Tip>
+  </Step>
+
+  <Step title="Install the app and get the Bot User OAuth token">
+    On the app's **Basic Information** page, click **Install to Workspace** → **Allow**.
+
+    Navigate to **OAuth & Permissions** in the left menu and copy the **Bot User OAuth Token** (starts with `xoxb-`).
+
+    <Warning>Store this token securely—you'll need it to connect ContextGPT.</Warning>
+  </Step>
+
+  <Step title="Find your Slack channel ID">
+    Get the channel ID using either method:
+
+    <Tabs>
+      <Tab title="From URL" icon="link">
+        Open the channel in Slack's web client. The URL contains `/archives/C...` where the string after `/archives/` is your channel ID.
+      </Tab>
+
+      <Tab title="From channel details" icon="info">
+        Click the channel name → **About** tab → scroll to find the **Channel ID** at the bottom.
+      </Tab>
+    </Tabs>
+  </Step>
+
+  <Step title="Connect in ContextGPT">
+    Return to the ContextGPT integration modal and enter:
+
+    * **Bot User OAuth Token** (from step 4)
+    * **Channel ID** (from step 5)
+
+    Click **Connect**. The button will change to **Disconnect** when successfully connected.
+  </Step>
+
+  <Step title="Test your integration">
+    Open your Slack channel and send a test message. Your ContextGPT bot should respond with a welcome message and answer questions from your knowledge base.
+
+    <Tip>Responses appear in threads with source citations for transparency.</Tip>
+  </Step>
+</Steps>
+
+## Using your chatbot in Slack
+
+<Tabs>
+  <Tab title="Direct messages" icon="message">
+    Users can send private DMs to your chatbot:
+
+    1. Find your chatbot in the Slack sidebar under **Apps**
+    2. Click to open a direct message
+    3. Type your question and press Enter
+    4. Get instant AI-powered answers
+
+    <Info>Perfect for sensitive questions or personal support requests.</Info>
+  </Tab>
+
+  <Tab title="Channel mentions" icon="at">
+    Mention your chatbot in any channel where it's been added:
+
+    ```
+    @YourBotName How do I reset my password?
+    ```
+
+    The chatbot responds in a thread, keeping conversations organized and providing source citations.
+  </Tab>
+
+  <Tab title="Adding to channels" icon="plus">
+    Expand your bot's reach by adding it to multiple channels:
+
+    1. Open the target channel in Slack
+    2. Type `/invite @YourBotName`
+    3. Press Enter to add the bot
+
+    <Tip>Add your bot to high-traffic support channels for maximum impact.</Tip>
+  </Tab>
+</Tabs>
+
+## How the bot behaves
+
+Your bot automatically:
+
+* Responds in threads to keep channels organized
+* Includes source citations for transparency
+* Maintains conversation history within threads
+* Works in any channel where it's invited (use `/invite @YourBotName`)
+* Only accesses messages where it's mentioned or DM'd
+
+<Note>The Channel ID in ContextGPT settings determines the primary channel for system notifications.</Note>
+
+## Managing the integration
+
+<Tabs>
+  <Tab title="Monitor performance" icon="chart-line">
+    Track your Slack bot's performance in the ContextGPT dashboard:
+
+    Navigate to **Chat History** to:
+
+    * Review conversation transcripts
+    * Analyze response accuracy
+    * Identify knowledge gaps
+    * Export conversation data
+    * Track usage metrics
+
+    <Tip>Use conversation insights to improve your chatbot's training data.</Tip>
+  </Tab>
+
+  <Tab title="Update your bot" icon="arrows-rotate">
+    Changes to your ContextGPT bot are immediately available in Slack:
+
+    * Add new training data
+    * Update chatbot instructions
+    * Modify appearance settings
+    * Configure lead collection
+
+    No reconnection required—just test with a new question.
+  </Tab>
+
+  <Tab title="Disconnect" icon="plug">
+    To remove the Slack integration:
+
+    1. Open **Integrations** in ContextGPT
+    2. Click **Manage** next to Slack
+    3. Click **Disconnect**
+
+    Optionally, remove the app from Slack via the [Slack API console](https://api.slack.com/apps).
+  </Tab>
+</Tabs>
+
+## Advanced features
+
+<AccordionGroup>
+  <Accordion title="Human escalation" icon="user-headset">
+    Enable seamless handoff to human agents:
+
+    1. Configure [human support](/features/human-support) in ContextGPT
+    2. Users can request human assistance during conversations
+    3. Escalated conversations appear in your ContextGPT dashboard
+    4. Respond via email or your preferred support channel
+
+    <Info>Combine with Zapier to create support tickets automatically.</Info>
+  </Accordion>
+
+  <Accordion title="Lead collection" icon="address-book">
+    Capture leads directly in Slack conversations:
+
+    1. Enable [lead collection](/features/lead-collection) in ContextGPT
+    2. Configure trigger keywords (e.g., "pricing", "demo", "consultation")
+    3. Bot collects contact information when users show interest
+    4. Leads sync to your ContextGPT dashboard
+
+    Perfect for sales teams using Slack for customer communication.
+  </Accordion>
+
+  <Accordion title="Webhooks" icon="webhook">
+    Receive real-time notifications for Slack conversations:
+
+    Set up [webhooks](/developers/webhooks) to:
+
+    * Log conversations to your database
+    * Trigger custom workflows
+    * Send notifications to other systems
+    * Analyze chatbot performance
+
+    ```json theme={null}
+    {
+      "event": "ADD_MESSAGE",
+      "data": {
+        "chatbotId": "chatbot_123",
+        "threadId": "thread_456",
+        "question": "How do I reset my password?",
+        "answer": "To reset your password..."
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Required OAuth scopes" icon="shield-check">
+    The app manifest includes these OAuth scopes:
+
+    **Bot scopes:**
+
+    * `app_mentions:read` - Read mentions
+    * `channels:read` - View public channels
+    * `chat:write` - Send messages
+    * `incoming-webhook` - Post messages to channels
+    * `im:history` - Read direct messages
+    * `channels:history` - Read channel messages
+    * `groups:history` - Read private channel messages
+
+    All scopes are automatically configured when you create the app from the manifest.
+  </Accordion>
+</AccordionGroup>
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Set clear expectations" icon="message-lines">
+    Help users understand what your bot can do:
+
+    * Add a welcome message explaining the bot's capabilities
+    * Pin a message in channels describing how to use the bot
+    * Include example questions in your Slack app home
+    * Set up conversation starters for common queries
+
+    **Example welcome message:**
+
+    > "Hi! I'm the ContextGPT support bot. Ask me anything about our products, pricing, or documentation. Mention me with @BotName or send me a DM!"
+  </Accordion>
+
+  <Accordion title="Monitor and improve" icon="chart-line">
+    Regularly review conversations to enhance performance:
+
+    * Check **Chat History** weekly for common questions
+    * Add frequently asked questions to your training data
+    * Identify topics where the bot struggles
+    * Update chatbot instructions based on user feedback
+
+    <Tip>Export conversation data to analyze trends and identify knowledge gaps.</Tip>
+  </Accordion>
+
+  <Accordion title="Strategic channel placement" icon="bullseye">
+    Add your bot to channels where it provides the most value:
+
+    * **#support** - Primary customer support channel
+    * **#general** - Company-wide announcements and questions
+    * **#sales** - Lead qualification and product questions
+    * **#onboarding** - New employee questions
+
+    Avoid adding the bot to channels where it's not relevant (e.g., #random, #watercooler).
+  </Accordion>
+
+  <Accordion title="Enable human escalation" icon="handshake">
+    Provide a safety net for complex questions:
+
+    1. Enable [human support](/features/human-support) in ContextGPT
+    2. Configure escalation triggers (keywords, low confidence, user request)
+    3. Set up email notifications for your support team
+    4. Use Zapier to create support tickets automatically
+
+    This ensures users always get help, even when AI can't answer.
+  </Accordion>
+
+  <Accordion title="Maintain security" icon="lock">
+    Protect your Slack integration:
+
+    * Store the Bot User OAuth Token securely (use environment variables)
+    * Regularly review OAuth scopes and remove unused permissions
+    * Monitor the Slack API console for suspicious activity
+    * Rotate tokens periodically for enhanced security
+    * Only grant workspace access to trusted team members
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Human support" icon="user-headset" href="/features/human-support">
+    Set up escalation to human agents
+  </Card>
+
+  <Card title="Lead collection" icon="address-book" href="/features/lead-collection">
+    Capture leads from Slack conversations
+  </Card>
+
+  <Card title="Webhooks" icon="webhook" href="/developers/webhooks">
+    Receive real-time conversation notifications
+  </Card>
+
+  <Card title="Chat history" icon="messages" href="/navigating-your-chatbot/chat-history">
+    Review and analyze Slack conversations
+  </Card>
+</CardGroup>

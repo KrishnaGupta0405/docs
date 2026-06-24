@@ -1,0 +1,311 @@
+---
+title: Members
+description: Collaborate with your team by inviting members with different access levels to your chatbot
+sidebarTitle: Members
+icon: users
+---
+
+
+Use the Members feature to invite team members to collaborate on your chatbot. Assign different roles to control what each member can access and modify.
+
+<iframe width="100%" style={{ aspectRatio: '16/9' }} src="https://www.youtube.com/embed/" title="Members and Team Collaboration" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+
+## Two ways to invite members
+
+There are two levels at which you can invite someone, and they work differently:
+
+### Team members (account-level)
+
+Invited from your account's **Team** settings. A team member gets access to **all chatbots** in your account with the assigned role — including any new chatbots created in the future.
+
+* Role updates and downgrades automatically propagate to **all chatbots** the member belongs to.
+* Use this when someone should have consistent access across your entire workspace.
+
+### Chatbot members (chatbot-level)
+
+Invited from the **Members** section inside a specific chatbot's **Advanced** tab. A chatbot member only gets access to **that chatbot** with the assigned role.
+
+* Role updates and downgrades only affect **that specific chatbot**.
+* Their role on other chatbots and their account-level role remain unchanged.
+* Use this when someone should have scoped access to just one chatbot.
+
+## Member roles
+
+ContextGPT offers four member roles with different permission levels:
+
+### Agent
+
+**Permissions:**
+
+* View and respond to chat history
+* Access lead information
+* Cannot invite other members
+* Cannot modify chatbot settings
+
+**Best for:** Customer support team members who need to handle conversations and view leads.
+
+### Manager
+
+**Permissions:**
+
+* All Agent permissions
+* Edit chatbot settings and content
+* Manage training data and integrations
+* Invite Agents
+* Cannot invite other Managers or Admins
+
+**Best for:** Team leads who need to configure the chatbot and manage support agents.
+
+### Admin
+
+**Permissions:**
+
+* All Manager permissions
+* Invite and remove Managers and Agents
+* Invite other Admins
+* Cannot invite Super Admins
+* Cannot delete the chatbot
+
+**Best for:** Department heads or project managers who need full control over team access.
+
+### Super admin
+
+**Permissions:**
+
+* Full access to everything
+* Can delete the chatbot
+* Highest level of control
+
+**Best for:** Chatbot owners or senior administrators who need complete control.
+
+<Note>
+  The chatbot creator is automatically assigned the Super Admin role and cannot be removed from the chatbot.
+</Note>
+
+## Inviting members
+
+**To invite a team member (access to all chatbots):**
+
+1. Navigate to **Team** in your account settings
+2. Enter the team member's email address
+3. Select their role from the dropdown menu
+4. Click **Send Invite**
+
+**To invite a chatbot member (access to one chatbot only):**
+
+1. Navigate to your chatbot dashboard
+2. Select **Members** from the **Advanced** section in the sidebar
+3. Enter the team member's email address
+4. Select their role from the dropdown menu
+5. Click **Send Invite**
+
+The invited member will receive an email with a magic link. They'll need to click the link to accept the invitation and gain access.
+
+<Tip>
+  Members don't need to create a separate account. They can access the chatbot using the magic link sent to their email.
+</Tip>
+
+## Member quotas
+
+Your plan includes a specific number of team members. The member quota applies across all chatbots you own:
+
+* **Starter:** 1 member (you)
+* **Growth:** 4 members
+* **Scale:** 10 members
+* **Enterprise:** Up to 1,000 members
+
+<Warning>
+  Member quotas count unique team members across all your chatbots. If you invite the same person to multiple chatbots, they only count as one member toward your quota.
+</Warning>
+
+## Managing members
+
+### Viewing members
+
+The Members page displays:
+
+* **Active members:** Team members who have accepted invitations
+* **Pending invitations:** Invites that haven't been accepted yet
+
+Each member listing shows:
+
+* Name or email address
+* Profile picture (if set)
+* Assigned role
+* Remove/Leave button
+
+### Changing member roles
+
+You can update a member's role directly from the Members page without removing and re-inviting them.
+
+<Note>
+  Changing the role of a **team member** (account-level) propagates the new role to **all chatbots** they belong to. Changing the role of a **chatbot member** only affects that specific chatbot.
+</Note>
+
+### Removing members
+
+To remove a member:
+
+1. Navigate to **Members** in your chatbot dashboard
+2. Find the member you want to remove
+3. Click **Remove** next to their name
+4. Confirm the removal
+
+Removed members immediately lose access to the chatbot and cannot view chat history, leads, or settings.
+
+### Leaving a chatbot
+
+If you're a member (not the owner) and want to leave a chatbot:
+
+1. Navigate to **Members**
+2. Find your own entry in the member list
+3. Click **Leave**
+4. Confirm you want to leave
+
+<Warning>
+  Once you leave a chatbot, you cannot rejoin unless the owner or an admin sends you a new invitation.
+</Warning>
+
+### Canceling pending invitations
+
+To cancel an invitation that hasn't been accepted:
+
+1. Navigate to **Members**
+2. Scroll to the **Pending Invitations** section
+3. Find the invitation you want to cancel
+4. Click **Delete** next to the invitation
+
+## Role permissions matrix
+
+| Permission             | Agent | Manager | Admin | Super Admin |
+| ---------------------- | ----- | ------- | ----- | ----------- |
+| View chat history      | ✓     | ✓       | ✓     | ✓           |
+| Respond to chats       | ✓     | ✓       | ✓     | ✓           |
+| View leads             | ✓     | ✓       | ✓     | ✓           |
+| Edit chatbot settings  | ✗     | ✓       | ✓     | ✓           |
+| Manage training data   | ✗     | ✓       | ✓     | ✓           |
+| Configure integrations | ✗     | ✓       | ✓     | ✓           |
+| Invite Agents          | ✗     | ✓       | ✓     | ✓           |
+| Invite Managers        | ✗     | ✗       | ✓     | ✓           |
+| Invite Admins          | ✗     | ✗       | ✓     | ✓           |
+| Remove members         | ✗     | ✗       | ✓     | ✓           |
+| Delete chatbot         | ✗     | ✗       | ✓     | ✓           |
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Assign the minimum necessary role">
+    Give team members the lowest role that allows them to do their job. This reduces the risk of accidental changes to important settings.
+  </Accordion>
+
+  <Accordion title="Use Agents for support teams">
+    Customer support representatives typically only need Agent access to view and respond to conversations.
+  </Accordion>
+
+  <Accordion title="Limit Super Admin access">
+    Only assign Super Admin to trusted individuals who need the ability to delete the chatbot.
+  </Accordion>
+
+  <Accordion title="Review members regularly">
+    Periodically audit your member list and remove team members who no longer need access.
+  </Accordion>
+
+  <Accordion title="Track pending invitations">
+    Follow up on pending invitations that haven't been accepted after a few days. The recipient may not have received the email.
+  </Accordion>
+</AccordionGroup>
+
+## Common use cases
+
+### Customer support team
+
+```
+Team Structure:
+- Support Manager (Manager role)
+- Support Agents (Agent role)
+
+The manager configures the chatbot and manages training data.
+Agents handle customer conversations and view lead information.
+```
+
+### Marketing and sales team
+
+```
+Team Structure:
+- Marketing Director (Admin role)
+- Content Manager (Manager role)
+- Sales Representatives (Agent role)
+
+The director manages team access and high-level strategy.
+The content manager updates chatbot content and responses.
+Sales reps engage with leads and track conversations.
+```
+
+### Multi-department collaboration
+
+```
+Team Structure:
+- IT Administrator (Super Admin role)
+- Department Heads (Admin role)
+- Team Leads (Manager role)
+- Team Members (Agent role)
+
+Clear hierarchy ensures proper access control across departments.
+```
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Member didn't receive invitation email">
+    * Check that the email address is correct
+    * Ask them to check spam/junk folders
+    * Resend the invitation by deleting the pending invite and creating a new one
+    * Verify your email sending quota hasn't been exceeded
+  </Accordion>
+
+  <Accordion title="Cannot invite more members">
+    You've reached your plan's member quota. Options:
+
+    * Remove inactive members to free up slots
+    * Upgrade to a higher plan with more member slots
+    * Contact support for custom enterprise limits
+  </Accordion>
+
+  <Accordion title="Member has wrong permissions">
+    * Remove the member from the chatbot
+    * Send a new invitation with the correct role
+    * Confirm they accept the new invitation
+  </Accordion>
+
+  <Accordion title="Cannot remove chatbot owner">
+    The chatbot creator (Super Admin) cannot be removed. To transfer ownership:
+
+    * Create a new chatbot under the desired owner's account
+    * Migrate content and settings to the new chatbot
+    * Delete the old chatbot if needed
+  </Accordion>
+</AccordionGroup>
+
+## Member quota across chatbots
+
+Member quotas are calculated based on unique email addresses across all chatbots you own:
+
+**Example:**
+
+* You own 3 chatbots
+* You invite [john@example.com](mailto:john@example.com) to all 3 chatbots
+* This counts as **1 member** toward your quota
+
+**Another example:**
+
+* You own 2 chatbots
+* Chatbot A has: [john@example.com](mailto:john@example.com), [jane@example.com](mailto:jane@example.com)
+* Chatbot B has: [jane@example.com](mailto:jane@example.com), [bob@example.com](mailto:bob@example.com)
+* Total unique members: **3** (john, jane, bob)
+
+## Related features
+
+* [Human support](/features/human-support) - Configure how team members receive escalated conversations
+* [Chat history](/navigating-your-chatbot/chat-history) - View and manage conversations
+* [Leads](/navigating-your-chatbot/leads) - Access lead information collected by your chatbot
+* [Profile](/navigating-your-account/profile) - Manage your personal account settings

@@ -1,0 +1,481 @@
+---
+title: Training your chatbot
+description: Add content from websites, files, and documents to train your chatbot. Train your chatbot by adding content it can use to answer questions. ContextGPT supports multiple content sources including websites, files, and cloud storage integrations.
+sidebarTitle: Training your chatbot
+icon: brain
+---
+
+## Content sources
+
+ContextGPT supports four main types of training data to build your chatbot's knowledge base:
+
+### 1. Website Links (web content)
+
+Add website content to train your chatbot:
+
+* **Multiple Links** - Import content from multiple URLs at once by pasting a list
+* **Sitemap** - Import all URLs from your sitemap.xml file automatically
+* **Scrape Website** - Recursively crawl and extract content from an entire website
+* **YouTube** - Import transcripts from YouTube videos, playlists, or channels
+
+Learn more: [Website Links documentation](/navigating-your-chatbot/adding-content-to-your-chatbot#website-links)
+
+### 2. Files (documents and cloud storage)
+
+Upload files or connect cloud storage:
+
+* **Local Files** - Upload PDF, DOCX, TXT, CSV, and other document formats from your computer
+* **Notion** - Import pages from your Notion workspace
+* **Google Drive** - Sync documents from Google Drive
+* **Dropbox** - Import files from Dropbox
+* **OneDrive** - Connect to Microsoft OneDrive
+* **Box** - Import files from Box
+
+Learn more: [Files documentation](/navigating-your-chatbot/adding-content-to-your-chatbot#files)
+
+### 3. Text Snippets
+
+Add plain text content directly without uploading files or adding links:
+
+* Perfect for FAQs, product descriptions, or company information
+* Supports up to 10,000 characters per chatbot
+* Ideal for content that doesn't exist on your website or in documents
+
+Learn more: [Text Snippets documentation](/features/text-snippets)
+
+### 4. Custom Responses (Q\&A)
+
+Override AI responses with pre-written answers for specific questions:
+
+* Create exact question-answer pairs
+* Ensure consistent responses for pricing, policies, or critical information
+* Takes priority over other content sources when questions match
+
+Learn more: [Custom Responses documentation](/features/custom-responses)
+
+## Adding content
+
+<Steps>
+  <Step title="Navigate to content">
+    From your chatbot dashboard, choose the content type:
+
+    * **Links** - For website content
+    * **Files** - For documents and cloud storage
+    * **Text Snippets** - For plain text content
+    * **Custom Responses** - For Q\&A pairs
+  </Step>
+
+  <Step title="Click Add or configure">
+    * For **Links** and **Files**: Click the **Add Links** or **Add Files** button
+    * For **Text Snippets**: Paste your content directly in the text area
+    * For **Custom Responses**: Click **Add Custom Response**
+  </Step>
+
+  <Step title="Choose your source (for Links and Files)">
+    Select the type of content you want to add from the modal.
+  </Step>
+
+  <Step title="Configure and import">
+    **For Links:**
+
+    * **Multiple Links**: Paste URLs (one per line), configure advanced options, and click **Add Links**
+    * **Sitemap**: Enter your sitemap URL, set max pages, configure filters, and click **Add Links**
+    * **Scrape Website**: Enter your website URL, set recursion depth and max pages, configure filters, and click **Add Links**
+    * **YouTube**: Enter video/playlist/channel URL and click **Add YouTube Content**
+
+    **For Files:**
+
+    * **Local Files**: Click **Browse File** to select files (drag and drop is not supported)
+    * **Cloud Storage**: Authenticate with your account, select files/folders using the picker, and click **Sync Selected Files**
+
+    **For Text Snippets:**
+
+    * Paste your text content (up to 10,000 characters) and click **Save Changes**
+
+    **For Custom Responses:**
+
+    * Enter the question and your exact answer, then click **Save**
+  </Step>
+
+  <Step title="Wait for processing (Links and Files only)">
+    Content is processed in the background:
+
+    * Small amounts (10-50 pages/files): 2-5 minutes
+    * Medium amounts (50-200 pages/files): 5-15 minutes
+    * Large amounts (200+ pages/files): 15-30+ minutes
+
+    You can close the page - processing continues in the background.
+
+    **Note:** Text Snippets and Custom Responses are available immediately after saving.
+  </Step>
+</Steps>
+
+## Content processing
+
+When you add content, ContextGPT:
+
+1. **Extracts text** from your pages or files
+2. **Chunks content** into manageable segments for better retrieval
+3. **Creates embeddings** using AI for semantic search
+4. **Indexes content** for fast retrieval during conversations
+5. **Makes it available** to your chatbot immediately after processing
+
+## Managing content
+
+### View content status
+
+Both Links and Files pages show:
+
+* **Trained** - Successfully processed and available to the chatbot
+* **Pending** - Currently being processed
+* **Failed** - Processing failed (hover for error details)
+
+### Bulk actions
+
+Select multiple items to:
+
+* **Resync** - Reprocess content to pick up changes
+* **Delete** - Remove content from your chatbot
+
+### Search and filter
+
+Use the search bar to find specific content, and filter by status to see trained, pending, or failed items.
+
+## Advanced configuration options
+
+<AccordionGroup>
+  <Accordion title="Multiple Links configuration" icon="link">
+    <Tabs>
+      <Tab title="Auto-sync">
+        **Auto-sync frequency**
+
+        * **Never (Manual only)** - Default, no automatic syncing
+        * **Daily (Enterprise)** - Sync every day (requires Enterprise plan)
+        * **Weekly (Scale)** - Sync every week (requires Scale plan)
+        * **Monthly (Growth)** - Sync every month (requires Growth plan)
+      </Tab>
+
+      <Tab title="Content Filtering">
+        **HTML/CSS selectors to include**
+
+        Specify CSS selectors to extract content only from specific parts of your pages:
+
+        * Enter one selector per line
+        * Example: `main` - includes content only from the `<main>` HTML tag
+        * Example: `.content` - includes content only from elements with the "content" class
+        * Example: `#article` - includes content only from elements with the "article" id
+
+        **HTML/CSS selectors to exclude**
+
+        Specify CSS selectors to exclude content from specific parts of your pages:
+
+        * Enter one selector per line
+        * Example: `footer` - excludes content from the `<footer>` HTML tag
+        * Example: `.sidebar` - excludes content from elements with the "sidebar" class
+        * Example: `#comments` - excludes content from elements with the "comments" id
+      </Tab>
+
+      <Tab title="Custom Headers">
+        **Custom headers (optional)**
+
+        Add custom HTTP headers for accessing protected content:
+
+        * Format: One header per line as `HeaderName: HeaderValue`
+        * Example: `Authorization: Bearer your-token-here`
+        * Example: `User-Agent: YourBot/1.0`
+        * Example: `Cookie: session=abc123`
+        * Useful for authentication, custom user agents, or other request customization
+      </Tab>
+    </Tabs>
+  </Accordion>
+
+  <Accordion title="Sitemap configuration" icon="sitemap">
+    <Tabs>
+      <Tab title="Basic Settings">
+        **Max pages to scrape**
+
+        * Set the maximum number of pages to import from the sitemap
+        * Limited by your remaining pages quota
+        * Example: If you have 100 pages remaining, you can import up to 100 pages
+      </Tab>
+
+      <Tab title="Auto-sync">
+        **Auto-sync frequency**
+
+        * **Never (Manual only)** - Default, no automatic syncing
+        * **Daily (Enterprise)** - Sync every day (requires Enterprise plan)
+        * **Weekly (Scale)** - Sync every week (requires Scale plan)
+        * **Monthly (Growth)** - Sync every month (requires Growth plan)
+      </Tab>
+
+      <Tab title="URL Filtering">
+        **URL paths to include**
+
+        Only pages matching these path patterns will be scraped:
+
+        * Enter one path per line
+        * Example: `/blog` - only includes webpages with "/blog" in the URL path
+        * Example: `/docs` - only includes webpages with "/docs" in the URL path
+        * Paths are matched as substrings in the URL
+
+        **URL paths to exclude**
+
+        Pages matching these path patterns will be excluded:
+
+        * Enter one path per line
+        * Example: `/blog/drafts` - excludes webpages with "/blog/drafts" in the URL path
+        * Example: `/docs/internal` - excludes webpages with "/docs/internal" in the URL path
+      </Tab>
+
+      <Tab title="Content Filtering">
+        **HTML/CSS selectors to include**
+
+        Specify CSS selectors to extract content only from specific parts of your pages:
+
+        * Enter one selector per line
+        * Example: `main` - includes content only from the `<main>` HTML tag
+        * Example: `.content` - includes content only from elements with the "content" class
+        * Example: `#article` - includes content only from elements with the "article" id
+
+        **HTML/CSS selectors to exclude**
+
+        Specify CSS selectors to exclude content from specific parts of your pages:
+
+        * Enter one selector per line
+        * Example: `footer` - excludes content from the `<footer>` HTML tag
+        * Example: `.sidebar` - excludes content from elements with the "sidebar" class
+        * Example: `#comments` - excludes content from elements with the "comments" id
+      </Tab>
+
+      <Tab title="Custom Headers">
+        **Custom headers (optional)**
+
+        Add custom HTTP headers for accessing protected content:
+
+        * Format: One header per line as `HeaderName: HeaderValue`
+        * Example: `Authorization: Bearer your-token-here`
+        * Example: `User-Agent: YourBot/1.0`
+        * Example: `Cookie: session=abc123`
+        * Useful for authentication, custom user agents, or other request customization
+      </Tab>
+    </Tabs>
+  </Accordion>
+
+  <Accordion title="Scrape Website configuration" icon="globe">
+    <Tabs>
+      <Tab title="Basic Settings">
+        **Recursion depth**
+
+        * Number of levels (1-5) to scrape from the website
+        * **1** means only the root level pages will be scraped
+        * **2** means root level pages and pages linked from them
+        * **3** means three levels deep, and so on
+        * Higher depth = more pages discovered and scraped
+
+        **Max pages to scrape**
+
+        * Set the maximum number of pages to import from the website
+        * Limited by your remaining pages quota
+        * The crawler will stop when it reaches this limit
+      </Tab>
+
+      <Tab title="Auto-sync">
+        **Auto-sync frequency**
+
+        * **Never (Manual only)** - Default, no automatic syncing
+        * **Daily (Enterprise)** - Sync every day (requires Enterprise plan)
+        * **Weekly (Scale)** - Sync every week (requires Scale plan)
+        * **Monthly (Growth)** - Sync every month (requires Growth plan)
+      </Tab>
+
+      <Tab title="URL Filtering">
+        **URL paths to include**
+
+        Only pages matching these path patterns will be scraped:
+
+        * Enter one path per line
+        * Example: `/blog` - only includes webpages with "/blog" in the URL path
+        * Example: `/docs` - only includes webpages with "/docs" in the URL path
+        * Paths are matched as substrings in the URL
+
+        **URL paths to exclude**
+
+        Pages matching these path patterns will be excluded:
+
+        * Enter one path per line
+        * Example: `/blog/drafts` - excludes webpages with "/blog/drafts" in the URL path
+        * Example: `/docs/internal` - excludes webpages with "/docs/internal" in the URL path
+      </Tab>
+
+      <Tab title="Content Filtering">
+        **HTML/CSS selectors to include**
+
+        Specify CSS selectors to extract content only from specific parts of your pages:
+
+        * Enter one selector per line
+        * Example: `main` - includes content only from the `<main>` HTML tag
+        * Example: `.content` - includes content only from elements with the "content" class
+        * Example: `#article` - includes content only from elements with the "article" id
+
+        **HTML/CSS selectors to exclude**
+
+        Specify CSS selectors to exclude content from specific parts of your pages:
+
+        * Enter one selector per line
+        * Example: `footer` - excludes content from the `<footer>` HTML tag
+        * Example: `.sidebar` - excludes content from elements with the "sidebar" class
+        * Example: `#comments` - excludes content from elements with the "comments" id
+      </Tab>
+
+      <Tab title="Custom Headers">
+        **Custom headers (optional)**
+
+        Add custom HTTP headers for accessing protected content:
+
+        * Format: One header per line as `HeaderName: HeaderValue`
+        * Example: `Authorization: Bearer your-token-here`
+        * Example: `User-Agent: YourBot/1.0`
+        * Example: `Cookie: session=abc123`
+        * Useful for authentication, custom user agents, or other request customization
+      </Tab>
+    </Tabs>
+  </Accordion>
+
+  <Accordion title="File upload configuration" icon="file-arrow-up">
+    * **Supported formats**: PDF, CSV, DOC, DOCX, TXT, and other document formats
+    * **File size limit**: Up to 10 MB per file
+    * **Multiple files**: You can select and upload multiple files at once
+    * **Drag and drop**: Not supported - use the "Browse File" button to select files
+    * **File management**: After selecting files, you can review and remove individual files before uploading
+  </Accordion>
+
+  <Accordion title="Cloud storage integration configuration" icon="cloud">
+    **Connection management**
+
+    * **Multiple connections**: You can create multiple connections to the same service (e.g., multiple Google Drive accounts)
+    * **Connection status**: Each connection shows whether access is granted or revoked
+    * **Access control**: You can revoke and re-grant access to connections at any time
+
+    **File selection**
+
+    * **Picker interface**: Use the native picker interface for each service to select files/folders
+    * **Notion**: Select specific pages from your workspace
+    * **Other services**: Select individual files or entire folders to sync
+
+    **Syncing behavior**
+
+    * **Initial sync**: When you first select files, click "Sync Selected Files" to process them
+    * **Add more files**: You can add more files to an existing connection at any time
+    * **Modify selection**: For Notion, you can modify your page selection; for other services, add more files
+    * **File management**: View all synced files, their status, and last sync time in the connection interface
+  </Accordion>
+</AccordionGroup>
+
+## Auto-sync
+
+Keep your chatbot's knowledge current by enabling auto-sync for website content:
+
+1. When adding links, look for the **Auto-sync frequency** option
+2. Choose sync frequency based on your plan:
+   * **Never (Manual only)** - No automatic syncing (all plans)
+   * **Monthly (Growth)** - Sync every month (Growth plan and above)
+   * **Weekly (Scale)** - Sync every week (Scale plan and above)
+   * **Daily (Enterprise)** - Sync every day (Enterprise plan only)
+3. ContextGPT automatically checks for updates and retrains your chatbot
+
+View and manage auto-sync jobs in the [Auto-Sync Jobs](/features/auto-sync) page.
+
+## Content limits
+
+Your plan determines how much content you can add:
+
+* **Pages quota**: Total pages you can train on (1 page = 2,500 cleaned characters)
+  * Includes all content from web pages, files, documents, and other sources
+
+Check your current usage in [Account > Usage](/navigating-your-account/usage). [Upgrade your plan](/navigating-your-account/billing) to add more content.
+
+## Best practices
+
+### Choose quality content
+
+* Add pages with clear, well-written information
+* Avoid duplicate or redundant content
+* Include FAQs and common questions
+* Add product documentation and guides
+
+### Organize your content
+
+* Use descriptive file names
+* Remove outdated or irrelevant pages
+* Keep content up to date with auto-sync
+* Group related content together
+
+### Optimize for answers
+
+* Use clear headings and structure
+* Write in a question-and-answer format when possible
+* Include specific details and examples
+* Avoid overly technical jargon unless necessary
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Content not training" icon="triangle-exclamation">
+    <Warning>If your content isn't training, check these common issues:</Warning>
+
+    * Verify URLs are publicly accessible (not behind login)
+    * Check that pages contain text content (not just images)
+    * Ensure you haven't exceeded your content limits
+    * Try adding the URL individually instead of bulk
+  </Accordion>
+
+  <Accordion title="Poor answer quality" icon="message-question">
+    <Info>Improve your chatbot's answer quality with these tips:</Info>
+
+    * Add more relevant content sources
+    * Remove duplicate or conflicting information
+    * Use the Q\&A feature to override specific answers
+    * Adjust your chatbot's prompt and persona settings
+  </Accordion>
+
+  <Accordion title="Training takes too long" icon="clock">
+    <Tip>Training large amounts of content takes time. Here's what to expect:</Tip>
+
+    * Large sites may take 30+ minutes to process
+    * You can close the page - training continues in the background
+    * You'll see status updates when you return to the page
+    * Check the status filter to see pending items
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+  Start with your most important pages (homepage, product pages, FAQs) and add more content over time.
+</Tip>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Integrate with your website" icon="code" href="/setup/integrating-with-your-website">
+    Deploy your chatbot on your website
+  </Card>
+
+  <Card title="Retrain and update" icon="arrows-rotate" href="/setup/retraining-and-updating-your-ai-chatbot">
+    Keep your chatbot's knowledge up to date
+  </Card>
+
+  <Card title="Text snippets" icon="text" href="/features/text-snippets">
+    Add plain text content directly
+  </Card>
+
+  <Card title="Custom responses" icon="message-text" href="/features/custom-responses">
+    Add Q\&A pairs for specific questions
+  </Card>
+
+  <Card title="Auto-sync" icon="clock" href="/features/auto-sync">
+    Automatically sync content changes
+  </Card>
+
+  <Card title="Adding content overview" icon="file-lines" href="/navigating-your-chatbot/adding-content-to-your-chatbot">
+    Complete guide to all content sources
+  </Card>
+</CardGroup>

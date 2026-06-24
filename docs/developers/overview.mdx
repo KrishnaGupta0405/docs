@@ -1,0 +1,396 @@
+---
+title: Developers overview
+description: Build custom integrations and extend ContextGPT functionality
+sidebarTitle: Developers overview
+icon: code
+---
+
+ContextGPT provides multiple ways to integrate your chatbot into your applications and workflows.
+
+## Integration options
+
+<Tabs>
+  <Tab title="JavaScript SDK" icon="code">
+    Embed your chatbot on any website with a single `<script>` tag. The widget loads asynchronously and supports two modes.
+
+    **Floating widget** — a chat bubble fixed to the bottom-right corner of the page:
+
+    ```html theme={null}
+    <script
+      type="module"
+      src="https://widget.contextgpt.in/loader.js"
+      data-chatbot-id="YOUR_CHATBOT_ID">
+    </script>
+    ```
+
+    **Embedded widget** — renders the full chat interface inside a container you define:
+
+    ```html theme={null}
+    <div id="my-chat-container" style="width: 100%; height: 600px;"></div>
+
+    <script
+      type="module"
+      src="https://widget.contextgpt.in/loader.js"
+      data-chatbot-id="YOUR_CHATBOT_ID"
+      data-mode="embedded"
+      data-container="#my-chat-container">
+    </script>
+    ```
+
+    **Features:**
+
+    * Single script tag installation
+    * Floating bubble or embedded container mode
+    * Programmatic control via the `$cgpt` SDK
+    * Mobile-responsive design with shadow DOM isolation
+    * Commands buffered and replayed before widget loads
+
+    [View SDK documentation](/developers/sdk)
+  </Tab>
+
+  <Tab title="REST API" icon="brackets-curly">
+    Build custom integrations using the ContextGPT REST API. All endpoints use REST principles and return JSON.
+
+    **Base URL:** `https://contextgpt.in/api/v1`
+
+    **Authentication:** Pass your API key in every request:
+
+    ```bash theme={null}
+    curl https://contextgpt.in/api/v1/chatbots \
+      -H "Authorization: Bearer YOUR_API_KEY"
+    ```
+
+    **Rate limits:**
+
+    | Limit | Value | Scope |
+    |---|---|---|
+    | Per IP | 100 req/sec | All endpoints (excludes chatting) |
+    | Per user | 500 req/60s | All authenticated endpoints |
+    | Concurrency | 10 simultaneous | Upload/ingestion endpoints |
+
+    AI messaging endpoints have additional per-plan limits (150–3,000 AI replies/min depending on plan).
+
+    **Capabilities:**
+
+    * Manage chatbots programmatically
+    * Send and receive messages
+    * Access conversation history
+    * Manage leads and escalations
+    * Configure chatbot settings
+
+    [View API reference](/api-reference/v2/getting-started)
+  </Tab>
+
+  <Tab title="Webhooks" icon="webhook">
+    Receive real-time notifications for chatbot events instead of polling the API.
+
+    **Available webhooks:**
+
+    * New messages
+    * Conversation escalations
+    * Lead captures
+    * Custom events
+
+    Configure webhooks in your chatbot settings or via the API. Secure each webhook with a token and verify it on every incoming request:
+
+    ```javascript theme={null}
+    const token = req.headers['x-webhook-token'];
+    if (token !== process.env.CONTEXTGPT_WEBHOOK_TOKEN) {
+      return res.status(401).send('Unauthorized');
+    }
+    ```
+
+    [View webhooks documentation](/developers/webhooks)
+  </Tab>
+
+  <Tab title="Integrations" icon="plug">
+    Connect with popular platforms without writing code.
+
+    **Available integrations:**
+
+    * Slack, Google Chat, Messenger
+    * Crisp, Freshdesk, Zendesk, Zoho
+    * Zapier (5,000+ apps)
+
+    **Example Zapier automations:**
+
+    * New lead captured → Add to HubSpot
+    * Conversation escalated → Create Zendesk ticket
+    * Message sent → Log to Google Sheets
+
+    [View integrations](/integrations/overview)
+  </Tab>
+</Tabs>
+
+## Getting started
+
+<Steps>
+  <Step title="Choose your integration method">
+    Select the approach that best fits your use case: SDK for websites, API for custom apps, webhooks for real-time events, or integrations for no-code solutions.
+  </Step>
+
+  <Step title="Get your API key">
+    Find your API key in your account settings. You'll need this for API and webhook authentication.
+  </Step>
+
+  <Step title="Review documentation">
+    Read the relevant documentation for your chosen integration method.
+  </Step>
+
+  <Step title="Test in development">
+    Build and test your integration in a development environment before deploying to production.
+  </Step>
+
+  <Step title="Deploy">
+    Once tested, deploy your integration to production and monitor its performance.
+  </Step>
+</Steps>
+
+## Common use cases
+
+### Website chatbot
+
+Use the JavaScript SDK to add a chatbot to your website:
+
+```html theme={null}
+<script>
+  window.$ContextGPT = {
+    chatbotId: "your-chatbot-id"
+  };
+</script>
+<script src="https://ContextGPT.in/widget/your-chatbot-id.js" defer></script>
+```
+
+[Learn more about the SDK](/developers/sdk)
+
+### Custom application
+
+Use the REST API to integrate chatbot functionality into your app:
+
+```javascript theme={null}
+const response = await fetch('https://ContextGPT.in/api/v0/chatbots/your-chatbot-id/message', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer your-api-key',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    message: 'Hello, chatbot!',
+    threadId: 'optional-thread-id'
+  })
+});
+
+const data = await response.json();
+console.log(data.message);
+```
+
+[View API reference](/api-reference/v2/getting-started)
+
+### Real-time notifications
+
+Use webhooks to receive instant notifications:
+
+```javascript theme={null}
+app.post('/webhooks/leads', (req, res) => {
+  const { lead } = req.body;
+  
+  // Add lead to your CRM
+  await crm.addLead({
+    name: lead.name,
+    email: lead.email,
+    source: 'ContextGPT chatbot'
+  });
+  
+  res.status(200).send('OK');
+});
+```
+
+[Learn about webhooks](/developers/webhooks)
+
+### No-code automation
+
+Use Zapier to connect ContextGPT with other tools:
+
+1. New lead captured → Add to HubSpot
+2. Conversation escalated → Create Zendesk ticket
+3. Message sent → Log to Google Sheets
+
+[Explore Zapier integration](/integrations/zapier)
+
+## Authentication
+
+### API key
+
+Your API key authenticates requests to the ContextGPT API.
+
+**Finding your API key:**
+
+1. Go to your account settings
+2. Navigate to **API Keys**
+3. Copy your API key
+
+**Using your API key:**
+
+```bash theme={null}
+curl https://ContextGPT.in/api/v0/chatbots \
+  -H "Authorization: Bearer your-api-key"
+```
+
+**Security:**
+
+* Never expose your API key in client-side code
+* Store it securely in environment variables
+* Rotate it regularly
+* Use different keys for development and production
+
+### Webhook tokens
+
+Webhook tokens verify that webhook requests come from ContextGPT.
+
+**Setting webhook tokens:**
+
+1. Go to **Settings** > **Webhooks**
+2. Enter a secure token for each webhook type
+3. Save your configuration
+
+**Verifying webhook tokens:**
+
+```javascript theme={null}
+const token = req.headers['x-webhook-token'];
+if (token !== process.env.ContextGPT_WEBHOOK_TOKEN) {
+  return res.status(401).send('Unauthorized');
+}
+```
+
+## Rate limits
+
+API requests are rate-limited to ensure fair usage:
+
+* **Free plan**: 100 requests/hour
+* **Starter plan**: 1,000 requests/hour
+* **Pro plan**: 10,000 requests/hour
+* **Enterprise plan**: Custom limits
+
+Rate limit headers are included in API responses:
+
+```
+X-RateLimit-Limit: 1000
+X-RateLimit-Remaining: 999
+X-RateLimit-Reset: 1640000000
+```
+
+## Best practices
+
+### Error handling
+
+Always implement proper error handling:
+
+```javascript theme={null}
+try {
+  const response = await fetch(apiUrl, options);
+  
+  if (!response.ok) {
+    throw new Error(`API error: ${response.status}`);
+  }
+  
+  const data = await response.json();
+  return data;
+} catch (error) {
+  console.error('API request failed:', error);
+  // Handle error appropriately
+}
+```
+
+### Retry logic
+
+Implement exponential backoff for failed requests:
+
+```javascript theme={null}
+async function fetchWithRetry(url, options, maxRetries = 3) {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      const response = await fetch(url, options);
+      if (response.ok) return response;
+      
+      if (response.status >= 500) {
+        // Server error, retry
+        await sleep(Math.pow(2, i) * 1000);
+        continue;
+      }
+      
+      // Client error, don't retry
+      throw new Error(`API error: ${response.status}`);
+    } catch (error) {
+      if (i === maxRetries - 1) throw error;
+      await sleep(Math.pow(2, i) * 1000);
+    }
+  }
+}
+```
+
+### Caching
+
+Cache API responses when appropriate:
+
+```javascript theme={null}
+const cache = new Map();
+
+async function getChatbot(chatbotId) {
+  if (cache.has(chatbotId)) {
+    return cache.get(chatbotId);
+  }
+  
+  const chatbot = await fetchChatbot(chatbotId);
+  cache.set(chatbotId, chatbot);
+  
+  // Expire cache after 5 minutes
+  setTimeout(() => cache.delete(chatbotId), 5 * 60 * 1000);
+  
+  return chatbot;
+}
+```
+
+### Logging
+
+Log API interactions for debugging:
+
+```javascript theme={null}
+function logApiRequest(method, url, status, duration) {
+  console.log({
+    timestamp: new Date().toISOString(),
+    method,
+    url,
+    status,
+    duration: `${duration}ms`
+  });
+}
+```
+
+## Support
+
+Need help with your integration?
+
+* **Documentation**: Browse our comprehensive guides
+* **API reference**: Detailed endpoint documentation
+* **Email support**: [support@ContextGPT.in](mailto:support@ContextGPT.in)
+* **Community**: Join our Slack community
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="JavaScript SDK" icon="code" href="/developers/sdk">
+    Embed your chatbot on websites
+  </Card>
+
+  <Card title="REST API" icon="brackets-curly" href="/api-reference/v2/getting-started">
+    Build custom integrations
+  </Card>
+
+  <Card title="Webhooks" icon="webhook" href="/developers/webhooks">
+    Receive real-time notifications
+  </Card>
+
+  <Card title="Integrations" icon="plug" href="/integrations/overview">
+    Connect with popular platforms
+  </Card>
+</CardGroup>

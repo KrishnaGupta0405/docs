@@ -1,0 +1,292 @@
+---
+title: Adding content to your chatbot
+description: Train your chatbot on various content sources including websites, files, and integrations. Your chatbot's knowledge comes from the content you provide. ContextGPT supports multiple content sources to ensure your chatbot can answer questions accurately based on your business information.
+sidebarTitle: Training your chatbot
+icon: file-lines
+---
+
+<Tip>Access all content options under the **Content** section in your chatbot's left sidebar.</Tip>
+
+## Content types
+
+### Custom responses (Q\&A)
+
+Override AI responses with pre-written answers for specific questions.
+
+1. Navigate to **Custom Responses** under **Content**
+2. Click **Add Custom Response**
+3. Enter the question and your exact answer
+4. Save the custom response
+
+Use custom responses for pricing, policies, or any information requiring exact wording.
+
+### Text snippets
+
+Add plain text content like FAQs, product descriptions, or documentation.
+
+1. Navigate to **Text Snippets** under **Content**
+2. Paste your text content
+3. Click **Save Changes**
+
+<Note>Text snippets provide knowledge but don't change chatbot behavior. Use instructions/prompts to modify behavior.</Note>
+
+### Website links
+
+Train your chatbot on web pages from your website or documentation.
+
+1. Navigate to **Website Links** under **Content**
+2. Click **Add Links**
+3. Choose your import method and configure options
+4. Click **Add Links**
+
+Options for adding links:
+
+* **Multiple Links** - Add multiple URLs at once with advanced filtering options
+* **Sitemap** - Import pages from your sitemap.xml with path filtering
+* **Scrape Website** - Recursively crawl and extract content from an entire website
+* **YouTube** - Train on video transcripts from videos, playlists, or channels
+
+#### Advanced configuration options
+
+When adding website links, you can configure the following options. All content types (Multiple Links, Sitemap, Scrape Website) present these options as form fields in the same consistent format:
+
+**Auto-sync frequency** (available on Growth, Scale, and Enterprise plans):
+
+* Never (Manual only) - Default
+* Monthly (Growth plan)
+* Weekly (Scale plan)
+* Daily (Enterprise plan)
+
+**Recursion depth** (Scrape Website only):
+
+* Set crawl depth from 1-5 levels
+* Level 1 = root pages only
+* Higher levels discover more linked pages
+
+**Max pages to scrape** (Sitemap and Scrape Website):
+
+* Limit the number of pages imported
+* Constrained by your remaining pages quota
+
+**URL path filters** (Sitemap and Scrape Website):
+
+* **Include paths** - Only import pages matching these path patterns (e.g., `/blog`, `/docs`)
+* **Exclude paths** - Skip pages matching these path patterns (e.g., `/admin`, `/drafts`)
+
+**HTML/CSS selectors** (all link types):
+
+* **Include selectors** - Extract content only from specific elements (e.g., `main`, `.content`, `#article`)
+* **Exclude selectors** - Skip content from specific elements (e.g., `footer`, `.sidebar`, `#comments`)
+
+**Custom headers** (optional, all link types):
+
+* Add HTTP headers for authentication or custom requests
+* Format: `HeaderName: HeaderValue` (one per line)
+* Example: `Authorization: Bearer token123`
+
+### Files
+
+Upload documents to train your chatbot on file-based content.
+
+1. Navigate to **Files & Data Sources** under **Content**
+2. Click **Add Files** > **Manually Upload Files**
+3. Click **Browse File** to select files (drag and drop is not supported)
+4. Review selected files and remove any if needed
+5. Click **Upload Files**
+6. Wait for processing to complete
+
+**File upload specifications:**
+
+* **Supported formats**: PDF, DOCX, TXT, CSV, XLSX, PPTX, and more
+* **File size limit**: Up to 10 MB per file
+* **Multiple files**: Select and upload multiple files at once
+* **File management**: Review and remove individual files before uploading
+
+<Tip>
+  Contact [support@ContextGPT.in](mailto:support@ContextGPT.in) if you encounter upload issues.
+</Tip>
+
+## Data source integrations
+
+Connect cloud storage and productivity tools to automatically sync content.
+
+### How cloud integrations work
+
+1. **Create a connection** - Authenticate with your cloud service account
+2. **Select content** - Use the native picker to choose files/folders/pages
+3. **Sync files** - Click "Sync Selected Files" to process your selection
+4. **Manage connections** - View synced files, add more content, or revoke access
+
+**Connection management:**
+
+* **Multiple connections** - Create multiple connections to the same service (e.g., multiple Google Drive accounts)
+* **Access control** - Revoke and re-grant access to connections at any time
+* **Connection status** - Each connection shows whether access is granted or revoked
+* **File tracking** - View all synced files, their processing status, and last sync time
+
+### Notion
+
+Integrate your Notion workspace to train on your knowledge base.
+
+1. Navigate to **Files & Data Sources** > **Notion**
+2. Click **Connect Account** to create a new connection
+3. Authorize ContextGPT to access your workspace
+4. Select specific pages from your workspace using the Notion picker
+5. Click **Sync Selected Pages** to process your selection
+
+**Notion-specific features:**
+
+* **Page selection** - Choose individual pages from your workspace
+* **Modify selection** - Update your page selection at any time
+* **Multiple workspaces** - Connect different Notion workspaces to different chatbots
+
+<Warning>Link each Notion workspace to only one chatbot. Contact support if you need to change connections.</Warning>
+
+### Google Drive
+
+Connect Google Drive to train on documents, spreadsheets, and presentations.
+
+1. Navigate to **Files & Data Sources** > **Google Drive**
+2. Click **Connect Account** to create a new connection
+3. Click **Sign in with Google** and authorize access
+4. Use the Google Drive picker to select files or folders
+5. Click **Sync Selected Files** to process your selection
+
+**Google Drive features:**
+
+* **File and folder selection** - Choose individual files or entire folders
+* **Add more files** - Return to the picker to add more files to your connection
+* **Multiple accounts** - Connect multiple Google accounts to the same chatbot
+
+### Dropbox
+
+Sync files from your Dropbox account.
+
+1. Navigate to **Files & Data Sources** > **Dropbox**
+2. Click **Connect Account** to create a new connection
+3. Authorize ContextGPT to access your Dropbox
+4. Use the Dropbox picker to select files or folders
+5. Click **Sync Selected Files** to process your selection
+
+### OneDrive
+
+Connect Microsoft OneDrive for file synchronization.
+
+1. Navigate to **Files & Data Sources** > **OneDrive**
+2. Click **Connect Account** to create a new connection
+3. Authorize ContextGPT to access your OneDrive
+4. Use the OneDrive picker to select files or folders
+5. Click **Sync Selected Files** to process your selection
+
+### Box
+
+Connect Box for cloud file storage.
+
+1. Navigate to **Files & Data Sources** > **Box**
+2. Click **Connect Account** to create a new connection
+3. Authorize ContextGPT to access your Box account
+4. Use the Box picker to select files or folders
+5. Click **Sync Selected Files** to process your selection
+
+### GitHub
+
+Connect a GitHub repository to train on Markdown docs, READMEs, and other text-based files.
+
+1. Navigate to **Files & Data Sources** > **GitHub**
+2. Click **Connect Account** to create a new connection
+3. Authorize ContextGPT to access your repositories
+4. Choose a repository and branch, then select the files or folders to import
+5. Click **Sync Selected Files** to process your selection
+
+## Auto-sync jobs
+
+Keep your chatbot's knowledge up-to-date with automatic synchronization.
+
+1. Navigate to **Auto Sync Jobs** under **Content**
+2. Configure sync schedules for connected data sources
+3. Set sync frequency (hourly, daily, weekly)
+4. Monitor sync status and history
+
+Auto-sync ensures your chatbot always has the latest information from your connected sources without manual retraining.
+
+## Managing content
+
+### Searching and filtering
+
+Quickly find specific content in your links and files:
+
+**Search functionality:**
+
+* Use the search bar at the top of the Links or Files page
+* Search by URL, filename, or content title
+* Results update in real-time as you type
+* Search works across all status filters
+
+**Status filters:**
+
+* **All** - View all content regardless of status
+* **Trained** - Only show successfully processed content
+* **Pending** - Content currently being processed
+* **Failed** - Content that encountered errors
+
+Combine search with filters to narrow down results (e.g., search for "blog" and filter by "Trained").
+
+### Pagination
+
+Navigate through large content libraries efficiently:
+
+* Links and files are displayed in pages (default: 50 items per page for links, 20 for files)
+* Use pagination controls at the top and bottom of the content list
+* Page numbers show your current position
+* Navigate using Previous/Next buttons or jump to specific pages
+* Current page and total count are displayed for reference
+
+### Bulk operations
+
+Manage multiple links or files simultaneously:
+
+**Selecting content:**
+
+* Check the box next to individual items to select them
+* Use the "Select All" checkbox in the table header to select all items on the current page
+* Selected items are highlighted and show a count
+
+**Bulk actions:**
+
+* **Resync Selected** - Retrain multiple links or files at once to update their content
+* **Delete Selected** - Remove multiple items simultaneously
+* Confirmation prompts prevent accidental bulk deletions
+* Bulk operations work across the current page only
+
+**Use cases for bulk operations:**
+
+* Update multiple outdated pages after a website redesign
+* Remove old documentation versions in one action
+* Retrain related content after major updates
+
+### Retraining
+
+Update your chatbot's knowledge after content changes:
+
+* Click **Retrain** next to any link or file
+* Retraining processes the latest version of the content
+* Changes take effect immediately after retraining completes
+* Use bulk resync for multiple items
+
+### Deleting content
+
+Remove outdated or irrelevant content:
+
+* Click **Delete** next to any link or file
+* Deleted content is removed from your chatbot's knowledge
+* Deletion takes effect immediately
+* Use bulk delete for multiple items (with confirmation)
+
+### Monitoring status
+
+Check training status for all content:
+
+* **Trained** - Content is active and available to the chatbot
+* **Training** - Content is being processed
+* **Failed** - Training encountered an error (contact support)
+* Filter by status to focus on specific content states

@@ -1,0 +1,531 @@
+---
+title: JavaScript SDK
+description: Embed your AI chatbot on any website and control it programmatically
+sidebarTitle: JavaScript SDK
+icon: js
+---
+
+The ContextGPT JavaScript SDK lets you embed your chatbot on any website with a single `<script>` tag and control it programmatically using the `$cgpt` object.
+
+## Quick start
+
+<Steps>
+  <Step title="Get your chatbot ID">
+    Find your chatbot ID in your dashboard under **Installation**.
+  </Step>
+
+  <Step title="Add the script">
+    Paste this before the closing `</body>` tag:
+
+    ```html theme={null}
+    <script
+      type="module"
+      src="https://widget.contextgpt.in/loader.js"
+      data-chatbot-id="YOUR_CHATBOT_ID">
+    </script>
+    ```
+  </Step>
+
+  <Step title="Test">
+    Reload your page and click the chat bubble to test your chatbot.
+  </Step>
+</Steps>
+
+<Note>
+  Replace `YOUR_CHATBOT_ID` with your actual chatbot ID from the Installation page. The Installation page provides this snippet pre-filled with your ID.
+</Note>
+
+## Embed modes
+
+The widget supports two modes controlled by `data-*` attributes on the script tag.
+
+<Tabs>
+  <Tab title="Floating widget (Default)">
+    A chat bubble appears fixed in the bottom-right corner of the page. Clicking it opens the chat window.
+
+    ```html theme={null}
+    <script
+      type="module"
+      src="https://widget.contextgpt.in/loader.js"
+      data-chatbot-id="YOUR_CHATBOT_ID">
+    </script>
+    ```
+
+    Add this once in your site-wide layout or footer template — it will appear on every page automatically.
+  </Tab>
+
+  <Tab title="Embedded widget (Container mode)">
+    The full chat interface renders inside a container element you define. No floating bubble — the chat is always visible and fills the container.
+
+    **Step 1 — Add a container element:**
+
+    ```html theme={null}
+    <div
+      id="my-chat-container"
+      style="width: 100%; height: 600px; border-radius: 16px; overflow: hidden;">
+    </div>
+    ```
+
+    **Step 2 — Add the script pointing at that container:**
+
+    ```html theme={null}
+    <script
+      type="module"
+      src="https://widget.contextgpt.in/loader.js"
+      data-chatbot-id="YOUR_CHATBOT_ID"
+      data-mode="embedded"
+      data-container="#my-chat-container">
+    </script>
+    ```
+
+    <Check>
+      **How embedded mode works:**
+
+      * The floating bubble is automatically suppressed — the chat opens immediately inside the container
+      * The widget is isolated in a shadow DOM so your page styles don't interfere
+      * Scrolling inside the chat does not scroll the parent page
+      * All `$cgpt` SDK commands work the same as in floating mode
+    </Check>
+  </Tab>
+</Tabs>
+
+## Script tag attributes
+
+| Attribute | Required | Description |
+|---|---|---|
+| `data-chatbot-id` | Yes | Your unique chatbot ID |
+| `data-mode` | No | Set to `"embedded"` to use container mode. Omit for floating (default). |
+| `data-container` | When `data-mode="embedded"` | CSS selector for the container element (e.g. `"#my-chat-container"`) |
+| `data-instance` | No | A name for this widget instance. Required when loading multiple widgets on the same page (e.g. `"floating"`, `"sidebar"`). |
+
+## URL parameters
+
+Append these to the `loader.js` URL to modify widget behavior:
+
+| Parameter | Description |
+|---|---|
+| `?hideButton=true` | Hides the floating bubble — widget is created but only openable via `$cgpt` commands |
+| `?hideWidget=true` | Skips creating the floating widget entirely — use when you only want embedded containers |
+| `?instance=name` | Required when loading two script tags from the same source on the same page (e.g. `?instance=sidebar`) |
+
+**Example — hide the bubble and use a custom trigger button:**
+
+```html theme={null}
+<button onclick="window.$cgpt.push(['open'])">Chat with us</button>
+
+<script
+  type="module"
+  src="https://widget.contextgpt.in/loader.js?hideButton=true"
+  data-chatbot-id="YOUR_CHATBOT_ID">
+</script>
+```
+
+## SDK methods reference
+
+Control the widget programmatically using the `$cgpt` object. All commands use the `push` method:
+
+```javascript theme={null}
+window.$cgpt.push([command, ...args]);
+```
+
+Commands pushed before the widget finishes loading are buffered and replayed automatically — no need to wait for the script to load.
+
+<Note>
+  For a complete interactive reference with live testing, visit the **SDK Methods** page in your chatbot dashboard under **Installation → SDK Advanced**.
+</Note>
+
+### Widget visibility
+
+#### Open the chat
+
+```javascript theme={null}
+window.$cgpt.push(['open']);
+```
+
+**Example — open when a button is clicked:**
+
+```javascript theme={null}
+document.getElementById('chat-btn').addEventListener('click', function () {
+  window.$cgpt.push(['open']);
+});
+```
+
+#### Open with a fresh conversation
+
+Opens the chat and resets the current conversation in a single flicker-free step.
+
+```javascript theme={null}
+window.$cgpt.push(['open', { reset: true }]);
+```
+
+<Tip>
+  Prefer this over calling `['open']` then `['do', 'conversation:reset']` separately — it avoids a brief flash of the old conversation before the reset.
+</Tip>
+
+#### Close the chat
+
+```javascript theme={null}
+window.$cgpt.push(['close']);
+```
+
+#### Toggle the chat
+
+Opens if closed, closes if open.
+
+```javascript theme={null}
+window.$cgpt.push(['toggle']);
+```
+
+### Send messages
+
+#### Send a message immediately
+
+Sends a message on the user's behalf. The widget opens automatically if it's closed.
+
+```javascript theme={null}
+window.$cgpt.push(['do', 'message:send', 'What are your pricing plans?']);
+```
+
+**Example — trigger on button click:**
+
+```javascript theme={null}
+document.getElementById('pricing-btn').addEventListener('click', function () {
+  window.$cgpt.push(['do', 'message:send', 'What are your pricing plans?']);
+});
+```
+
+#### Prefill the message input
+
+Fills the input field with text. The user can edit before sending. Widget opens automatically.
+
+```javascript theme={null}
+window.$cgpt.push(['set', 'message:text', "Hi! I'd like help with..."]);
+```
+
+<Tip>
+  Use `message:send` to send automatically without user interaction. Use `message:text` to suggest a message but let the user edit it first.
+</Tip>
+
+### Manage conversations
+
+#### Reset the conversation
+
+Clears the conversation history and returns to the widget home page.
+
+```javascript theme={null}
+window.$cgpt.push(['do', 'conversation:reset']);
+```
+
+**Example — "Start new chat" button:**
+
+```javascript theme={null}
+document.getElementById('new-chat-btn').addEventListener('click', function () {
+  window.$cgpt.push(['do', 'conversation:reset']);
+});
+```
+
+#### Reload the widget
+
+Completely tears down and reinitializes the widget. Useful after SPA route changes or when embedded containers appear dynamically.
+
+```javascript theme={null}
+window.$cgpt.push(['do', 'widget:reload']);
+```
+
+**Example — reload on SPA route change:**
+
+```javascript theme={null}
+router.on('routeChange', function () {
+  setTimeout(function () {
+    window.$cgpt.push(['do', 'widget:reload']);
+  }, 100);
+});
+```
+
+### Chatbot context
+
+Inject extra context around every message for more relevant, page-aware responses.
+
+```javascript theme={null}
+window.$cgpt.push(['set', 'context', ['prefix', 'suffix']]);
+```
+
+* **prefix** — injected before the user's message (custom persona, role)
+* **suffix** — injected after the user's message (current page, URL)
+
+**Example — page-aware context:**
+
+```javascript theme={null}
+window.$cgpt.push([
+  'set',
+  'context',
+  [
+    'You are a sales executive. Guide users to book a demo call.',
+    'Current page: ' + document.title + '\nURL: ' + window.location.href,
+  ],
+]);
+```
+
+<Note>
+  Context is injected transparently — users only see their original message in the chat UI.
+</Note>
+
+### User sessions
+
+Automatically log users in using their verified email address. Requires a secure HMAC-SHA256 signature generated on your backend.
+
+```javascript theme={null}
+window.$cgpt.push([
+  'set',
+  'user:email',
+  [
+    'user@example.com',
+    'cd7cc422ca57c82d...' // HMAC-SHA256 signature from your backend
+  ]
+]);
+```
+
+<Warning>
+  **Never generate signatures in frontend code.** Doing so exposes your API key and allows anyone to impersonate users. Always generate signatures on your backend server.
+</Warning>
+
+**Backend example (Node.js):**
+
+```javascript theme={null}
+const crypto = require('crypto');
+
+const apiKey = process.env.CONTEXTGPT_API_KEY; // keep private
+
+function signEmail(email) {
+  return crypto.createHmac('sha256', apiKey).update(email).digest('hex');
+}
+
+// In your auth endpoint:
+app.get('/api/chatbot-auth', (req, res) => {
+  const userEmail = req.user.email;
+  const signature = signEmail(userEmail);
+  res.json({ email: userEmail, signature });
+});
+```
+
+**Frontend — fetch the signature and pass to widget:**
+
+```javascript theme={null}
+fetch('/api/chatbot-auth')
+  .then(res => res.json())
+  .then(data => {
+    window.$cgpt.push(['set', 'user:email', [data.email, data.signature]]);
+  });
+```
+
+### Custom CSS
+
+Inject CSS into the widget's shadow DOM to match your branding. The `--cgpt-primary` CSS variable is reactive and controls the bubble color, header, and user message bubbles.
+
+```javascript theme={null}
+window.$cgpt.push(['set', 'css', ':host { --cgpt-primary: #10b981; }']);
+```
+
+Calling this command again replaces the previous custom styles.
+
+**Example — change font family:**
+
+```javascript theme={null}
+window.$cgpt.push(['set', 'css', 'body { font-family: "Lato", sans-serif; }']);
+```
+
+## Targeting multiple widgets
+
+When you have more than one widget instance on the same page, use the targeting API to send commands to a specific instance.
+
+| Target | Syntax | Scope |
+|---|---|---|
+| `$cgpt.push` | `window.$cgpt.push([...])` | Broadcasts to all widgets on the page |
+| `$cgpt['instanceName']` | `window.$cgpt['floating'].push([...])` | One specific widget by its `data-instance` name |
+| `$cgpt_widget['chatbotId']` | `window.$cgpt_widget['uuid'].push([...])` | All instances sharing that chatbot ID |
+| `$cgpt_widget['chatbotId']['instanceName']` | `window.$cgpt_widget['uuid']['floating'].push([...])` | One specific instance within a chatbot ID group |
+
+**Example setup — floating + embedded on the same page:**
+
+```html theme={null}
+<!-- Floating widget -->
+<script
+  type="module"
+  src="https://widget.contextgpt.in/loader.js?instance=floating"
+  data-chatbot-id="YOUR_CHATBOT_ID"
+  data-instance="floating">
+</script>
+
+<!-- Embedded widget -->
+<div id="chat-container" style="width: 100%; height: 600px;"></div>
+<script
+  type="module"
+  src="https://widget.contextgpt.in/loader.js?instance=embedded"
+  data-chatbot-id="YOUR_CHATBOT_ID"
+  data-mode="embedded"
+  data-container="#chat-container"
+  data-instance="embedded">
+</script>
+
+<script>
+  // Target only the floating widget
+  window.$cgpt['floating'].push(['open']);
+
+  // Target only the embedded widget
+  window.$cgpt['embedded'].push(['set', 'message:text', 'Hello!']);
+
+  // Broadcast to both
+  window.$cgpt.push(['set', 'css', ':host { --cgpt-primary: #6366f1; }']);
+</script>
+```
+
+## Common use cases
+
+### Custom chat trigger (hide the bubble)
+
+```html theme={null}
+<button onclick="window.$cgpt.push(['open'])">Chat with us</button>
+
+<script
+  type="module"
+  src="https://widget.contextgpt.in/loader.js?hideButton=true"
+  data-chatbot-id="YOUR_CHATBOT_ID">
+</script>
+```
+
+### Page-aware context
+
+```html theme={null}
+<script>
+  window.$cgpt = window.$cgpt || [];
+  window.$cgpt.push([
+    'set',
+    'context',
+    [
+      'You are a helpful support agent.',
+      'Page: ' + document.title + '\nURL: ' + window.location.href,
+    ],
+  ]);
+</script>
+
+<script
+  type="module"
+  src="https://widget.contextgpt.in/loader.js"
+  data-chatbot-id="YOUR_CHATBOT_ID">
+</script>
+```
+
+### Pre-filled message on button click
+
+```html theme={null}
+<button id="pricing-btn">Ask about pricing</button>
+
+<script>
+  document.getElementById('pricing-btn').addEventListener('click', function () {
+    window.$cgpt.push(['do', 'message:send', 'What are your pricing plans?']);
+  });
+</script>
+```
+
+### Authenticated users (auto-login)
+
+```html theme={null}
+<script>
+  fetch('/api/chatbot-auth')
+    .then(res => res.json())
+    .then(data => {
+      window.$cgpt.push(['set', 'user:email', [data.email, data.signature]]);
+    });
+</script>
+
+<script
+  type="module"
+  src="https://widget.contextgpt.in/loader.js"
+  data-chatbot-id="YOUR_CHATBOT_ID">
+</script>
+```
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Chatbot not appearing" icon="eye-slash">
+    **Check the script tag**\
+    Ensure `data-chatbot-id` is correct and the script is present in the page source (View → Page Source).
+
+    **Check browser console**\
+    Open DevTools (F12) and look for JavaScript errors.
+
+    **Verify the chatbot has training data**\
+    A chatbot with no content will not appear.
+
+    **Test in incognito mode**\
+    Rules out browser extensions or cached files causing the issue.
+  </Accordion>
+
+  <Accordion title="SDK commands not working" icon="code">
+    **Commands are buffered automatically**\
+    You don't need to wait for the script to load — push commands at any time and they replay once the widget is ready.
+
+    **Check the object name**\
+    The SDK uses `window.$cgpt`, not `window.$ContextGPT`.
+
+    **Check the syntax**\
+    All commands use the array form: `window.$cgpt.push(['command', ...args])`.
+
+    **Check browser console**\
+    Look for any JavaScript errors that may prevent the widget from initializing.
+  </Accordion>
+
+  <Accordion title="Embedded widget not filling the container" icon="arrows-maximize">
+    **Set an explicit height on the container**\
+    The widget fills 100% of its container's dimensions. If the container has no height (e.g. `height: auto`), the widget will collapse. Set a fixed height: `style="height: 600px"`.
+
+    **Set `overflow: hidden` on the container**\
+    This prevents the widget's internal scroll from escaping to the page.
+
+    **Check the selector**\
+    Ensure `data-container` matches your container's id or class exactly (e.g. `"#my-chat-container"`).
+  </Accordion>
+
+  <Accordion title="Two widgets interfering with each other" icon="copy">
+    **Add `data-instance` to each script tag**\
+    Give each widget a unique instance name (e.g. `data-instance="floating"` and `data-instance="sidebar"`).
+
+    **Add `?instance=name` to each script URL**\
+    Without the query string, the browser deduplicates module scripts with the same URL and only runs one.
+
+    **Use `?hideWidget=true` on the floating script**\
+    If you only want embedded containers and no floating bubble, add `?hideWidget=true` to the floating script URL.
+  </Accordion>
+
+  <Accordion title="Custom CSS not applying" icon="palette">
+    **The widget uses a shadow DOM**\
+    Standard page CSS cannot reach inside the widget. Use `$cgpt.push(['set', 'css', '...'])` to inject styles.
+
+    **Use `:host` for top-level variables**\
+    Set `--cgpt-primary` on `:host { }` to change the primary color reactively.
+
+    **Calling the command again replaces previous styles**\
+    There is no merge — each `set css` call fully replaces the previous custom stylesheet.
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Installation guide" icon="download" href="/setup/integration-with-your-website">
+    Platform-specific installation instructions
+  </Card>
+
+  <Card title="SDK Advanced" icon="code" href="/developers/sdk-advanced">
+    Full SDK method reference with live testing
+  </Card>
+
+  <Card title="Webhooks" icon="webhook" href="/developers/webhooks">
+    Receive real-time chatbot events
+  </Card>
+
+  <Card title="API reference" icon="brackets-curly" href="/api-reference/v2/getting-started">
+    Manage chatbots via the REST API
+  </Card>
+</CardGroup>

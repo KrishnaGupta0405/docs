@@ -1,0 +1,486 @@
+---
+title:  Getting started with the ContextGPT API
+description: Learn how to authenticate and make requests to the ContextGPT API.
+sidebarTitle: Getting Started
+icon: rocket
+---
+
+The ContextGPT API allows you to programmatically manage chatbots, send messages, access conversation history, and configure settings. All endpoints use REST principles and return JSON responses.
+
+<Warning>
+  This page documents the legacy `/api/v1` API. For new integrations, use **API Reference → v2** from the version selector.
+</Warning>
+
+## Base URL
+
+All API requests are made to:
+
+```
+https://ContextGPT.in/api/v1
+```
+
+## Authentication
+
+ContextGPT uses API keys for authentication. Include your API key in the `Authorization` header of every request.
+
+### Getting your API key
+
+1. Sign in to your ContextGPT account
+2. Navigate to **Billing** or **Profile** > **API Access**
+3. Copy your API key
+4. Store it securely (never commit to version control)
+
+<Warning>Keep your API key secure. Anyone with your key can access and modify your chatbots.</Warning>
+
+### Using your API key
+
+Include your API key in the `Authorization` header with the `Bearer` scheme:
+
+```bash theme={null}
+Authorization: Bearer YOUR_API_KEY
+```
+
+### Example request
+
+<CodeGroup>
+  ```bash cURL theme={null}
+  curl https://ContextGPT.in/api/v1/chatbots \
+    -H "Authorization: Bearer YOUR_API_KEY"
+  ```
+
+  ```javascript JavaScript theme={null}
+  const response = await fetch('https://ContextGPT.in/api/v1/chatbots', {
+    headers: {
+      'Authorization': 'Bearer YOUR_API_KEY'
+    }
+  });
+
+  const data = await response.json();
+  ```
+
+  ```python Python theme={null}
+  import requests
+
+  response = requests.get(
+      'https://ContextGPT.in/api/v1/chatbots',
+      headers={'Authorization': 'Bearer YOUR_API_KEY'}
+  )
+
+  data = response.json()
+  ```
+</CodeGroup>
+
+### Authentication errors
+
+<Tabs>
+  <Tab title="401 — Missing or invalid API key">
+    ```json theme={null}
+    {
+      "success": false,
+      "message": "Authorization header does not contain a valid API key"
+    }
+    ```
+  </Tab>
+
+  <Tab title="403 — Plan doesn't include API access">
+    ```json theme={null}
+    {
+      "success": false,
+      "message": "API access is not available on your current plan. Please upgrade to access this feature."
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Response format
+
+All API responses use a consistent JSON structure:
+
+<Tabs>
+  <Tab title="Success response">
+    ```json theme={null}
+    {
+      "statusCode": 200,
+      "success": true,
+      "message": "Operation completed successfully",
+      "data": {
+        // Response data here
+      }
+    }
+    ```
+  </Tab>
+
+  <Tab title="Error response">
+    ```json theme={null}
+    {
+      "success": false,
+      "message": "Error message"
+    }
+    ```
+
+    When the error includes validation details, an `errors` array is also present:
+
+    ```json theme={null}
+    {
+      "success": false,
+      "message": "Request body is not valid",
+      "errors": [
+        {
+          "path": ["fieldName"],
+          "message": "Required"
+        }
+      ]
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Error handling
+
+<AccordionGroup>
+  <Accordion title="HTTP status codes">
+    * **200 OK** - Request succeeded
+    * **400 Bad Request** - Invalid request parameters or body
+    * **401 Unauthorized** - Missing or invalid API key
+    * **403 Forbidden** - Insufficient permissions
+    * **404 Not Found** - Resource doesn't exist
+    * **405 Method Not Allowed** - HTTP method not supported
+    * **500 Internal Server Error** - Server error
+  </Accordion>
+
+  <Accordion title="Common error codes">
+    * `API_KEY_NOT_VALID` - Invalid or missing API key
+    * `REQUEST_VALIDATION_FAILED` - Request body validation failed
+    * `CHATBOT_NOT_FOUND` - Chatbot doesn't exist
+    * `CHATBOT_FETCH_FORBIDDEN` - No permission to access chatbot
+    * `CHATBOT_LIMIT_REACHED` - Exceeded chatbot quota
+    * `MESSAGES_LIMIT_REACHED` - Exceeded message quota
+  </Accordion>
+</AccordionGroup>
+
+### Validation errors
+
+When request validation fails, the `errors` array contains specific field errors:
+
+```json theme={null}
+{
+  "success": false,
+  "message": "Request body is not valid",
+  "errors": [
+    {
+      "path": ["chatbotName"],
+      "message": "Required"
+    }
+  ]
+}
+```
+
+## Rate limiting
+
+API requests are rate-limited at multiple levels to ensure platform stability and fair usage.
+
+### Generic API limits
+
+All requests are subject to these limits regardless of plan (to make platform accessible to all users):
+
+| Limit | Value | Scope |
+|---|---|---|
+| Per IP | 100 req/sec | Applied globally before authentication — <Tooltip tip="The per-IP limit does not apply to chatbot messaging endpoints (/api/v1/chatting/*). Those endpoints are protected by the per-user and per-plan limits below instead.">excludes chatting endpoints</Tooltip> |
+| Per user | 500 req/60s | Applied after authentication on all endpoints |
+| Concurrency | 10 simultaneous | Upload/ingestion endpoints only |
+
+### AI & messaging limits
+
+Requests that trigger AI responses have additional per-plan limits:
+
+| Plan | Messages/min | AI replies/min |
+|---|---|---|
+| Starter | 600 | 150 |
+| Growth | 3,000 | 750 |
+| Scale | 12,000 | 3,000 |
+
+Monthly message quotas are also enforced per plan. When the monthly quota is exhausted, further requests return `429` with `MESSAGES_LIMIT_REACHED`.
+
+### Rate limit response
+
+When you exceed any rate limit, you'll receive a `429 Too Many Requests` response with a `Retry-After` header:
+
+```json theme={null}
+{
+  "success": false,
+  "message": "Rate limit exceeded. Too many requests — please wait before trying again.",
+  "retryAfter": 45,
+  "limit": 500,
+  "remaining": 0,
+  "windowSeconds": 60
+}
+```
+
+## Pagination
+
+List endpoints support pagination using query parameters:
+
+```bash theme={null}
+GET /v1/chatbots?page=1&limit=20
+```
+
+Parameters:
+
+* `page` - Page number (default: 1)
+* `limit` - Results per page (default: 20, max: 100)
+
+Paginated responses include metadata:
+
+```json theme={null}
+{
+  "success": true,
+  "message": "Fetched chatbots successfully",
+  "data": {
+    "chatbots": [...],
+    "pagination": {
+      "page": 1,
+      "limit": 20,
+      "total": 45,
+      "pages": 3
+    }
+  }
+}
+```
+
+## Making requests
+
+<CodeGroup>
+  ```bash cURL theme={null}
+  curl -X POST https://ContextGPT.in/api/v1/chatbots \
+    -H "Authorization: Bearer YOUR_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "chatbotName": "My New Chatbot"
+    }'
+  ```
+
+  ```javascript JavaScript theme={null}
+  const response = await fetch('https://ContextGPT.in/api/v1/chatbots', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer YOUR_API_KEY',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      chatbotName: 'My New Chatbot'
+    })
+  });
+
+  const data = await response.json();
+  ```
+
+  ```python Python theme={null}
+  import requests
+
+  response = requests.post(
+      'https://ContextGPT.in/api/v1/chatbots',
+      headers={
+          'Authorization': 'Bearer YOUR_API_KEY',
+          'Content-Type': 'application/json'
+      },
+      json={
+          'chatbotName': 'My New Chatbot'
+      }
+  )
+
+  data = response.json()
+  ```
+
+  ```php PHP theme={null}
+  <?php
+  $ch = curl_init('https://ContextGPT.in/api/v1/chatbots');
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch, CURLOPT_POST, true);
+  curl_setopt($ch, CURLOPT_HTTPHEADER, [
+      'Authorization: Bearer YOUR_API_KEY',
+      'Content-Type: application/json'
+  ]);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+      'chatbotName' => 'My New Chatbot'
+  ]));
+
+  $response = curl_exec($ch);
+  $data = json_decode($response, true);
+  curl_close($ch);
+  ?>
+  ```
+</CodeGroup>
+
+## Common workflows
+
+<AccordionGroup>
+  <Accordion title="Creating and configuring a chatbot" icon="robot">
+    <Steps>
+      <Step title="Create chatbot">
+        `POST /v1/chatbots/account/{accountId}/create-chatbot`
+      </Step>
+
+      <Step title="Update appearance">
+        `PUT /v1/chatbots/chatbot/{chatbotId}/appearance`
+      </Step>
+
+      <Step title="Add conversation starters">
+        `POST /v1/chatbots/chatbot/{chatbotId}/conversation-starters`
+      </Step>
+
+      <Step title="Configure settings">
+        `PUT /v1/chatbots/chatbot/{chatbotId}/settings`
+      </Step>
+
+      <Step title="Add instructions or persona">
+        `POST /v1/chatbots/chatbot/{chatbotId}/instructions`
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="Sending messages" icon="message">
+    <Steps>
+      <Step title="Create thread">
+        `POST /v1/chatting/{chatbotId}/threads`
+      </Step>
+
+      <Step title="Send message">
+        `POST /v1/chatting/{chatbotId}/thread/{threadId}/message`
+      </Step>
+
+      <Step title="Fetch response">
+        Included in send message response
+      </Step>
+
+      <Step title="Update reaction">
+        `PATCH /v1/chatting/{chatbotId}/message/{messageId}`
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="Managing conversations" icon="comments">
+    <Steps>
+      <Step title="Fetch all threads">
+        `GET /v1/chatting/{chatbotId}/threads`
+      </Step>
+
+      <Step title="Get thread details">
+        `GET /v1/chatting/{chatbotId}/thread/{threadId}`
+      </Step>
+
+      <Step title="Get thread messages">
+        `GET /v1/chatting/{chatbotId}/thread/{threadId}/messages`
+      </Step>
+
+      <Step title="Escalate to agent">
+        `POST /v1/chatting/{chatbotId}/thread/{threadId}/escalate`
+      </Step>
+
+      <Step title="Update thread">
+        `PATCH /v1/chatting/{chatbotId}/thread/update-thread`
+      </Step>
+    </Steps>
+  </Accordion>
+</AccordionGroup>
+
+## API resources
+
+The ContextGPT API provides endpoints for:
+
+* **Chatbots** - Create, read, update, delete chatbots
+* **Appearance** - Customize chatbot visual design
+* **Conversation Starters** - Manage conversation starter prompts
+* **Follow-up Prompts** - Post-response suggestions
+* **Instructions** - Manage chatbot instruction sets
+* **Personas** - Manage chatbot personas
+* **Localization** - Configure locale-specific settings
+* **Lead Settings** - Configure lead capture behavior
+* **Human Support Settings** - Configure escalation and handoff
+* **Settings** - Configure general chatbot behavior
+* **Messages** - Send and receive messages
+* **Threads** - Manage conversation threads
+* **Text Snippets** - Manage reusable text content
+
+## Best practices
+
+<Tabs>
+  <Tab title="Security">
+    <Check>**Never expose API keys** - Keep them server-side only</Check>
+    <Check>**Use environment variables** - Don't hardcode keys</Check>
+    <Check>**Rotate keys regularly** - Generate new keys periodically</Check>
+    <Check>**Limit key scope** - Use separate keys for different environments</Check>
+  </Tab>
+
+  <Tab title="Performance">
+    <Check>**Cache responses** - Reduce redundant API calls</Check>
+    <Check>**Batch operations** - Combine multiple updates when possible</Check>
+    <Check>**Use webhooks** - Receive real-time updates instead of polling</Check>
+    <Check>**Handle rate limits** - Implement exponential backoff</Check>
+  </Tab>
+
+  <Tab title="Error handling">
+    <Check>**Check success field** - Always verify `success: true`</Check>
+    <Check>**Log error codes** - Track error patterns</Check>
+    <Check>**Retry transient errors** - Retry 500 errors with backoff</Check>
+    <Check>**Validate before sending** - Reduce 400 errors</Check>
+  </Tab>
+
+  <Tab title="Data management">
+    <Check>**Use metadata** - Store custom data with chatbots</Check>
+    <Check>**Implement pagination** - Handle large result sets</Check>
+    <Check>**Filter requests** - Use query parameters to reduce data transfer</Check>
+    <Check>**Clean up resources** - Delete unused chatbots and threads</Check>
+  </Tab>
+</Tabs>
+
+## Webhooks
+
+Instead of polling the API, use webhooks to receive real-time updates:
+
+* New messages
+* Lead captures
+* Conversation escalations
+* Custom events
+
+Configure webhooks in your chatbot settings or via the API.
+
+See [Chatbot Settings - Advanced](/api-reference/chatbot-settings/update-chatbot-settings--advanced) for webhook configuration.
+
+## SDKs and libraries
+
+### Official SDKs
+
+Currently, ContextGPT doesn't provide official SDKs. Use standard HTTP libraries in your language of choice.
+
+### Community libraries
+
+Check our community forum for user-contributed libraries and wrappers.
+
+## Support
+
+Need help with the API?
+
+* **Documentation** - Browse the API reference
+* **Email** - [support@ContextGPT.in](mailto:support@ContextGPT.in)
+* **Community** - Join our Slack or forum
+* **Enterprise** - Dedicated support for enterprise customers
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Chatbot endpoints" icon="robot" href="/api-reference/chatbot/fetch-all-chatbots">
+    Create and manage chatbots programmatically
+  </Card>
+
+  <Card title="Messages" icon="message" href="/api-reference/chatbot-messages/send-message">
+    Send messages and handle conversations
+  </Card>
+
+  <Card title="Settings" icon="gear" href="/api-reference/chatbot-settings/update-chatbot-settings--general">
+    Configure chatbot behavior via API
+  </Card>
+
+  <Card title="Threads" icon="comments" href="/api-reference/chatbot-threads/fetch-all-threads">
+    Manage conversation threads
+  </Card>
+</CardGroup>

@@ -1,0 +1,439 @@
+---
+title: Freshdesk Messaging
+description: Connect ContextGPT to Freshdesk Messaging (formerly Freshchat)
+sidebarTitle: Freshdesk Messaging
+icon: headset
+---
+
+Integrate your ContextGPT chatbot with Freshdesk Messaging (Freshchat) to provide AI-powered support within your Freshdesk workflow. Your bot handles customer inquiries automatically while syncing conversations to your agent inbox.
+
+## How it works
+
+Your chatbot enhances Freshdesk Messaging with intelligent automation:
+
+<CardGroup cols={2}>
+  <Card title="Instant responses" icon="bolt">
+    Answers customer questions immediately 24/7
+  </Card>
+
+  <Card title="Agent handoff" icon="handshake">
+    Seamlessly escalates complex issues to human agents
+  </Card>
+
+  <Card title="Inbox sync" icon="inbox">
+    All conversations appear in Freshchat agent inbox
+  </Card>
+
+  <Card title="Context preservation" icon="brain">
+    Maintains full conversation history during handoffs
+  </Card>
+</CardGroup>
+
+## Prerequisites
+
+<Check>Active Freshchat/Freshdesk Messaging account with admin access</Check>
+<Check>Permissions to create API tokens and manage webhooks</Check>
+<Check>A trained ContextGPT chatbot ready to deploy</Check>
+
+## Setup
+
+<Steps>
+  <Step title="Generate Freshchat API key and chat URL">
+    Sign in to Freshchat and click the gear icon to open **Admin Settings**.
+
+    Navigate to **Marketplace and Integrations** → **API** → **API Settings**.
+
+    Under **API details for chat**, click **Generate token**. Freshchat creates an API key—copy this value.
+
+    Copy the **Chat URL** shown beneath the API key (e.g., `https://your-subdomain.freshchat.com/v2`).
+
+    Ensure **Send as** is set to **Bot** so messages appear under the bot identity.
+
+    <Warning>The API key is shown only once. Store it securely in a password manager.</Warning>
+  </Step>
+
+  <Step title="Connect Freshchat in ContextGPT">
+    In ContextGPT, navigate to **Integrations** → **Freshdesk** and click **Get Started**.
+
+    Enter the **Freshdesk API Key** and **Freshdesk Chat URL** from Freshchat, then click **Connect**.
+
+    ContextGPT displays a **Callback URL** after successful connection. Copy this URL for the next step.
+  </Step>
+
+  <Step title="Configure conversation webhook in Freshchat">
+    Return to Freshchat **Admin Settings** → **Marketplace and Integrations** → **API** → **Conversation Webhooks**.
+
+    Toggle the webhook to **Enabled**.
+
+    Paste the **Callback URL** from ContextGPT into the **Webhook** field.
+
+    (Optional) Enter an email under **Failure Notifications** to receive alerts when webhook calls fail.
+
+    In the **Authentication** section, copy the **RSA public key** if ContextGPT requests it.
+
+    Click **Save** to activate the webhook.
+
+    <Info>Freshchat retries failed webhooks up to 5 times with a 3-second timeout per attempt.</Info>
+  </Step>
+
+  <Step title="Test the integration">
+    Open a chat in Freshchat (as an agent or visitor) and send a test message.
+
+    The webhook forwards the message to ContextGPT, and your bot responds within the Freshchat interface.
+
+    <Tip>If no response appears, verify the API key, chat URL, and webhook URL are correct.</Tip>
+  </Step>
+</Steps>
+
+## Webhook configuration
+
+The webhook connects Freshchat to your ContextGPT bot:
+
+**Requirements:**
+
+* Must be publicly accessible (HTTPS)
+* Receives POST requests from Freshchat
+* Returns 200 status within 3 seconds
+
+**Failure handling:**
+
+* Freshchat retries up to 5 times
+* 3-second timeout per attempt
+* Email notifications for persistent failures (configure in webhook settings)
+
+**Authentication:**
+
+* RSA public key verification (optional)
+* Ensures requests are from Freshchat
+* Configure in ContextGPT integration settings if needed
+
+<Tip>Enable email notifications to catch webhook issues early.</Tip>
+
+## Message routing
+
+Configure message routing in Freshchat's **Routing** settings:
+
+* **AI-first** - Bot handles all messages initially, escalates when needed
+* **Agent-first** - Agents handle messages during business hours, bot handles after-hours
+* **Hybrid** - Bot handles tier 1 questions, agents handle complex issues
+
+Bot behavior (response tone, escalation rules) is configured in ContextGPT's [chatbot settings](/navigating-your-chatbot/settings).
+
+## Advanced features
+
+<AccordionGroup>
+  <Accordion title="Agent collaboration" icon="users">
+    Enable seamless AI-human teamwork:
+
+    **For agents:**
+
+    * View full conversation history before joining
+    * See which questions the bot answered
+    * Access bot confidence scores
+    * Take over conversations smoothly
+
+    **For customers:**
+
+    * Seamless transition from bot to agent
+    * No need to repeat information
+    * Consistent experience across handoffs
+    * Clear indication when agent joins
+
+    **Setup:**
+
+    1. Enable [human support](/features/human-support) in ContextGPT
+    2. Configure escalation triggers (keywords, low confidence, user request)
+    3. Set up agent notifications in Freshchat
+    4. Train agents on bot capabilities
+
+    <Tip>Agents can provide feedback on bot responses to improve accuracy over time.</Tip>
+  </Accordion>
+
+  <Accordion title="Lead capture and qualification" icon="address-book">
+    Identify and qualify leads during conversations:
+
+    **In ContextGPT:**
+
+    1. Enable [lead collection](/features/lead-collection)
+    2. Configure trigger keywords (e.g., "pricing", "demo", "enterprise")
+    3. Set up qualification questions (company size, budget, timeline)
+    4. Customize lead forms for your business
+
+    **In Freshchat:**
+
+    * Leads appear in agent inbox with full context
+    * Export leads to your CRM
+    * Track lead source and qualification status
+    * Measure chat-to-lead conversion rates
+
+    **Lead scoring:**
+
+    * Questions asked (product interest)
+    * Information provided (contact details, company)
+    * Engagement level (response time, message count)
+    * Pages visited (buying intent)
+
+    Perfect for sales teams using Freshchat for customer engagement.
+  </Accordion>
+
+  <Accordion title="Multi-language support" icon="globe">
+    Serve customers in their preferred language:
+
+    1. Train your ContextGPT bot with multilingual content
+    2. Enable language detection in chatbot settings
+    3. Bot automatically responds in detected language
+    4. Freshchat tracks conversations by language
+
+    **Supported languages:**
+
+    * Depends on your training data
+    * ContextGPT supports 50+ languages
+    * Add language-specific Q\&A pairs
+    * Configure language-specific escalation rules
+
+    <Info>Language detection works best with at least 3-5 words of input.</Info>
+  </Accordion>
+
+  <Accordion title="Analytics and reporting" icon="chart-line">
+    Track bot performance and customer satisfaction:
+
+    **In ContextGPT:**
+
+    * Navigate to **Chat History** for conversation details
+    * Review response accuracy and satisfaction
+    * Identify common questions and knowledge gaps
+    * Export data for custom analysis
+
+    **In Freshchat:**
+
+    * Track response times and resolution rates
+    * Monitor agent workload reduction
+    * Measure customer satisfaction scores
+    * Analyze conversation trends
+
+    **Key metrics to track:**
+
+    * Bot resolution rate (% handled without escalation)
+    * Average response time
+    * Customer satisfaction (CSAT)
+    * Escalation rate
+    * Most common questions
+
+    Use insights to continuously improve bot performance.
+  </Accordion>
+</AccordionGroup>
+
+## Managing the integration
+
+<Tabs>
+  <Tab title="Monitor performance" icon="chart-line">
+    Track your Freshchat bot's effectiveness:
+
+    **In ContextGPT:**
+
+    * Navigate to **Chat History** for all Freshchat conversations
+    * Review response accuracy and user satisfaction
+    * Identify frequently asked questions
+    * Export conversation data for analysis
+
+    **In Freshchat:**
+
+    * Use **Reports** for conversation metrics
+    * Track bot vs. agent performance
+    * Monitor customer satisfaction scores
+    * Analyze conversation trends
+
+    <Tip>Set up weekly reports to track key metrics automatically.</Tip>
+  </Tab>
+
+  <Tab title="Update your bot" icon="arrows-rotate">
+    Keep your bot current with minimal effort:
+
+    **Automatic updates:**
+
+    * Training data changes apply immediately
+    * Updated instructions take effect on new conversations
+    * Modified escalation rules activate instantly
+
+    **No reconnection required:**
+
+    * Add new products or services
+    * Update pricing information
+    * Refine conversation starters
+    * Adjust response tone
+
+    Test changes by sending a message through Freshchat.
+  </Tab>
+
+  <Tab title="Disconnect" icon="plug">
+    To remove the Freshdesk integration:
+
+    **In ContextGPT:**
+
+    1. Go to **Integrations** → **Freshdesk**
+    2. Click **Manage** → **Disconnect**
+
+    **In Freshchat (optional cleanup):**
+
+    1. Disable the conversation webhook
+    2. Delete the webhook URL
+    3. Revoke the API token
+
+    Conversation history remains in both platforms.
+  </Tab>
+</Tabs>
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Start with conservative settings" icon="gauge">
+    Build confidence gradually:
+
+    **Week 1-2:**
+
+    * Let bot handle only simple, well-documented questions
+    * Set high confidence threshold (80%+)
+    * Monitor all conversations closely
+    * Collect agent feedback
+
+    **Week 3-4:**
+
+    * Expand to more question types
+    * Lower confidence threshold to 75%
+    * Reduce monitoring frequency
+    * Update training data based on gaps
+
+    **Month 2+:**
+
+    * Let bot handle most tier 1 questions
+    * Confidence threshold at 65-70%
+    * Weekly monitoring and optimization
+    * Focus on edge cases and improvements
+
+    This approach minimizes errors while building team and customer trust.
+  </Accordion>
+
+  <Accordion title="Optimize for agent efficiency" icon="users">
+    Maximize the value of AI-human collaboration:
+
+    **Let AI handle:**
+
+    * Common questions with clear answers
+    * Information retrieval from documentation
+    * Basic troubleshooting steps
+    * Lead qualification questions
+
+    **Route to agents:**
+
+    * Complex technical issues
+    * Billing and refund requests
+    * Complaints and negative feedback
+    * Custom requirements and negotiations
+
+    **Measure success:**
+
+    * Agent workload reduction (target: 40-60%)
+    * Average handle time decrease
+    * Customer satisfaction maintenance or improvement
+    * Agent satisfaction with AI assistance
+
+    <Tip>Survey agents monthly to understand how AI is helping and where it needs improvement.</Tip>
+  </Accordion>
+
+  <Accordion title="Maintain conversation quality" icon="star">
+    Ensure excellent customer experience:
+
+    **Monitor regularly:**
+
+    * Review 10-20 conversations weekly
+    * Check for incorrect or unhelpful responses
+    * Identify confusing questions
+    * Update training data based on findings
+
+    **Collect feedback:**
+
+    * Enable feedback buttons in responses
+    * Track customer satisfaction scores
+    * Follow up on negative feedback
+    * Use insights to improve accuracy
+
+    **Set clear expectations:**
+
+    * Identify the bot as AI in welcome messages
+    * Explain what the bot can help with
+    * Make escalation options clearly visible
+    * Provide estimated agent response times
+
+    **Example welcome message:**
+
+    > "Hi! I'm the ContextGPT AI Assistant. I can help answer questions about our products and services instantly. Need to speak with a human agent? Just let me know anytime!"
+
+    Quality conversations build customer trust and satisfaction.
+  </Accordion>
+
+  <Accordion title="Leverage webhook reliability" icon="webhook">
+    Ensure consistent bot performance:
+
+    **Enable failure notifications:**
+
+    * Add your email to webhook failure alerts
+    * Respond to notifications within 24 hours
+    * Track failure patterns to identify issues
+
+    **Monitor webhook health:**
+
+    * Check Freshchat webhook logs weekly
+    * Verify response times stay under 3 seconds
+    * Ensure success rate stays above 95%
+
+    **Optimize webhook performance:**
+
+    * Use a reliable hosting provider
+    * Implement proper error handling
+    * Return 200 status quickly (within 1 second)
+    * Process time-consuming tasks asynchronously
+
+    **Backup plan:**
+
+    * Have a process for manual agent takeover if webhooks fail
+    * Document troubleshooting steps for your team
+    * Keep ContextGPT support contact information handy
+
+    Reliable webhooks ensure consistent customer experience.
+  </Accordion>
+
+  <Accordion title="Secure your integration" icon="lock">
+    Protect customer data and maintain compliance:
+
+    * Store API credentials securely (use environment variables)
+    * Enable RSA public key verification for webhooks
+    * Use HTTPS for all webhook URLs
+    * Regularly audit API access and permissions
+    * Rotate API tokens every 90 days
+    * Monitor webhook logs for suspicious activity
+    * Comply with GDPR and data privacy regulations
+    * Document data handling procedures
+
+    Security builds customer trust and protects your business.
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Human support" icon="user-headset" href="/features/human-support">
+    Configure escalation workflows
+  </Card>
+
+  <Card title="Lead collection" icon="address-book" href="/features/lead-collection">
+    Capture and qualify leads
+  </Card>
+
+  <Card title="Chat history" icon="messages" href="/navigating-your-chatbot/chat-history">
+    Review Freshchat conversations
+  </Card>
+
+  <Card title="Webhooks" icon="webhook" href="/developers/webhooks">
+    Set up custom integrations
+  </Card>
+</CardGroup>

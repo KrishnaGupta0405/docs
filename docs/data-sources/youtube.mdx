@@ -1,0 +1,178 @@
+---
+title: YouTube
+description: Train your ContextGPT chatbot with content from various data sources
+sidebarTitle: YouTube
+icon: youtube
+---
+
+# YouTube Integration
+
+Train your ContextGPT chatbot on video content by importing transcripts from YouTube videos, playlists, or entire channels. Perfect for companies with video tutorials, webinars, product demos, or educational content.
+
+## Why Use YouTube Training?
+
+* **Unlock video content** - Make your video knowledge searchable and answerable
+* **Support customers 24/7** - Answer questions based on tutorial content even when you're offline
+* **Leverage existing content** - Turn hours of video into instant chatbot knowledge
+
+## Prerequisites
+
+* Public or unlisted YouTube videos (private videos are not supported)
+* Videos must have captions/transcripts available (auto-generated or manual)
+
+## Adding YouTube Content
+
+<Steps>
+  <Step title="Navigate to Training">
+    Go to your chatbot dashboard and click the **Training** tab
+  </Step>
+
+  <Step title="Add Data Source">
+    Click **Add Data Source** and select **YouTube**
+  </Step>
+
+  <Step title="Enter Video URL">
+    Paste the URL of a YouTube video, playlist, or channel:
+
+    * **Single video**: `https://youtube.com/watch?v=VIDEO_ID`
+    * **Playlist**: `https://youtube.com/playlist?list=PLAYLIST_ID`
+    * **Channel**: `https://youtube.com/@ChannelName` or `https://youtube.com/c/ChannelName`
+  </Step>
+
+  <Step title="Configure Import">
+    Choose your import options:
+
+    * **For channels**: Select how many recent videos to import
+    * **For playlists**: Import all or select specific videos
+  </Step>
+
+  <Step title="Start Training">
+    Click **Import** to begin. ContextGPT extracts transcripts and trains your chatbot on the content.
+  </Step>
+</Steps>
+
+## How It Works
+
+1. **Transcript Extraction** - ContextGPT pulls the video transcript (captions)
+2. **Content Processing** - The transcript is cleaned and formatted
+3. **Training** - Your chatbot learns from the video content
+4. **Attribution** - Answers can reference which video the information came from
+
+<Note>
+  Training uses the video transcript, not the audio itself. Videos without captions cannot be imported.
+</Note>
+
+## Best Practices
+
+### Optimize for Transcripts
+
+If you're creating content specifically for chatbot training:
+
+* Speak clearly and at a moderate pace
+* State key information explicitly (don't just show it on screen)
+* Use proper nouns for products, features, and concepts
+* Review auto-generated captions for accuracy
+
+### Content Selection
+
+<AccordionGroup>
+  <Accordion title="Ideal content for import">
+    * Product tutorials and walkthroughs
+    * FAQ videos and Q\&A sessions
+    * Feature announcements and demos
+    * Educational webinars
+    * Customer success stories
+    * How-to guides
+  </Accordion>
+
+  <Accordion title="Less suitable content">
+    * Music videos or content with minimal speech
+    * Videos in languages your chatbot doesn't support
+    * Heavily visual content with little verbal explanation
+    * Outdated product demos
+  </Accordion>
+</AccordionGroup>
+
+### Keep Content Current
+
+If you publish new videos regularly:
+
+* Revisit the YouTube source monthly
+* Re-import or add new videos
+* Remove outdated content from training
+
+## Use Cases
+
+### Product Tutorial Channel
+
+Import your entire tutorial playlist to let customers ask "How do I..." questions:
+
+> **User**: How do I connect to Zapier?
+>
+> **Chatbot**: Based on our integration tutorial, here's how to connect ContextGPT to Zapier... \[references video timestamp]
+
+### Webinar Archive
+
+Turn past webinars into searchable knowledge:
+
+> **User**: What did you say about pricing for enterprise?
+>
+> **Chatbot**: In our Q2 webinar, we discussed enterprise pricing... \[extracted from webinar transcript]
+
+### FAQ Video Series
+
+If you have a video FAQ series, import it to supplement written FAQs:
+
+> **User**: Do you offer refunds?
+>
+> **Chatbot**: Yes, according to our FAQ video on billing, we offer a 30-day refund policy...
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Video import failed">
+    * Check that the video is public or unlisted (not private)
+    * Verify the video has captions available
+    * Try a different URL format (video ID vs full URL)
+  </Accordion>
+
+  <Accordion title="Transcript quality is poor">
+    Auto-generated captions can have errors. Consider:
+
+    * Adding manual captions to your videos
+    * Editing auto-captions in YouTube Studio
+    * Speaking more clearly in future videos
+  </Accordion>
+
+  <Accordion title="Channel import is slow">
+    Large channels with many videos take longer to process. Consider:
+
+    * Importing specific playlists instead
+    * Setting a limit on recent videos
+    * Breaking into multiple import sessions
+  </Accordion>
+</AccordionGroup>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Can I import private videos?">
+    No, only public and unlisted videos are supported. Private videos cannot be accessed by ContextGPT.
+  </Accordion>
+
+  <Accordion title="What languages are supported?">
+    Any language that YouTube provides captions for. The chatbot will learn in that language.
+  </Accordion>
+
+  <Accordion title="Do I need a YouTube API key?">
+    No, ContextGPT handles the connection. You just need to provide video URLs.
+  </Accordion>
+
+  <Accordion title="Will my chatbot show video links?">
+    You can configure your chatbot to include source links in responses, which can point back to the original video.
+  </Accordion>
+</AccordionGroup>
+
+## Pro Tip
+
+Combine YouTube training with your website and documentation for comprehensive coverage. Users can ask questions and get answers drawn from written docs, your website, AND your video content — all in one chatbot.

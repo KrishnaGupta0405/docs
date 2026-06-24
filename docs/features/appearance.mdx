@@ -1,0 +1,267 @@
+---
+title: Appearance
+description: Customize the visual design and behavior of your chatbot to match your brand
+sidebarTitle: Appearance
+icon: palette
+---
+
+Use the Appearance settings to customize how your chatbot looks and behaves on your website. Control colors, icons, positioning, and auto-open behavior to create a seamless brand experience.
+
+<iframe width="100%" style={{ aspectRatio: '16/9' }} src="https://www.youtube.com/embed/" title="Appearance Settings" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+
+## Accessing appearance settings
+
+Navigate to your chatbot dashboard and select **Appearance** from the sidebar to access all customization options.
+
+## Content settings
+
+<AccordionGroup>
+  <Accordion title="Chatbot name" icon="tag">
+    Set the display name for your chatbot that appears in the chat interface header.
+
+    **Example:** "Support Assistant" or "Sales Bot"
+  </Accordion>
+
+  {' '}
+
+  <Accordion title="Tooltip" icon="message-question">
+    Configure the message that appears when users hover over the chat icon. If
+    left empty, the welcome message will be used as the tooltip. **Example:**
+    "Need help? Chat with us!"
+  </Accordion>
+
+  {' '}
+
+  <Accordion title="Welcome message" icon="hand-wave">
+    The first message users see when they open the chatbot. Make it friendly and
+    informative to encourage engagement. **Example:** "Hello! How can I assist you
+    today?"
+
+    <Tip>
+      Keep welcome messages concise (1-2 sentences) for better engagement.
+    </Tip>
+  </Accordion>
+
+  <Accordion title="Input placeholder text" icon="keyboard">
+    The placeholder text shown in the message input field before users type their question.
+
+    **Example:** "Ask me anything..." or "Type your question here..."
+  </Accordion>
+</AccordionGroup>
+
+## Chat interface
+
+<Tabs>
+  <Tab title="Colors" icon="palette">
+    **Primary color**\
+    The main brand color used for the chat header, buttons, and user messages.
+
+    **Text color**\
+    The color of text displayed on primary color backgrounds (typically white or black for contrast).
+
+    <Tip>Ensure sufficient contrast between primary and text colors for accessibility. Use tools like WebAIM's contrast checker.</Tip>
+  </Tab>
+
+  {' '}
+
+  <Tab title="Font & Layout" icon="text-size">
+    **Font size** Set the base font size in pixels for all chat text (default:
+    16px). **Chat height** Control the height of the chat window as a percentage
+    of the viewport (1-100%).
+    <Info>Recommended chat height: 70-80% for optimal user experience.</Info>
+  </Tab>
+
+  {' '}
+
+  <Tab title="Watermark" icon="badge">
+    <Note>
+      Watermark customization requires the "Remove ContextGPT Branding" addon
+      (\$59/mo). Visit your [billing page](/navigating-your-account/billing) to
+      add this feature.
+    </Note>
+
+    **Watermark text** Replace the default "Powered by ContextGPT" text with your own
+    branding. **Watermark link** Set a custom URL for the watermark link. **Watermark
+    icon** Upload a custom icon to display next to the watermark text. **Hide powered
+    by branding** Completely remove the ContextGPT watermark from your chatbot.
+  </Tab>
+
+  <Tab title="Display Options" icon="eye">
+    **Hide sources**\
+    Remove the source links that show where the chatbot found its information.
+
+    **Hide tooltip**\
+    Disable the tooltip that appears when hovering over the chat icon.
+
+    **Hide feedback buttons**\
+    Remove the thumbs up/down reaction buttons from chatbot responses.
+
+    **RTL mode**\
+    Enable right-to-left text direction for languages like Arabic or Hebrew.
+
+    **Dark mode**\
+    Enable dark theme for the entire chat interface. When enabled, the widget automatically applies dark colors to all elements including the chat window, messages, and buttons for a better experience in low-light environments.
+
+    <Tip>Dark mode respects your primary color settings while adjusting other interface elements for optimal contrast and readability.</Tip>
+  </Tab>
+</Tabs>
+
+## Auto open chat window
+
+Configure when and how the chat window automatically opens for visitors.
+
+<Tabs>
+  <Tab title="Desktop" icon="desktop">
+    **Open chat window**\
+    Choose whether to automatically open the chat window on desktop devices.
+
+    * Don't open automatically
+    * Always open automatically (after delay)
+
+    **Delay**\
+    Set the number of seconds to wait before auto-opening the chat window (only applies when auto-open is enabled).
+
+    <Tip>Recommended delay: 3-5 seconds to avoid disrupting the user experience.</Tip>
+  </Tab>
+
+  <Tab title="Mobile" icon="mobile">
+    **Open chat window**\
+    Choose whether to automatically open the chat window on mobile devices.
+
+    * Don't open automatically
+    * Always open automatically (after delay)
+
+    **Delay**\
+    Set the number of seconds to wait before auto-opening the chat window on mobile.
+
+    <Warning>Auto-opening on mobile can be more intrusive. Consider longer delays (5-7 seconds) or disabling it entirely.</Warning>
+  </Tab>
+</Tabs>
+
+## Chat icon
+
+<Tabs>
+  <Tab title="Positioning" icon="arrows-up-down-left-right">
+    **Distance from bottom**\
+    Set the vertical distance from the bottom of the screen in pixels (desktop).
+
+    **Distance from bottom on mobile**\
+    Override the desktop value for mobile devices (optional).
+
+    **Horizontal distance**\
+    Set the horizontal distance from the left or right edge in pixels (desktop).
+
+    **Horizontal distance on mobile**\
+    Override the desktop value for mobile devices (optional).
+
+    **Position**\
+    Choose whether the chat icon appears in the bottom-right or bottom-left corner.
+
+    <Info>Default positioning: 20px from bottom and 20px from right edge.</Info>
+  </Tab>
+
+  {' '}
+
+  <Tab title="Size" icon="maximize">
+    Select from multiple icon sizes: | Size | Dimensions | |------|------------| |
+    Small | 48x48 px | | Medium | 56x56 px | | Large | 64x64 px | | XL | 72x72 px
+    \| | 2XL | 80x80 px | | 3XL | 96x96 px | | 4XL | 128x128 px | | 5XL | 156x156
+    px |
+
+    <Tip>
+      Most websites use Medium (56x56 px) or Large (64x64 px) for optimal
+      visibility without being intrusive.
+    </Tip>
+  </Tab>
+
+  <Tab title="Custom Icons" icon="image">
+    Upload custom images to replace the default icons:
+
+    **Bot icon**\
+    The icon shown in the chat bubble and next to bot messages.
+
+    **User icon**\
+    The icon displayed next to user messages in the chat.
+
+    **Agent icon**\
+    The icon shown when a human agent joins the conversation.
+
+    **Chat bubble icon**\
+    The icon displayed in the floating chat button on your website.
+
+    <Tip>Use square images (1:1 aspect ratio) for best results. PNG format with transparent backgrounds works well for icons.</Tip>
+  </Tab>
+</Tabs>
+
+## Preview
+
+The appearance page includes a preview panel showing how your chatbot will look. After making changes, you need to save them and reload the page to see the updated preview.
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Choose accessible colors" icon="universal-access">
+    Ensure sufficient contrast between your primary color and text color for readability. Use tools like WebAIM's contrast checker to verify accessibility.
+
+    **Minimum contrast ratios:**
+
+    * Normal text: 4.5:1
+    * Large text: 3:1
+  </Accordion>
+
+  <Accordion title="Test on multiple devices" icon="desktop">
+    Preview your chatbot on both desktop and mobile devices to ensure positioning and sizing work well across screen sizes.
+
+    **Test checklist:**
+
+    * Desktop browsers (Chrome, Firefox, Safari, Edge)
+    * Mobile devices (iOS, Android)
+    * Different screen sizes (phone, tablet, desktop)
+    * Both portrait and landscape orientations
+  </Accordion>
+
+  <Accordion title="Keep welcome messages concise" icon="message">
+    Short, friendly welcome messages (1-2 sentences) perform better than lengthy introductions.
+
+    **Good examples:**
+
+    * "Hi! How can I help you today?"
+    * "Welcome! Ask me anything about our products."
+
+    **Avoid:**
+
+    * Long paragraphs explaining everything the bot can do
+    * Multiple questions in the welcome message
+  </Accordion>
+
+  <Accordion title="Use auto-open strategically" icon="clock">
+    Auto-opening the chat can increase engagement, but use appropriate delays (3-5 seconds) to avoid disrupting the user experience.
+
+    **Best practices:**
+
+    * Use longer delays on mobile (5-7 seconds)
+    * Consider disabling auto-open on mobile entirely
+    * Test with real users to find optimal timing
+    * Monitor bounce rates after enabling auto-open
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Customizing your chatbot" icon="palette" href="/navigating-your-chatbot/customizing-your-chatbot">
+    Overview of all customization options
+  </Card>
+
+  <Card title="Creating a new chatbot" icon="plus" href="/setup/create-new-chatbot">
+    Initial appearance setup during chatbot creation
+  </Card>
+
+  <Card title="Settings" icon="gear" href="/navigating-your-chatbot/settings">
+    Configure chatbot behavior and features
+  </Card>
+
+  <Card title="JavaScript SDK" icon="code" href="/developers/sdk">
+    Advanced customization with CSS and SDK methods
+  </Card>
+</CardGroup>

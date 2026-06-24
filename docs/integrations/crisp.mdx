@@ -1,0 +1,305 @@
+---
+title: Crisp integration
+description: Integrate your ContextGPT chatbot with Crisp
+sidebarTitle: Crisp
+icon: comments
+---
+
+<video controls className="w-full aspect-video" src="https://mintcdn.com/ContextGPT/" data-path="videos/crisp.mp4" />
+
+Integrate your ContextGPT chatbot with Crisp to combine AI automation with live chat capabilities. Your bot handles initial inquiries automatically and escalates to human agents when needed, creating a seamless support experience.
+
+## How it works
+
+Your chatbot integrates seamlessly with Crisp to provide hybrid AI-human support:
+
+<CardGroup cols={2}>
+  <Card title="AI-first responses" icon="robot">
+    Bot answers customer messages automatically using your knowledge base
+  </Card>
+
+  <Card title="Smart escalation" icon="handshake">
+    Seamlessly hands off to human agents when needed
+  </Card>
+
+  <Card title="Context preservation" icon="brain">
+    Maintains full conversation history during handoffs
+  </Card>
+
+  <Card title="Dual-platform sync" icon="arrows-rotate">
+    Syncs all interactions to both Crisp and ContextGPT dashboards
+  </Card>
+</CardGroup>
+
+## Prerequisites
+
+<Check>A Crisp account with at least one website/brand configured</Check>
+<Check>Access to the Crisp Marketplace to create plugins</Check>
+<Check>A trained ContextGPT chatbot ready to deploy</Check>
+
+## Setup
+
+<Steps>
+  <Step title="Create a Crisp plugin">
+    Open the [Crisp Marketplace](https://marketplace.crisp.chat), navigate to **Plugins**, and click **Create Plugin**.
+
+    Enter a **Name** (e.g., "ContextGPT Bot") and **Description** (e.g., "AI-powered support via ContextGPT").
+
+    Crisp generates a development token with an **Identifier** and **Key**. Copy both values—you'll need them in ContextGPT.
+
+    <Info>These credentials authenticate your ContextGPT bot with Crisp.</Info>
+  </Step>
+
+  <Step title="Connect the plugin in ContextGPT">
+    In ContextGPT, navigate to **Integrations** → **Crisp** and click **Get Started**.
+
+    Paste the **Identifier** and **Key** from Crisp, then click **Connect**.
+
+    ContextGPT displays a **Callback URL**. Keep this URL handy for the next step.
+  </Step>
+
+  <Step title="Configure webhook in Crisp">
+    In the Crisp dashboard, open your website settings → **Advanced configuration** → **Webhooks**.
+
+    Click **Add Hook Target** and configure:
+
+    * **Name for Hook**: ContextGPT Bot
+    * **URL To Be Called**: Paste the Callback URL from ContextGPT
+    * **Filter Events**: Enable `session:set_state`, `session:set_email`, `message:send`, and `message:receive`
+
+    Click **Add Hook Target** to save.
+
+    <Tip>These events determine which Crisp activities trigger your ContextGPT bot.</Tip>
+  </Step>
+
+  <Step title="Add your website as trusted">
+    In the Crisp Marketplace, open your plugin settings and add your Crisp website as a **Trusted website**.
+
+    Enter your credentials when prompted. Crisp confirms when the website is successfully added.
+  </Step>
+
+  <Step title="Test the integration">
+    Embed the Crisp chat widget on your website (found under **Website Settings** → **Installation**).
+
+    Load your site and initiate a chat. Ask a question like "What is ContextGPT?"
+
+    The bot should respond with an answer, source links, and an **Escalate to Human** button.
+
+    <Tip>Click "Escalate to Human" to test the handoff—a Crisp agent can join via Crisp Inbox.</Tip>
+  </Step>
+</Steps>
+
+## Webhook events
+
+Configure which Crisp events trigger your bot in the webhook settings:
+
+**Recommended events:**
+
+* `message:send` - New messages from visitors
+* `message:receive` - Messages from agents
+* `session:set_state` - Conversation state changes
+* `session:set_email` - User provides email
+
+**Optional events:**
+
+* `session:set_nickname` - User provides name
+* `session:set_phone` - User provides phone
+* `session:set_data` - Custom data updates
+
+<Tip>Enable only the events you need to reduce unnecessary webhook calls.</Tip>
+
+## Escalation
+
+Users can escalate to human agents by clicking the "Escalate to Human" button in bot responses. Configure escalation behavior in ContextGPT's [human support settings](/features/human-support).
+
+## Advanced features
+
+<AccordionGroup>
+  <Accordion title="Lead collection" icon="address-book">
+    Capture leads directly in Crisp conversations:
+
+    1. Enable [lead collection](/features/lead-collection) in ContextGPT
+    2. Configure trigger keywords (e.g., "pricing", "demo", "quote")
+    3. Bot collects contact information when users show interest
+    4. Leads sync to both ContextGPT and Crisp
+
+    Perfect for qualifying leads before human agent involvement.
+  </Accordion>
+
+  <Accordion title="Custom responses" icon="message-lines">
+    Personalize bot responses for Crisp:
+
+    * Set up [custom responses](/features/custom-responses) for common questions
+    * Configure welcome messages specific to Crisp
+    * Add quick reply buttons for common actions
+    * Customize escalation messages
+
+    Maintain consistent branding across all support channels.
+  </Accordion>
+
+  <Accordion title="Analytics and reporting" icon="chart-line">
+    Track AI performance in both platforms:
+
+    **In ContextGPT:**
+
+    * Response accuracy
+    * Conversation volume
+    * Escalation rate
+    * User satisfaction
+
+    **In Crisp:**
+
+    * First response time
+    * Resolution time
+    * Agent workload reduction
+    * Customer satisfaction scores
+
+    Use insights to continuously improve your bot's performance.
+  </Accordion>
+</AccordionGroup>
+
+## Managing the integration
+
+<Tabs>
+  <Tab title="Monitor performance" icon="chart-line">
+    Track your Crisp bot's effectiveness:
+
+    Navigate to **Chat History** in ContextGPT to:
+
+    * Review Crisp conversation transcripts
+    * Identify common questions
+    * Analyze escalation patterns
+    * Export conversation data
+
+    In Crisp, use the **Analytics** dashboard to:
+
+    * Track response times
+    * Monitor agent workload
+    * Measure customer satisfaction
+    * View conversation trends
+  </Tab>
+
+  <Tab title="Update settings" icon="sliders">
+    Adjust your integration configuration:
+
+    **In ContextGPT:**
+
+    * Update training data
+    * Modify chatbot instructions
+    * Configure escalation rules
+    * Adjust lead collection triggers
+
+    **In Crisp:**
+
+    * Change webhook events
+    * Update response triggers
+    * Modify welcome messages
+    * Configure quick replies
+
+    Changes take effect immediately—no reconnection required.
+  </Tab>
+
+  <Tab title="Disconnect" icon="plug">
+    To remove the Crisp integration:
+
+    1. Go to **Integrations** in ContextGPT
+    2. Click **Manage** next to Crisp
+    3. Click **Disconnect**
+
+    Optionally, remove the webhook and plugin from Crisp:
+
+    1. Delete the webhook in Crisp website settings
+    2. Remove the plugin from Crisp Marketplace
+  </Tab>
+</Tabs>
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Start with conservative settings" icon="gauge">
+    Begin with AI handling simple queries:
+
+    * Enable "Fallback mode" initially to let humans handle most conversations
+    * Gradually expand to "Business hours only" as confidence grows
+    * Monitor escalation rates and adjust triggers accordingly
+    * Train your bot on common Crisp conversations
+
+    This approach builds trust with your team and customers.
+  </Accordion>
+
+  <Accordion title="Monitor AI performance regularly" icon="chart-line">
+    Review conversations weekly to improve accuracy:
+
+    * Check **Chat History** for misunderstood questions
+    * Add frequently asked questions to training data
+    * Update chatbot instructions based on patterns
+    * Adjust escalation triggers to reduce false positives
+
+    <Tip>Export conversation data monthly to identify trends and knowledge gaps.</Tip>
+  </Accordion>
+
+  <Accordion title="Use AI for triage, humans for complexity" icon="filter">
+    Optimize the AI-human workflow:
+
+    **AI handles:**
+
+    * Common questions with clear answers
+    * Information retrieval from documentation
+    * Initial lead qualification
+    * Basic troubleshooting steps
+
+    **Humans handle:**
+
+    * Complex technical issues
+    * Sensitive account matters
+    * Complaints and refunds
+    * Personalized recommendations
+
+    This division maximizes efficiency while maintaining quality.
+  </Accordion>
+
+  <Accordion title="Set clear expectations" icon="message-lines">
+    Help customers understand they're chatting with AI:
+
+    * Include "AI Assistant" in the bot name
+    * Add a welcome message explaining AI capabilities
+    * Make escalation options clearly visible
+    * Provide estimated response times for human agents
+
+    **Example welcome message:**
+
+    > "Hi! I'm the ContextGPT AI Assistant. I can answer questions about our products and services instantly. Need to speak with a human? Just click 'Escalate to Human' anytime!"
+  </Accordion>
+
+  <Accordion title="Maintain webhook security" icon="lock">
+    Protect your Crisp integration:
+
+    * Enable webhook event signing in Crisp
+    * Store the public key securely in ContextGPT
+    * Use HTTPS for all webhook URLs
+    * Regularly review webhook logs for suspicious activity
+    * Rotate credentials periodically
+
+    Security ensures reliable, trustworthy customer interactions.
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Human support" icon="user-headset" href="/features/human-support">
+    Configure escalation settings
+  </Card>
+
+  <Card title="Lead collection" icon="address-book" href="/features/lead-collection">
+    Capture leads from Crisp conversations
+  </Card>
+
+  <Card title="Chat history" icon="messages" href="/navigating-your-chatbot/chat-history">
+    Review conversation transcripts
+  </Card>
+
+  <Card title="Custom responses" icon="message-lines" href="/features/custom-responses">
+    Personalize bot responses
+  </Card>
+</CardGroup>

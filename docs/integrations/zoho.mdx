@@ -1,0 +1,528 @@
+---
+title: Zoho SalesIQ integration
+description: Add intelligent chat to your Zoho CRM
+sidebarTitle: Zoho integration
+icon: building
+---
+
+<video controls className="w-full aspect-video" src="https://mintcdn.com/" data-path="videos/zoho-salesiq.mp4" />
+
+Integrate your ContextGPT chatbot with Zoho SalesIQ to provide AI-powered support within your Zoho ecosystem. Your bot engages visitors automatically, qualifies leads, and seamlessly integrates with your CRM workflow.
+
+## How it works
+
+Your chatbot enhances Zoho SalesIQ with intelligent automation:
+
+<CardGroup cols={2}>
+  <Card title="Instant engagement" icon="bolt">
+    Greets visitors and answers questions immediately
+  </Card>
+
+  <Card title="Lead qualification" icon="filter">
+    Identifies and qualifies prospects automatically
+  </Card>
+
+  <Card title="CRM integration" icon="database">
+    Syncs conversations and leads to Zoho CRM
+  </Card>
+
+  <Card title="Multi-channel deployment" icon="devices">
+    Works on website, mobile apps, and email
+  </Card>
+</CardGroup>
+
+## Prerequisites
+
+<Check>Zoho SalesIQ account with bot creation permissions</Check>
+<Check>A trained ContextGPT chatbot ready to deploy</Check>
+<Check>Admin access to create brands and configure bots in SalesIQ</Check>
+
+## Setup
+
+<Steps>
+  <Step title="Create a brand in Zoho SalesIQ">
+    In your Zoho SalesIQ dashboard, navigate to **Brands** → **Add**.
+
+    Enter a brand name and click **Create**. The brand dashboard displays cards for Installation, Personalization, Flow Controls, and Configurations.
+  </Step>
+
+  <Step title="Create a webhook bot">
+    Under your brand, go to **Bots** and click **Create bot**.
+
+    In the bot builder:
+
+    * **Platform**: Choose **Third-party platforms** → **Webhook**
+    * **Bot name**: Enter a name (e.g., "ContextGPT Bot")
+    * **Bot profile**: Select your brand and **Website** channel
+    * **Working hours**: Define when the bot should be active (optional)
+
+    <Info>Webhook bots connect to external AI services like ContextGPT.</Info>
+  </Step>
+
+  <Step title="Configure bot settings">
+    In the **Configurations** step, set:
+
+    <Tabs>
+      <Tab title="Audience" icon="users">
+        * **All visitors** - Bot engages everyone
+        * **Specific segments** - Target by location, behavior, etc.
+      </Tab>
+
+      <Tab title="Triggers" icon="bolt">
+        * **On page load** - Start chat immediately
+        * **On widget click** - Wait for user to open chat
+        * **Custom action** - Trigger based on user behavior
+      </Tab>
+
+      <Tab title="Response intervals" icon="clock">
+        Set delays between bot messages for natural conversation flow
+      </Tab>
+    </Tabs>
+  </Step>
+
+  <Step title="Generate webhook URL in ContextGPT">
+    In ContextGPT, navigate to **Integrations** → **Zoho** and click **Get Started**.
+
+    Click **Connect**. ContextGPT generates a **Callback (Webhook) URL** and displays it in the modal.
+
+    Keep this modal open—you'll return after configuring SalesIQ.
+  </Step>
+
+  <Step title="Connect the webhook">
+    Back in the SalesIQ bot builder, paste the Webhook URL from ContextGPT into the **URL to be invoked** field.
+
+    Click **Create Bot**. SalesIQ displays a **Secure your webhook** section.
+
+    Enable event signing (toggle) and copy the **Public key** that SalesIQ generates.
+
+    <Warning>This key verifies that webhook requests are genuinely from Zoho.</Warning>
+  </Step>
+
+  <Step title="Verify webhook in ContextGPT">
+    Return to the ContextGPT integration modal and paste the **Public key** from SalesIQ.
+
+    Click **Save**. ContextGPT now verifies signed events from SalesIQ.
+  </Step>
+
+  <Step title="Publish and install">
+    In SalesIQ, click **Publish** to activate the bot.
+
+    Go to **Installation** → **Installation codes** for your brand. Copy the script snippet for your platform:
+
+    * **Website** - JavaScript snippet
+    * **Android** - SDK integration code
+    * **iOS** - SDK integration code
+    * **Email signature** - HTML snippet
+
+    Add the code to your website or app to display the chat widget.
+
+    <Tip>Test the integration by opening your website and asking a question.</Tip>
+  </Step>
+</Steps>
+
+## Zoho SalesIQ configuration
+
+Configure bot behavior in Zoho SalesIQ's **Configurations** page:
+
+**Visitor targeting:**
+
+* All visitors, returning visitors, or specific segments
+* Geographic targeting by country or region
+* Behavioral triggers based on pages viewed or actions taken
+
+**Chat triggers:**
+
+* **On page load** - Widget opens automatically (best for high-intent pages)
+* **On widget click** - Widget stays minimized until clicked (recommended)
+* **Custom action** - Trigger based on scroll depth, exit intent, or custom events
+
+**Response settings:**
+
+* Response intervals - Delay between bot messages for natural pacing
+* Idle timeout - Minutes of inactivity before closing conversation
+* Working hours - Define when the bot should be active
+
+**Multi-channel deployment:**
+
+* **Website** - JavaScript snippet
+* **Mobile apps** - Android or iOS SDK
+* **Email signature** - HTML snippet
+
+Configure escalation rules in ContextGPT's [human support settings](/features/human-support).
+
+## Advanced features
+
+<AccordionGroup>
+  <Accordion title="Lead scoring and qualification" icon="star">
+    Automatically qualify leads during conversations:
+
+    **In ContextGPT:**
+
+    1. Enable [lead collection](/features/lead-collection) with custom fields
+    2. Configure trigger keywords (e.g., "pricing", "demo", "enterprise")
+    3. Set up qualification questions (company size, budget, timeline)
+
+    **In Zoho SalesIQ:**
+
+    * Leads sync automatically to SalesIQ dashboard
+    * Assign lead scores based on conversation data
+    * Route qualified leads to sales team
+    * Create deals in Zoho CRM automatically
+
+    **Lead scoring criteria:**
+
+    * Questions asked (product interest)
+    * Pages visited (buying intent)
+    * Information provided (contact details, company)
+    * Engagement level (response time, message count)
+
+    <Tip>Integrate with Zoho CRM to create leads automatically when qualification criteria are met.</Tip>
+  </Accordion>
+
+  <Accordion title="Zoho CRM integration" icon="database">
+    Sync conversations and leads to your CRM:
+
+    **Automatic sync:**
+
+    * Conversations appear in Zoho CRM contact records
+    * Lead information populates CRM fields
+    * Chat transcripts attach to deals
+    * Engagement history tracks in timeline
+
+    **Setup:**
+
+    1. In SalesIQ, go to **Settings** → **Integrations** → **Zoho CRM**
+    2. Authorize the connection
+    3. Map SalesIQ fields to CRM fields
+    4. Configure sync rules (when to create leads, contacts, deals)
+
+    **Benefits:**
+
+    * Sales team sees full conversation context
+    * Marketing tracks campaign effectiveness
+    * Support accesses customer history
+    * Analytics measure chat-to-conversion rates
+  </Accordion>
+
+  <Accordion title="Visitor tracking and analytics" icon="chart-line">
+    Gain insights into visitor behavior:
+
+    **Real-time tracking:**
+
+    * See who's on your website now
+    * View pages they're browsing
+    * Monitor time on site
+    * Track referral sources
+
+    **Conversation analytics:**
+
+    * Total conversations by bot vs. human
+    * Average response time
+    * Resolution rate
+    * Customer satisfaction scores
+
+    **Lead analytics:**
+
+    * Conversion rate from chat to lead
+    * Lead quality scores
+    * Top performing pages
+    * Best performing triggers
+
+    Access analytics in SalesIQ's **Reports** section.
+  </Accordion>
+
+  <Accordion title="Custom bot workflows" icon="network-wired">
+    Create sophisticated conversation flows:
+
+    **In ContextGPT:**
+
+    * Configure [conversation starters](/features/conversation-starters) for common questions
+    * Set up [custom responses](/features/custom-responses) for specific queries
+    * Define escalation triggers for complex issues
+
+    **In SalesIQ:**
+
+    * Create custom bot actions (send email, create ticket, schedule meeting)
+    * Set up conditional logic (if/then rules)
+    * Configure follow-up sequences
+    * Integrate with Zoho Desk for support tickets
+
+    **Example workflow:**
+
+    1. Bot greets visitor and offers help
+    2. Visitor asks about pricing
+    3. Bot provides pricing info and collects contact details
+    4. Bot offers to schedule a demo
+    5. If accepted, bot creates calendar event in Zoho Bookings
+    6. Lead syncs to Zoho CRM with "Demo Scheduled" status
+  </Accordion>
+</AccordionGroup>
+
+## Managing the integration
+
+<Tabs>
+  <Tab title="Monitor performance" icon="chart-line">
+    Track your Zoho bot's effectiveness:
+
+    **In ContextGPT:**
+
+    * Navigate to **Chat History** for all SalesIQ conversations
+    * Review response accuracy and satisfaction
+    * Identify common questions and knowledge gaps
+    * Export data for custom analysis
+
+    **In Zoho SalesIQ:**
+
+    * Use **Reports** for conversation metrics
+    * Track visitor engagement and conversion rates
+    * Monitor bot vs. human agent performance
+    * Analyze lead quality and scoring
+
+    <Tip>Set up weekly reports in SalesIQ to track key metrics automatically.</Tip>
+  </Tab>
+
+  <Tab title="Update your bot" icon="arrows-rotate">
+    Keep your bot current:
+
+    **Automatic updates:**
+
+    * Training data changes apply immediately
+    * Updated instructions take effect on new conversations
+    * Modified escalation rules activate instantly
+
+    **No reconnection required:**
+
+    * Add new products or services
+    * Update pricing information
+    * Refine conversation starters
+    * Adjust response tone
+
+    Test changes by starting a new conversation in SalesIQ.
+  </Tab>
+
+  <Tab title="Disconnect" icon="plug">
+    To remove the Zoho integration:
+
+    **In ContextGPT:**
+
+    1. Go to **Integrations** → **Zoho**
+    2. Click **Manage** → **Disconnect**
+
+    **In Zoho SalesIQ (optional cleanup):**
+
+    1. Delete the webhook bot
+    2. Remove the installation code from your website
+    3. Disable webhook event signing
+
+    Conversation history remains in both platforms.
+  </Tab>
+</Tabs>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Bot not responding" icon="circle-xmark">
+    If your bot isn't responding in SalesIQ:
+
+    **Verify webhook configuration:**
+
+    * Ensure event signing is enabled in SalesIQ
+    * Check that the public key matches in ContextGPT
+    * Confirm the webhook URL is correct
+    * Verify the bot is published (not in draft mode)
+
+    **Check bot settings:**
+
+    * Ensure the bot is assigned to the correct brand
+    * Verify the website channel is selected
+    * Check that working hours include current time (if configured)
+    * Confirm visitor targeting includes your test scenario
+
+    **Test the webhook:**
+
+    * Use SalesIQ's webhook testing tool
+    * Check ContextGPT webhook logs for errors
+    * Verify your bot has training data
+
+    <Tip>Regenerate the public key in SalesIQ and update it in ContextGPT if issues persist.</Tip>
+  </Accordion>
+
+  <Accordion title="Widget not appearing" icon="eye-slash">
+    If the chat widget doesn't load:
+
+    * Verify the installation code is correctly embedded
+    * Check that the script is placed before `</body>` tag
+    * Ensure the brand is active in SalesIQ
+    * Test in an incognito window to rule out browser cache
+    * Confirm your website allows third-party scripts
+    * Check browser console for JavaScript errors
+
+    The widget may take 5-10 seconds to load on first visit.
+  </Accordion>
+
+  <Accordion title="Webhook signature errors" icon="shield-exclamation">
+    If you see authentication failures:
+
+    1. Verify event signing is enabled in SalesIQ
+    2. Copy the public key from SalesIQ exactly (no extra spaces)
+    3. Paste it into ContextGPT's Zoho integration settings
+    4. Click **Save** to update
+
+    <Warning>If errors continue, regenerate the public key in SalesIQ and update ContextGPT.</Warning>
+  </Accordion>
+
+  <Accordion title="Conversations not syncing to CRM" icon="database">
+    If conversations don't appear in Zoho CRM:
+
+    * Verify the CRM integration is enabled in SalesIQ
+    * Check that field mappings are configured correctly
+    * Ensure sync rules match your criteria
+    * Confirm the CRM connection is authorized
+    * Review SalesIQ sync logs for errors
+
+    Re-authorize the CRM connection if needed.
+  </Accordion>
+</AccordionGroup>
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Optimize visitor targeting" icon="bullseye">
+    Show your bot to the right visitors at the right time:
+
+    **High-intent pages:**
+
+    * Pricing page - Auto-open after 5 seconds
+    * Product pages - Auto-open after 10 seconds
+    * Demo request page - Auto-open immediately
+
+    **Low-intent pages:**
+
+    * Blog posts - Widget click only
+    * About page - Widget click only
+    * Homepage - Auto-open after 15 seconds
+
+    **Behavioral triggers:**
+
+    * Exit intent - Offer help before leaving
+    * Scroll depth - Engage after 50% scroll
+    * Time on site - Reach out after 30 seconds
+
+    <Tip>Use SalesIQ's A/B testing to find optimal trigger timing for each page type.</Tip>
+  </Accordion>
+
+  <Accordion title="Leverage CRM integration" icon="database">
+    Maximize value by connecting to Zoho CRM:
+
+    **For sales teams:**
+
+    * Automatically create leads from qualified conversations
+    * Attach chat transcripts to contact records
+    * Track conversation-to-deal conversion rates
+    * Prioritize leads based on chat engagement
+
+    **For marketing:**
+
+    * Measure campaign effectiveness via chat source tracking
+    * Segment audiences based on chat topics
+    * Personalize follow-up emails with conversation context
+    * Calculate ROI of chat vs. other channels
+
+    **For support:**
+
+    * Access customer history before responding
+    * Create support tickets from chat escalations
+    * Track common issues and feature requests
+    * Measure customer satisfaction by segment
+
+    Integration creates a unified customer view across teams.
+  </Accordion>
+
+  <Accordion title="Configure smart escalation" icon="handshake">
+    Balance AI automation with human expertise:
+
+    **Let AI handle:**
+
+    * Product information requests
+    * Pricing questions
+    * How-to guides and documentation
+    * Lead qualification questions
+
+    **Escalate to humans:**
+
+    * Technical support issues
+    * Billing and refund requests
+    * Complaints and negative feedback
+    * Custom requirements and negotiations
+
+    **Escalation triggers:**
+
+    * User requests human agent explicitly
+    * Bot confidence below 70%
+    * Keywords like "cancel", "refund", "complaint"
+    * More than 5 messages without resolution
+
+    Configure in ContextGPT's [human support settings](/features/human-support).
+  </Accordion>
+
+  <Accordion title="Monitor and improve continuously" icon="chart-line">
+    Regular optimization drives better results:
+
+    **Weekly reviews:**
+
+    * Check top 10 conversations for accuracy
+    * Identify questions the bot couldn't answer
+    * Add new Q\&A pairs to training data
+    * Adjust escalation triggers based on patterns
+
+    **Monthly analysis:**
+
+    * Review conversion rates (chat to lead)
+    * Analyze lead quality scores
+    * Compare bot vs. human agent performance
+    * Update targeting rules based on data
+
+    **Quarterly optimization:**
+
+    * Audit entire knowledge base for outdated info
+    * Refine conversation starters based on trends
+    * Test new trigger strategies
+    * Benchmark against industry standards
+
+    <Tip>Set up automated reports in SalesIQ to track key metrics without manual work.</Tip>
+  </Accordion>
+
+  <Accordion title="Maintain security and compliance" icon="lock">
+    Protect customer data and maintain trust:
+
+    * Store webhook credentials securely
+    * Enable event signing for webhook verification
+    * Regularly audit API access and permissions
+    * Comply with GDPR and data privacy regulations
+    * Document data handling procedures
+    * Train team on security best practices
+    * Monitor webhook logs for suspicious activity
+
+    Security is essential for customer trust and regulatory compliance.
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Lead collection" icon="address-book" href="/features/lead-collection">
+    Capture and qualify leads automatically
+  </Card>
+
+  <Card title="Human support" icon="user-headset" href="/features/human-support">
+    Configure escalation workflows
+  </Card>
+
+  <Card title="Conversation starters" icon="message-lines" href="/features/conversation-starters">
+    Set up quick reply options
+  </Card>
+
+  <Card title="Chat history" icon="messages" href="/navigating-your-chatbot/chat-history">
+    Review Zoho conversations
+  </Card>
+</CardGroup>

@@ -1,0 +1,124 @@
+---
+title: Box
+description: Train your chatbot on files from Box cloud storage
+sidebarTitle: Box
+icon: box
+---
+
+# Box Integration 
+
+Import documents and files from your Box account to train your ContextGPT chatbot. Perfect for enterprise teams using Box as their secure cloud storage for support documentation and knowledge base content.
+
+## Prerequisites
+
+* A Box account (Personal, Business, or Enterprise)
+* Access to the files and folders you want to import
+* Owner or Editor permissions on the ContextGPT chatbot
+
+## Connecting Box
+
+<Steps>
+  <Step title="Navigate to Training">
+    Go to your chatbot dashboard and click the **Training** tab
+  </Step>
+
+  <Step title="Add Data Source">
+    Click **Add Data Source** and select **Box**
+  </Step>
+
+  <Step title="Authenticate">
+    Click **Connect Box** and sign in with your Box credentials. Grant ContextGPT permission to read your files.
+  </Step>
+
+  <Step title="Select Content">
+    Browse your Box account and select:
+
+    * Individual files
+    * Entire folders (all supported files within)
+    * Shared folders you have access to
+  </Step>
+
+  <Step title="Start Training">
+    Click **Import Selected** to begin training. ContextGPT will process each file and add the content to your chatbot's knowledge base.
+  </Step>
+</Steps>
+
+## Supported File Types
+
+| File Type     | Extensions              |
+| ------------- | ----------------------- |
+| Documents     | .doc, .docx, .txt, .rtf |
+| Spreadsheets  | .xls, .xlsx, .csv       |
+| Presentations | .ppt, .pptx             |
+| PDFs          | .pdf                    |
+| Markup        | .html, .md, .markdown   |
+| Box Notes     | ✅ Supported             |
+
+<Note>
+  Box Notes are automatically converted and imported. Other proprietary Box formats are also supported.
+</Note>
+
+## Best Practices
+
+### Organize Your Content
+
+Create a dedicated folder structure for chatbot training:
+
+```
+📁 Support Content/
+  ├── 📄 FAQ.pdf
+  ├── 📄 Getting Started.docx
+  ├── 📁 Product Guides/
+  │   ├── 📄 Feature Overview.docx
+  │   └── 📄 Advanced Settings.pdf
+  └── 📁 Troubleshooting/
+      ├── 📄 Common Issues.docx
+      └── 📄 Error Messages.pdf
+```
+
+### Security Considerations
+
+* **Watermarked files**: Watermarks are preserved but don't affect text extraction
+* **Encrypted files**: Cannot be imported (decrypt before importing)
+* **Retention policies**: Ensure content you import is approved for external use
+
+### Keep Content Fresh
+
+* **Re-import regularly**: Sync your Box content periodically to capture updates
+* **Use Box's version history**: Ensure latest versions are uploaded
+* **Remove outdated content**: Clean up old files before re-importing
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Files not appearing">
+    * Verify you have at least Viewer access to the files
+    * Check that files are in supported formats
+    * Ensure files aren't in a restricted or external folder
+  </Accordion>
+
+  <Accordion title="Import fails or times out">
+    * Try importing smaller batches of files
+    * Check for very large files (>100MB may take longer)
+    * Ensure your Box connection is still valid
+  </Accordion>
+
+  <Accordion title="Box Notes not importing">
+    * Box Notes should import automatically
+    * If issues persist, export as PDF and re-import
+    * Check that the Note isn't shared with restricted permissions
+  </Accordion>
+</AccordionGroup>
+
+## Box Enterprise Features
+
+For Box Business and Enterprise accounts:
+
+* **Collaboration folders**: Import content from shared collaborative folders
+* **Admin capabilities**: Admins can connect organization-wide folders
+* **Metadata**: File metadata is preserved in import logs
+* **Compliance**: ContextGPT respects Box's governance and retention policies
+
+<Info>
+  Enterprise admins can restrict which apps can access Box content. If you can't connect, check with your IT administrator.
+</Info>

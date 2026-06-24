@@ -1,0 +1,423 @@
+---
+title: Zendesk integration
+description: Install ContextGPT as a Zendesk AI agent with one-click OAuth — no API keys, no webhook setup
+sidebarTitle: Zendesk integration
+icon: ticket
+---
+
+<video controls className="w-full aspect-video" src="https://..." />
+
+Connect your ContextGPT chatbot to Zendesk Messaging in about two minutes.
+One-click OAuth install, no API keys, no webhook configuration. ContextGPT
+becomes your default AI agent — handling customer conversations, answering
+from your knowledge base, and handing off to human agents when needed.
+
+<Note>If you already have the older API-key-based Zendesk integration installed, see [Zendesk (Legacy)](/integrations/zendesk-legacy). For new Zendesk installs, follow this guide.</Note>
+
+## How it works
+
+<CardGroup cols={2}>
+  <Card title="One-click install" icon="bolt">
+    OAuth flow — no API keys, no secrets, no webhooks to configure
+  </Card>
+
+  <Card title="AI as default responder" icon="robot">
+    ContextGPT answers every new conversation from your knowledge base
+  </Card>
+
+  <Card title="Seamless agent handoff" icon="handshake">
+    Escalates to human agents through Zendesk's native switchboard
+  </Card>
+
+  <Card title="Auto-resume after resolve" icon="arrows-rotate">
+    When an agent solves the ticket, ContextGPT automatically resumes
+  </Card>
+</CardGroup>
+
+## Prerequisites
+
+<Check>Zendesk Suite **Professional** plan or above, with Messaging and Sunshine Conversations access</Check>
+<Check>Admin access to your Zendesk Admin Center</Check>
+<Check>A trained ContextGPT chatbot ready to deploy</Check>
+
+## Setup
+
+Setup has two parts: **connecting ContextGPT to Zendesk** (one click), and
+**three Zendesk-side configuration steps** in Admin Center. All three
+Zendesk-side steps are required for escalation and hand-back to work
+correctly.
+
+### Part 1 — Connect ContextGPT to Zendesk
+
+You can start the install from **either** side. Both paths end on the same
+post-install walkthrough.
+
+<Tabs>
+  <Tab title="From the Zendesk Marketplace" icon="store">
+    The primary path — use this if you're discovering ContextGPT from the
+    marketplace listing.
+
+    <Steps>
+      <Step title="Find the listing in the Zendesk Marketplace">
+        Open the [Zendesk Marketplace apps
+        directory](https://www.zendesk.com/marketplace/apps), search
+        for **ContextGPT AI Chatbot**, and click **Install** on the
+        listing. Zendesk redirects you to `https://ContextGPT.in/connect-zendesk`.
+      </Step>
+
+      <Step title="Pick the chatbot to connect">
+        Sign in to ContextGPT if you're not already. You'll see a picker
+        listing the chatbots on your account that you have permission
+        to connect integrations for.
+
+        Click **Connect** next to the chatbot you want Zendesk to use.
+        A **Connected** badge on any row means that chatbot already has
+        an active Zendesk install — click **Manage** on those to jump
+        to the integration settings page instead of re-running OAuth.
+
+        <Info>Don't have a chatbot yet? The picker shows a **Create a chatbot** CTA. Train a chatbot first, then come back to `https://ContextGPT.in/connect-zendesk` and the picker will list it.</Info>
+      </Step>
+
+      <Step title="Authorize on Zendesk">
+        Zendesk opens an OAuth consent page. Sign in with your Zendesk
+        admin account, confirm the subdomain, and click **Allow**.
+
+        ContextGPT automatically registers the Sunshine Conversations
+        webhook and your chatbot appears in your Zendesk account as a
+        marketplace bot. You'll land on a **You're connected!**
+        walkthrough with the Admin Center steps below.
+      </Step>
+    </Steps>
+  </Tab>
+
+  <Tab title="From the ContextGPT dashboard" icon="browser">
+    Use this path if you already have a ContextGPT account and want to add
+    Zendesk to an existing chatbot.
+
+    <Steps>
+      <Step title="Open the integration page">
+        In ContextGPT, open the chatbot you want to connect, then go to
+        **Integrations** → **Zendesk**.
+      </Step>
+
+      <Step title="Click Connect to Zendesk">
+        Click **Connect to Zendesk**. You'll be redirected to Zendesk's
+        OAuth consent page.
+      </Step>
+
+      <Step title="Authorize on Zendesk">
+        Sign in with your Zendesk admin account, confirm the subdomain,
+        and click **Allow**. ContextGPT registers the webhook and you
+        return to the integration settings page with the integration
+        marked **Connected to \<subdomain>.zendesk.com**. The **View
+        setup instructions** button on that page opens the same
+        Admin Center walkthrough covered in Part 2.
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+### Part 2 — Configure Zendesk Admin Center
+
+Three settings are required — all in Zendesk's Admin Center.
+
+<Steps>
+  <Step title="Connect ContextGPT to your Web Widget">
+    In Zendesk Admin Center, go to **AI** → **AI agents**. Scroll to
+    the **Other** section and click **Manage marketplace bots**.
+
+    Click **ContextGPT AI Chatbot** in the list to open its settings.
+    Under **Basics → Connect to channels**, tick the checkbox next to
+    your **Web** channel, click **Save**, and confirm the dialog.
+
+    The **Responder** column for that channel switches from
+    *Basic response* to **ContextGPT AI Chatbot**.
+
+    <Info>This routes every new inbound conversation on that channel to ContextGPT. Without this step, Zendesk's default responder keeps ownership and ContextGPT never sees customer messages.</Info>
+
+    <Note>We recommend starting with the **Web Widget** channel — it's the only Zendesk Messaging surface where lead-collection forms, reply chips, and other rich UI elements render. WhatsApp, Facebook Messenger, SMS, and other third-party channels support plain chat but not forms. You can add them later for chat-only flows.</Note>
+  </Step>
+
+  <Step title="Set Conversation control to 'Pass control'">
+    Still in Admin Center, go to **Channels** → **Messaging and social**
+    → **Messaging** → click **Manage settings** (top-right of the
+    Messaging list page).
+
+    Scroll to **Conversation control** → **Switchboard action** →
+    select **Pass control**.
+
+    <Warning>Do not select "Release control" — this breaks the hand-back flow. When a ticket is resolved, ContextGPT needs Zendesk to pass conversation control back to the bot, which only happens in **Pass control** mode.</Warning>
+  </Step>
+
+  <Step title="Create a 'Solved → Closed' trigger">
+    This trigger automatically closes Zendesk tickets when an agent
+    marks them as **Solved**, which is what returns the conversation
+    to ContextGPT.
+
+    Go to **Objects and rules** → **Business rules** → **Triggers** →
+    **Create trigger**.
+
+    <Tabs>
+      <Tab title="Trigger details" icon="wrench">
+        * **Trigger name**: `Solved → Closed`
+        * **Trigger category**: any (Notifications works)
+      </Tab>
+
+      <Tab title="Condition" icon="filter">
+        Under **Meet ALL of the following conditions**, add:
+
+        | Category               | Operator | Value  |
+        | ---------------------- | -------- | ------ |
+        | Ticket > Ticket status | Is       | Solved |
+      </Tab>
+
+      <Tab title="Action" icon="play">
+        Add:
+
+        | Category                 | Value  |
+        | ------------------------ | ------ |
+        | Ticket > Status category | Closed |
+      </Tab>
+    </Tabs>
+
+    Save the trigger.
+
+    <Info>Zendesk's trigger UI doesn't expose "Status is Closed" directly, so we promote **Solved** to **Closed** via this trigger. When the ticket hits the Closed status category, Zendesk ends the messaging session and hands control back to ContextGPT.</Info>
+
+    <Warning>Do not use the "Messaging session → End session" action as an alternative — it ends the widget connection entirely and the customer can't send a follow-up message.</Warning>
+  </Step>
+
+  <Step title="Test the integration">
+    Open the Zendesk Web Widget on your website (or use Zendesk's
+    preview).
+
+    Send a test message. ContextGPT should reply immediately with an
+    AI-generated answer based on your training data.
+
+    Test the full escalation flow:
+
+    1. Type a message that should escalate (e.g. "I want to talk to a
+       human") — ContextGPT hands off to a Zendesk agent.
+    2. Reply as an agent in Zendesk's agent workspace — the customer
+       sees the agent reply in the widget.
+    3. Mark the ticket as **Solved** — the "Solved → Closed" trigger
+       fires, and ContextGPT resumes responding in the same widget
+       conversation.
+  </Step>
+</Steps>
+
+## What happens during a conversation
+
+<AccordionGroup>
+  <Accordion title="Normal AI-handled conversation" icon="robot">
+    1. Customer opens the Zendesk Web Widget and sends a message.
+    2. Zendesk routes the message to ContextGPT (because ContextGPT is
+       connected as the responder for that channel).
+    3. ContextGPT answers from your knowledge base.
+    4. No Zendesk ticket is created — the conversation stays in the
+       messaging channel.
+
+    Conversations that never escalate don't consume a ticket.
+  </Accordion>
+
+  <Accordion title="Escalation to a human agent" icon="handshake">
+    1. ContextGPT detects the customer wants human help (keyword, low
+       confidence, explicit request, etc.).
+    2. ContextGPT calls Zendesk's switchboard to **pass control** to the
+       agent workspace.
+    3. A Zendesk ticket is created at this moment.
+    4. The agent replies in Zendesk — the reply appears in the
+       customer's widget.
+    5. ContextGPT stops responding while the agent has control.
+  </Accordion>
+
+  <Accordion title="Resolving and resuming AI" icon="arrows-rotate">
+    1. The agent finishes the conversation and marks the ticket
+       **Solved**.
+    2. The `Solved → Closed` trigger fires, promoting the ticket to
+       the **Closed** status category.
+    3. Zendesk's switchboard passes control back to ContextGPT.
+    4. The next customer message in the same conversation is answered
+       by ContextGPT again.
+  </Accordion>
+
+  <Accordion title="Lead collection mid-conversation" icon="address-book">
+    When your chatbot's lead-collection rules are triggered, ContextGPT
+    shows a native Zendesk form inside the widget with the fields
+    you've configured (name, email, phone, and any required custom
+    fields).
+
+    <Warning>Lead-collection forms only render on the **Web Widget** and the **Zendesk Messaging iOS/Android SDKs**. Third-party channels (WhatsApp, Facebook Messenger, SMS, Instagram, etc.) don't have a form primitive in their underlying protocols — Sunshine Conversations falls back to plain text, which is a broken UX for structured capture. If you need lead collection on those channels, handle it conversationally (AI-prompted capture) rather than via a form.</Warning>
+
+    * Only **required** custom fields are forwarded to Zendesk —
+      Sunshine Conversations forms treat every field as required, so
+      optional fields are collected only on ContextGPT's side.
+    * Zendesk caps forms at 20 fields. Base fields (name / email /
+      phone) count against that limit.
+    * Field labels are truncated to 200 characters before sending.
+
+    Submitted leads appear in your ContextGPT Leads inbox and in the
+    Zendesk ticket transcript.
+  </Accordion>
+</AccordionGroup>
+
+## Customization
+
+**In ContextGPT:**
+
+* Update bot name and avatar in [appearance settings](/features/appearance).
+* Modify response tone in [chatbot settings](/navigating-your-chatbot/settings).
+* Configure [conversation starters](/features/conversation-starters) and [follow-up suggestions](/features/conversation-followups).
+* Set up [human support](/features/human-support) rules and [lead collection](/features/lead-collection).
+
+**In Zendesk:**
+
+* Customize widget color, brand name, and business hours.
+* Configure how agents receive and respond to handed-off conversations.
+* Use Zendesk Explore for ticket and conversation analytics.
+
+Changes in ContextGPT take effect immediately — no reconnection required.
+
+## Managing the integration
+
+<Tabs>
+  <Tab title="Monitor performance" icon="chart-line">
+    **In ContextGPT:**
+
+    * Open **Chat History** to review every Zendesk conversation.
+    * See which conversations stayed with AI vs. escalated to agents.
+    * Export conversation data for analysis.
+
+    **In Zendesk:**
+
+    * Track tickets created by escalation vs. direct ticket creation.
+    * Use Zendesk Explore for ticket volume and deflection reporting.
+    * Monitor agent workload reduction.
+  </Tab>
+
+  <Tab title="Disconnect" icon="plug">
+    **From ContextGPT:**
+
+    1. Open the chatbot's **Integrations** → **Zendesk** page.
+    2. Click **Disconnect**.
+
+    ContextGPT removes the webhook from Zendesk and marks the
+    installation as disconnected. Your bot stops receiving new
+    conversations immediately.
+
+    **From Zendesk (optional):**
+
+    * Go to **AI** → **AI agents** → **Other** → **Marketplace bots**
+      → **Manage marketplace bots**, open the three-dot menu on
+      **ContextGPT AI Chatbot**, and **Uninstall**. This notifies ContextGPT
+      via the uninstall callback.
+
+    Existing conversation history remains in both platforms.
+  </Tab>
+
+  <Tab title="Reconnect" icon="arrows-rotate">
+    If you've disconnected, go back to **Integrations** → **Zendesk**
+    in ContextGPT and click **Connect to Zendesk** again. You can also
+    start from `https://ContextGPT.in/connect-zendesk` and pick the chatbot from
+    the list.
+
+    You'll skip straight through the OAuth consent (Zendesk remembers
+    the prior authorization) and the installation is reactivated.
+  </Tab>
+
+  <Tab title="Switch to a different chatbot" icon="right-left">
+    Each Zendesk account connects to one ContextGPT chatbot at a time.
+    To swap which chatbot answers Zendesk conversations:
+
+    1. Disconnect the current chatbot (see **Disconnect** tab).
+    2. Go to `https://ContextGPT.in/connect-zendesk`, pick the new chatbot, and
+       click **Connect**.
+  </Tab>
+</Tabs>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="ContextGPT isn't responding to new conversations" icon="circle-xmark">
+    The most common cause is that the Web channel isn't connected to
+    ContextGPT inside the bot's settings.
+
+    Check: **Admin Center** → **AI** → **AI agents** → **Other** →
+    **Manage marketplace bots** → click **ContextGPT AI Chatbot** → under
+    **Basics → Connect to channels**, the **Web** channel should be
+    ticked and its **Responder** column should read **ContextGPT AI
+    Chatbot** (not **Basic response**).
+
+    If Basic response is still the responder, tick the Web channel
+    checkbox, save, and confirm the dialog — that flips Zendesk's
+    routing from the default responder to ContextGPT.
+  </Accordion>
+
+  <Accordion title="The conversation stays with the agent after the ticket is solved" icon="triangle-exclamation">
+    Two things to check:
+
+    1. **Conversation control** is set to **Pass control** (not
+       Release control). See Part 2, Step 2.
+    2. The **Solved → Closed** trigger exists and is **Active**. See
+       Part 2, Step 3. A disabled trigger leaves the ticket in Solved
+       (not Closed), which keeps the messaging session open with the
+       agent.
+  </Accordion>
+
+  <Accordion title="Agent replies aren't reaching the widget" icon="message-xmark">
+    This usually means **Conversation control** is set to **Release
+    control** instead of **Pass control**. Release control breaks the
+    hand-off path — switch to **Pass control** in **Channels** →
+    **Messaging** → **Manage settings** → **Conversation control**.
+  </Accordion>
+
+  <Accordion title="The widget stops accepting messages after handoff" icon="circle-pause">
+    You've likely configured a trigger action of **Messaging session
+    → End session** instead of **Status category = Closed**. Ending
+    the session closes the widget connection — use **Status category
+    \= Closed** instead (see Part 2, Step 3).
+  </Accordion>
+
+  <Accordion title="The lead form isn't rendering on Zendesk" icon="input-text">
+    Only **required** custom fields are forwarded to Zendesk
+    (Sunshine Conversations treats every form field as required).
+    If a field is configured as optional in ContextGPT's lead settings,
+    it won't appear on the Zendesk side.
+
+    To collect a field on Zendesk, mark it required in the chatbot's
+    lead-collection settings. If you have more than \~17 required
+    custom fields plus the base name / email / phone fields, trailing
+    fields may be dropped — Zendesk caps forms at 20 fields.
+  </Accordion>
+
+  <Accordion title="Install failed with a 'connection' or 'webhook' error" icon="plug-circle-xmark">
+    The post-OAuth webhook registration step can fail on Zendesk's
+    side for transient reasons.
+
+    1. Go to `https://ContextGPT.in/connect-zendesk`, pick the chatbot, and
+       click **Connect** to retry the full install.
+    2. If retrying doesn't help, contact [support@ContextGPT.in](mailto:support@ContextGPT.in) with your
+       chatbot ID and Zendesk subdomain — we can inspect the
+       installation state directly.
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Human support" icon="user-headset" href="/features/human-support">
+    Configure escalation triggers and routing
+  </Card>
+
+  <Card title="Lead collection" icon="address-book" href="/features/lead-collection">
+    Capture and qualify leads in Zendesk conversations
+  </Card>
+
+  <Card title="Chat history" icon="messages" href="/navigating-your-chatbot/chat-history">
+    Review every Zendesk conversation in ContextGPT
+  </Card>
+
+  <Card title="Chatbot instructions" icon="sparkles" href="/features/chatbot-instructions-personas">
+    Tune how your bot responds
+  </Card>
+</CardGroup>

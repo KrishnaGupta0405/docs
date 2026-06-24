@@ -1,0 +1,326 @@
+---
+title: Chatbot settings
+description: Configure chatbot behavior, data collection, localization, and advanced options. 
+sidebarTitle: Settings
+icon: gear
+---
+
+# Chatbot settings
+
+> Configure chatbot behavior, data collection, localization, and advanced options.
+
+Settings control how your chatbot behaves, what data it collects, and how it appears to users. Access settings from your chatbot dashboard under **Settings**.
+
+## General settings
+
+<AccordionGroup>
+  <Accordion title="Chatbot description" icon="message-lines">
+    Update the description shown on your chatbot's home screen. This helps users understand what your chatbot can help with.
+
+    <Steps>
+      <Step title="Navigate to general settings">
+        Navigate to **Settings** > **General**
+      </Step>
+
+      <Step title="Enter description">
+        Enter your new description
+      </Step>
+
+      <Step title="Save">
+        Click **Save Changes**
+      </Step>
+    </Steps>
+  </Accordion>
+
+  <Accordion title="Smart follow-up questions" icon="messages-question">
+    ContextGPT automatically suggests relevant follow-up questions to increase engagement by 30-40%.
+
+    **Configure follow-ups:**
+
+    * **Enable/disable** - Toggle smart follow-up questions on or off
+    * **Number of questions** - Choose between 1-5 follow-up questions to display (default: 3)
+    * **GPT model** - Choose GPT-4.1 mini or GPT-4.1 for generating suggestions
+  </Accordion>
+
+  <Accordion title="Lead notifications" icon="bell">
+    Control email notifications when new leads are captured.
+
+    **Settings:**
+
+    * **Enable/disable** - Toggle email notifications for new leads
+    * Notifications are sent to the chatbot owner's email address
+  </Accordion>
+
+  <Accordion title="Conversation history" icon="clock-rotate-left">
+    Configure how many previous messages the chatbot considers when generating responses.
+
+    **Settings:**
+
+    * **History count** - Set between 0-4 messages (0-50 for advanced plans)
+    * Higher values provide more context but may increase response time
+    * Default: 1 message
+  </Accordion>
+
+  <Accordion title="GPT model selection" icon="brain">
+    Choose which AI model powers your chatbot responses.
+
+    **Available models:**
+
+    * **GPT-4.1 Mini** - Faster responses, lower cost (default)
+    * **GPT-4.1** - More advanced reasoning, higher accuracy
+  </Accordion>
+
+  <Accordion title="Rate limiting" icon="gauge">
+    Limit the number of messages per conversation to manage usage and costs.
+
+    **Settings:**
+
+    * **Enable/disable** - Toggle message limits per conversation
+    * **Max messages** - Set between 1-1000 messages per conversation (default: 20)
+    * When limit is reached, users are prompted to start a new conversation
+
+    <Note>Rate limiting is available on Growth, Scale, and Enterprise plans.</Note>
+  </Accordion>
+</AccordionGroup>
+
+## User data collection
+
+<Tabs>
+  <Tab title="Lead collection settings">
+    <Steps>
+      <Step title="Navigate to user data">
+        Navigate to **Settings** > **User Data**
+      </Step>
+
+      <Step title="Enable collection">
+        Enable **Collect user data**
+      </Step>
+
+      <Step title="Select fields">
+        Select which fields to collect:
+
+        * Name
+        * Email
+        * Phone number
+        * Custom fields
+      </Step>
+
+      <Step title="Configure timing">
+        Configure when to collect data:
+
+        * At conversation start
+        * After specific questions
+        * Before escalation to agent
+      </Step>
+
+      <Step title="Save">
+        Click **Save Changes**
+      </Step>
+    </Steps>
+  </Tab>
+
+  <Tab title="Custom fields">
+    Add custom fields to collect business-specific information:
+
+    * Company name
+    * Industry
+    * Budget range
+    * Product interest
+    * Any other relevant data
+
+    <Info>
+      Navigate to **Leads** > **Settings** to configure custom fields.
+    </Info>
+  </Tab>
+</Tabs>
+
+## Chat modes
+
+<Tabs>
+  <Tab title="AI mode" icon="robot">
+    All conversations handled by AI (default). Best for fully automated support.
+  </Tab>
+
+  <Tab title="Agent mode" icon="user-headset">
+    All conversations start with human agents. Best for high-touch customer service.
+  </Tab>
+
+  <Tab title="Hybrid mode" icon="arrows-left-right">
+    AI handles conversations with option to escalate to agents. Best for balanced automation and human touch.
+  </Tab>
+</Tabs>
+
+<Info>
+  Select your preferred mode and click **Save Changes**.
+</Info>
+
+<Note>Users can request human support in any mode if you've enabled escalation.</Note>
+
+## Localization
+
+<AccordionGroup>
+  <Accordion title="Customizable text" icon="language">
+    **Home screen:**
+
+    * Welcome message
+    * Conversation starter heading
+    * Start conversation button
+
+    **Message screen:**
+
+    * Input placeholder
+    * Send button text
+    * Typing indicator
+    * Error messages
+    * System messages
+
+    **Account screen:**
+
+    * Login prompts
+    * Verification messages
+    * Account settings labels
+  </Accordion>
+
+  <Accordion title="Multi-language support" icon="globe">
+    Translate your chatbot interface to any language:
+
+    <Steps>
+      <Step title="Navigate to localization">
+        Navigate to **Settings** > **Localization**
+      </Step>
+
+      <Step title="Update text fields">
+        Update each text field with your translations
+      </Step>
+
+      <Step title="Save">
+        Click **Save Changes**
+      </Step>
+    </Steps>
+
+    <Info>
+      Your chatbot will respond in the language of your training content, while the interface displays your custom text.
+    </Info>
+  </Accordion>
+</AccordionGroup>
+
+## Personas
+
+<Tabs>
+  <Tab title="Pre-built personas">
+    <Steps>
+      <Step title="Navigate to personas">
+        Navigate to **Settings** > **Personas**
+      </Step>
+
+      <Step title="Choose persona">
+        Choose from pre-built personas:
+
+        * Polite and friendly
+        * Professional and formal
+        * Inspirational
+        * Casual and conversational
+      </Step>
+
+      <Step title="Assign">
+        Click **Assign to Chatbot**
+      </Step>
+    </Steps>
+  </Tab>
+
+  <Tab title="Custom personas">
+    <Steps>
+      <Step title="Create new">
+        Click **Add New Persona**
+      </Step>
+
+      <Step title="Name it">
+        Name your persona
+      </Step>
+
+      <Step title="Describe personality">
+        Describe the personality traits and communication style
+      </Step>
+
+      <Step title="Add examples">
+        Provide example responses
+      </Step>
+
+      <Step title="Save and assign">
+        Save and assign to your chatbot
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+## Instructions (Prompts)
+
+<Tabs>
+  <Tab title="Default instructions">
+    Choose from pre-built instruction templates that control how your chatbot responds to questions.
+  </Tab>
+
+  <Tab title="Custom instructions">
+    Create custom instructions for specific use cases:
+
+    <Steps>
+      <Step title="Navigate to instructions">
+        Navigate to **Settings** > **Instructions**
+      </Step>
+
+      <Step title="Create new">
+        Click **Add New Instruction**
+      </Step>
+
+      <Step title="Write system prompt">
+        Write your system prompt defining:
+
+        * What the chatbot should do
+        * What it should avoid
+        * How it should respond
+        * Any special rules or constraints
+      </Step>
+
+      <Step title="Save and assign">
+        Save and assign to your chatbot
+      </Step>
+    </Steps>
+
+    <Tip>Create custom instructions to control exactly how your chatbot responds and what topics it should cover.</Tip>
+  </Tab>
+</Tabs>
+
+## Advanced settings
+
+<AccordionGroup>
+  <Accordion title="Session timeout" icon="clock">
+    Set conversation expiration time.
+  </Accordion>
+
+  <Accordion title="Source citations" icon="quote-left">
+    Show/hide source links in chatbot responses.
+  </Accordion>
+
+  <Accordion title="Conversation history access" icon="clock-rotate-left">
+    Enable/disable conversation history for users.
+  </Accordion>
+
+  <Accordion title="Branding" icon="palette">
+    Remove "Powered by ContextGPT" (paid plans).
+  </Accordion>
+</AccordionGroup>
+
+## Webhooks
+
+Send real-time conversation data to external systems.
+
+<Info>
+  Navigate to **Settings** > **Webhooks** to configure:
+
+  * Webhook URL
+  * Events to send (messages, leads, escalations)
+  * Authentication headers
+  * Retry settings
+</Info>
+
+<Note>Changes to settings take effect immediately without requiring chatbot retraining.</Note>

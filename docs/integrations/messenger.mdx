@@ -1,0 +1,175 @@
+---
+title: Facebook Messenger integration
+description: Integrate your ContextGPT chatbot with Facebook Messenger
+sidebarTitle: Facebook Messenger
+icon: facebook
+---
+
+The Facebook Messenger integration allows your ContextGPT chatbot to live within Facebook Messenger, enabling customers to interact with your chatbot directly through your Facebook Page.
+
+<iframe width="100%" height="400" src="https://www.youtube.com" title="Facebook Messenger Integration" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen className="w-full aspect-video" />
+
+## Prerequisites
+
+* An active ContextGPT chatbot
+* A Facebook Page with admin access
+* A Facebook Developer account
+
+## Setting up the integration
+
+### Step 1: Start the integration in ContextGPT
+
+1. Go to your chatbot dashboard in ContextGPT
+2. Navigate to **Integrations**
+3. Find **Facebook Messenger** and click **Get Started**
+4. You'll see fields for connecting with Messenger and entering an access token - keep this page open
+
+### Step 2: Create a Facebook app
+
+1. Go to [developers.facebook.com](https://developers.facebook.com)
+2. Log in with your Facebook account
+3. Scroll down and click on **Messenger Platform**
+4. Click **My Apps** in the top right corner
+5. Click **Create App**
+6. Select **Other** as the app type
+7. Select **Business** (or **None** based on your preference)
+8. Enter an app contact email
+9. Give your app a name (e.g., "My Business Bot")
+10. Click **Create App**
+
+### Step 3: Configure Messenger
+
+1. After creating the app, scroll down to find **Messenger**
+2. Click **Add or Remove Pages**
+3. Select the Facebook Page you want to connect
+4. Click **Continue** and then **Save**
+
+<Note>If you don't have a Facebook Page yet, you can create one before proceeding with this step.</Note>
+
+### Step 4: Generate access token
+
+1. In the Messenger settings, click **Generate Token**
+2. Click **I Understand**
+3. Copy the generated access token
+4. Click **Done**
+5. Go back to your ContextGPT integration page
+6. Paste the access token into the **Access Token** field
+7. Click **Connect**
+
+### Step 5: Configure callback URL
+
+1. After connecting, ContextGPT will provide you with a **Callback URL** and **Verify Token**
+2. Copy the Callback URL
+3. Go back to your Facebook app settings
+4. Click **Add Callback URL**
+5. Paste the Callback URL
+6. Copy and paste the Verify Token from ContextGPT
+7. Click **Verify and Save**
+
+### Step 6: Add subscriptions
+
+1. Scroll down in the Messenger settings
+2. Click **Add Subscriptions**
+3. Select the following options:
+   * **messages**
+   * **messaging\_postbacks**
+   * **messaging\_optins**
+   * **message\_echoes**
+4. Click **Save**
+
+### Step 7: Configure app roles
+
+1. Click on **App Roles** (or **Roles**) in the left sidebar
+2. Note: In development mode, your app can only request data from users with an app role
+3. As an admin, you'll be able to interact with the chatbot immediately
+4. To make the chatbot available to all users, you'll need to set the app to live mode later
+
+<Warning>Until you set your app to live mode, only users with an app role (admins, developers, testers) will be able to interact with your chatbot.</Warning>
+
+## Testing your chatbot
+
+1. Go to your Facebook Page
+2. Click **Message** to open Messenger
+3. Send a test message to your chatbot
+4. The chatbot will respond just like it does on your website
+
+### Features available in Messenger
+
+* **AI responses**: Your chatbot answers questions based on your training data
+* **Conversation starters**: Initial quick prompts appear for users
+* **Follow-up prompts**: Users can select suggested follow-up questions
+* **Conversation escalation**: Users can request to talk to a human
+* **Ratings**: Users can give thumbs up/down feedback on responses
+* **Restart conversation**: Users can restart the chat using the menu (three-line icon)
+
+## Managing conversations
+
+### View chat history
+
+All Messenger conversations appear in your ContextGPT dashboard under **Chat History**, just like conversations from your website chatbot.
+
+### Respond manually
+
+You can respond to conversations manually from two places:
+
+1. **ContextGPT dashboard**: View and respond in the Chat History section
+2. **Meta Business Suite**: Go to [business.facebook.com](https://business.facebook.com) to access your inbox and reply to inquiries
+
+Messages you send manually will be delivered to the user and stored in the chat history. The sender will show as "Agent/Bot" in the conversation.
+
+## Going live
+
+To make your chatbot available to all Facebook users (not just app role members):
+
+1. Go to your Facebook app settings
+2. Switch your app from **Development Mode** to **Live Mode**
+3. Follow Facebook's app review process if required
+
+## Best practices
+
+* Test thoroughly with admin accounts before going live
+* Set clear expectations in your welcome message about chatbot capabilities
+* Enable conversation escalation for complex inquiries
+* Monitor chat history regularly to improve your chatbot's responses
+* Keep your training data up to date for accurate responses
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Chatbot not responding to messages">
+    * Verify the access token is correct
+    * Check that all required subscriptions are enabled
+    * Ensure the callback URL is properly configured
+    * Confirm your app has the necessary permissions
+  </Accordion>
+
+  <Accordion title="Only admins can see the chatbot">
+    Your app is still in development mode. Switch to live mode to make it available to all users.
+  </Accordion>
+
+  <Accordion title="Conversations not appearing in ContextGPT">
+    * Verify the webhook subscriptions include message\_echoes
+    * Check that the verify token matches between Facebook and ContextGPT
+    * Ensure the callback URL is correctly configured
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Lead collection" icon="address-book" href="/features/lead-collection">
+    Capture leads from Messenger conversations
+  </Card>
+
+  <Card title="Human support" icon="user" href="/features/human-support">
+    Set up conversation escalation
+  </Card>
+
+  <Card title="Chat history" icon="clock-rotate-left" href="/navigating-your-chatbot/chat-history">
+    Monitor and manage conversations
+  </Card>
+
+  <Card title="Custom responses" icon="message-text" href="/features/custom-responses">
+    Customize chatbot responses
+  </Card>
+</CardGroup>

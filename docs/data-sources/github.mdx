@@ -1,0 +1,85 @@
+---
+title: GitHub
+description: Train your chatbot on Markdown docs, READMEs, and files from GitHub repositories
+sidebarTitle: GitHub
+icon: github
+---
+
+## Prerequisites
+
+* A GitHub account (personal or organization)
+* Access to the repository you want to import
+* Owner or Editor permissions on the ContextGPT chatbot
+
+## Connecting GitHub
+
+<Steps>
+  <Step title="Navigate to Training">
+    Go to your chatbot dashboard and open the **Training** tab.
+  </Step>
+
+  <Step title="Add Data Source">
+    Click **Add Files** and select **GitHub**.
+  </Step>
+
+  <Step title="Authenticate">
+    Click **Connect GitHub** and sign in with your GitHub credentials. Grant ContextGPT permission to read the repositories you want to import from.
+  </Step>
+
+  <Step title="Select Content">
+    Choose the repository and branch, then select the files or folders you want to import. You can pick an entire folder (such as a `docs/` directory) or individual files.
+  </Step>
+
+  <Step title="Start Training">
+    Click **Import Selected** to begin training. ContextGPT processes each file and adds the content to your chatbot's knowledge base.
+  </Step>
+</Steps>
+
+## Supported File Types
+
+GitHub repositories are best suited for text-based content. ContextGPT can process:
+
+| File Type | Extensions           |
+| --------- | -------------------- |
+| Markdown  | .md, .markdown, .mdx |
+| Documents | .txt, .rst           |
+| Web       | .html, .htm          |
+
+<Note>
+  Binary files (images, archives, compiled assets) are skipped. For best results, point ContextGPT at the documentation files in your repository rather than the entire source tree.
+</Note>
+
+## Best Practices
+
+### Point at your docs
+
+Most repositories keep documentation in a dedicated folder. Select that folder (for example `docs/`) so your chatbot trains on the content meant for readers, not build scripts or configuration files.
+
+### Use the right branch
+
+Import from the branch that holds your published documentation (often `main`). Re-import after merging significant doc changes to keep answers current.
+
+### Exclude noise
+
+Skip generated output, changelogs you do not want surfaced, and test fixtures. The cleaner the selection, the more focused your chatbot's answers will be.
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Repository or files not appearing">
+    * Verify you granted ContextGPT access to the correct repository during authentication
+    * Private repositories require that the connected account has read access
+    * Check that the files are in a supported text-based format
+  </Accordion>
+
+  <Accordion title="Import fails or times out">
+    * Try importing a smaller folder or fewer files at once
+    * Very large repositories may take longer to scan
+    * Confirm your GitHub connection is still authorized
+  </Accordion>
+
+  <Accordion title="Content looks out of date">
+    * Re-import after pushing changes; imports capture a snapshot at import time
+    * Make sure you imported from the branch that contains your latest docs
+  </Accordion>
+</AccordionGroup>

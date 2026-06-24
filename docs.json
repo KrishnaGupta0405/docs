@@ -1,68 +1,319 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
-  "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+  "name": "ContextGPT Docs",
+  "icons": {
+    "library": "fontawesome"
   },
-  "favicon": "/favicon.svg",
+  "contextual": {
+    "options": [
+      "assistant",
+      "copy",
+      "view",
+      "cursor",
+      "vscode",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "grok",
+      "aistudio",
+      "devin",
+      "windsurf",
+      "mcp",
+      "add-mcp",
+      "devin-mcp"
+    ],
+    "display": "header"
+  },
+  "colors": {
+    "primary": "#155ded",
+    "light": "#4A7BF7",
+    "dark": "#155ded"
+  },
+  "api": {
+    "openapi": "/openapi.json"
+  },
+  "favicon": "/favicon.png",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Documentation",
+        "icon": "rocket",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Getting Started",
+            "icon": "rocket",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "docs/introduction/what-is-contextgpt",
+              "docs/introduction/live-demo",
+              "docs/introduction/use-cases"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Setup & Configuration",
+            "icon": "wrench",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "docs/setup/setting-up-contexgpt",
+              "docs/setup/create-new-chatbot",
+              "docs/setup/training-your-chatbot",
+              "docs/setup/integration-with-your-website",
+              "docs/setup/retraining-your-ai-chatbot"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Managing your Chatbot",
+            "icon": "sliders",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "docs/managing-your-chatbot/chatbot-dashboard",
+              "docs/managing-your-chatbot/adding-content-to-your-chatbot",
+              "docs/managing-your-chatbot/chat-history",
+              "docs/managing-your-chatbot/leads",
+              "docs/managing-your-chatbot/customizing-your-chatbot",
+              "docs/managing-your-chatbot/settings",
+              "docs/managing-your-chatbot/advanced",
+              "docs/managing-your-chatbot/delete-chatbot"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Account Management",
+            "icon": "user",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "docs/navigating-your-account/profile",
+              "docs/navigating-your-account/chatbots",
+              "docs/navigating-your-account/billing",
+              "docs/navigating-your-account/usage"
+            ]
+          },
+          {
+            "group": "Developers",
+            "icon": "code",
+            "pages": [
+              "docs/developers/overview",
+              "docs/developers/sdk",
+              "docs/developers/webhooks",
+              "docs/developers/webhooks-configuration"
+            ]
+          },
+          {
+            "group": "Features",
+            "icon": "sparkles",
+            "pages": [
+              "docs/features/chatbot-instructions-personas",
+              "docs/features/custom-responses",
+              "docs/features/conversation-starters",
+              "docs/features/conversation-followups",
+              "docs/features/text-snippets",
+              "docs/features/human-support",
+              "docs/features/lead-collection",
+              "docs/features/pages-quota",
+              "docs/features/auto-sync",
+              "docs/features/appearance",
+              "docs/features/members",
+              "docs/features/user-data-collection",
+              "docs/features/chat-modes"
+            ]
+          },
+          {
+            "group": "Data Sources",
+            "icon": "database",
+            "pages": [
+              "docs/data-sources/overview",
+              "docs/data-sources/google-drive",
+              "docs/data-sources/notion",
+              "docs/data-sources/youtube",
+              "docs/data-sources/onedrive",
+              "docs/data-sources/box",
+              "docs/data-sources/github"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "icon": "plug",
+            "pages": [
+              "docs/integrations/overview",
+              "docs/integrations/slack",
+              "docs/integrations/google-chat",
+              "docs/integrations/messenger",
+              "docs/integrations/crisp",
+              "docs/integrations/freshdesk",
+              "docs/integrations/zendesk",
+              "docs/integrations/zendesk-legacy",
+              "docs/integrations/zoho",
+              "docs/integrations/zapier"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "Changelog",
+        "icon": "arrow-left-to-bracket",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Changelog",
+            "icon": "clock-rotate-left",
+            "pages": ["/docs/changelog/overview"]
+          },
+          {
+            "group": "2026",
+            "icon": "calendar",
+            "pages": ["/docs/changelog/2026/june"]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "icon": "code",
+        "groups": [
+          {
+            "group": "API Reference",
+            "icon": "code",
+            "pages": ["docs/api-reference/getting-started"]
+          },
+          {
+            "group": "Chatbot",
+            "icon": "message-bot",
             "pages": [
-              "api-reference/introduction"
+              "docs/api-reference/chatbot/get-my-chatbots",
+              "docs/api-reference/chatbot/get-all-chatbots-in-account",
+              "docs/api-reference/chatbot/get-chatbot-by-id",
+              "docs/api-reference/chatbot/create-chatbot-in-account",
+              "docs/api-reference/chatbot/update-chatbot-by-id",
+              "docs/api-reference/chatbot/delete-chatbot-by-id"
+            ]
+          },
+          
+          {
+            "group": "Threads",
+            "icon": "message-lines",
+            "pages": [
+              "docs/api-reference/threads/list-threads",
+              "docs/api-reference/threads/get-thread-details",
+              "docs/api-reference/threads/get-thread-messages",
+              "docs/api-reference/threads/update-thread-status",
+              "docs/api-reference/threads/escalate-conversation",
+              "docs/api-reference/threads/reset-conversation"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Messages",
+            "icon": "messages",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "docs/api-reference/threads/send-agent-message",
+              "docs/api-reference/threads/edit-message"
+            ]
+          },
+          {
+            "group": "Settings",
+            "icon": "gear",
+            "pages": [
+              "docs/api-reference/settings/get-general-settings",
+              "docs/api-reference/settings/update-general-settings",
+              "docs/api-reference/settings/get-advanced-settings",
+              "docs/api-reference/settings/update-advanced-settings",
+              "docs/api-reference/settings/get-chat-mode",
+              "docs/api-reference/settings/update-chat-mode",
+              "docs/api-reference/settings/get-user-data-settings",
+              "docs/api-reference/settings/update-user-data-settings"
+            ]
+          },
+          {
+            "group": "Icons",
+            "icon": "icons",
+            "pages": [
+              "docs/api-reference/settings/get-icon-settings",
+              "docs/api-reference/settings/update-icon-settings"
+            ]
+          },
+          {
+            "group": "Appearance",
+            "icon": "palette",
+            "pages": [
+              "docs/api-reference/appearance/get-appearance-settings",
+              "docs/api-reference/appearance/update-appearance-settings"
+            ]
+          },
+          {
+            "group": "Conversation Starters",
+            "icon": "bolt",
+            "pages": [
+              "docs/api-reference/conversation-starters/get-conversation-starters",
+              "docs/api-reference/conversation-starters/create-conversation-starter",
+              "docs/api-reference/conversation-starters/update-conversation-starter",
+              "docs/api-reference/conversation-starters/delete-conversation-starter",
+              "docs/api-reference/conversation-starters/reorder-conversation-starters"
+            ]
+          },
+          {
+            "group": "Follow-Up Prompts",
+            "icon": "message-arrow-up",
+            "pages": [
+              "docs/api-reference/follow-up-prompts/get-follow-up-prompts",
+              "docs/api-reference/follow-up-prompts/create-follow-up-prompt",
+              "docs/api-reference/follow-up-prompts/update-follow-up-prompt",
+              "docs/api-reference/follow-up-prompts/delete-follow-up-prompt",
+              "docs/api-reference/follow-up-prompts/reorder-follow-up-prompts"
+            ]
+          },
+          {
+            "group": "Text Snippet",
+            "icon": "file-lines",
+            "pages": [
+              "docs/api-reference/text-snippet/get-text-snippet",
+              "docs/api-reference/text-snippet/upsert-text-snippet"
+            ]
+          },
+          {
+            "group": "Personas",
+            "icon": "user-tie",
+            "pages": [
+              "docs/api-reference/personas/get-personas",
+              "docs/api-reference/personas/select-persona",
+              "docs/api-reference/personas/create-persona",
+              "docs/api-reference/personas/update-persona",
+              "docs/api-reference/personas/delete-persona"
+            ]
+          },
+          {
+            "group": "Instructions",
+            "icon": "message-text",
+            "pages": [
+              "docs/api-reference/instructions/get-instructions",
+              "docs/api-reference/instructions/select-instruction",
+              "docs/api-reference/instructions/create-instruction",
+              "docs/api-reference/instructions/update-instruction",
+              "docs/api-reference/instructions/delete-instruction"
+            ]
+          },
+          {
+            "group": "Localization",
+            "icon": "language",
+            "pages": [
+              "docs/api-reference/localization/get-localization-texts",
+              "docs/api-reference/localization/upsert-localization-text",
+              "docs/api-reference/localization/delete-localization-text"
+            ]
+          },
+          {
+            "group": "Lead Settings",
+            "icon": "user-group",
+            "pages": [
+              "docs/api-reference/lead-settings/get-lead-settings",
+              "docs/api-reference/lead-settings/create-lead-settings",
+              "docs/api-reference/lead-settings/update-lead-settings",
+              "docs/api-reference/lead-settings/delete-lead-settings"
+            ]
+          },
+          {
+            "group": "Human Support Settings",  
+            "icon": "user",
+            "pages": [
+              "docs/api-reference/human-support-settings/get-human-support-settings",
+              "docs/api-reference/human-support-settings/create-human-support-settings",
+              "docs/api-reference/human-support-settings/update-human-support-settings"
             ]
           }
         ]
@@ -71,52 +322,29 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "Dashboard",
+          "href": "https://www.contextgpt.in",
+          "icon": "browser"
         }
       ]
     }
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:krishnagupta0405@gmail.com"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Create Your chatbot now",
+      "href": "https://www.contextgpt.in"
     }
-  },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
+      "x": "https://x.com/contextgpt"
+    } 
   }
 }

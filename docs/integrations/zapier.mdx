@@ -1,0 +1,288 @@
+---
+title: Zapier integration
+description: Connect ContextGPT with 5,000+ apps to automate workflows
+sidebarTitle: Zapier integration
+icon: bolt
+---
+
+Use Zapier to connect your ContextGPT chatbot with thousands of apps and automate workflows based on chatbot events.
+
+## Prerequisites
+
+<Check>Active ContextGPT chatbot</Check>
+<Check>Zapier account (free or paid)</Check>
+<Check>Zapier integration feature enabled</Check>
+
+## Available triggers and actions
+
+### Triggers
+
+ContextGPT provides three triggers for Zapier automation:
+
+<Tabs>
+  <Tab title="New message" icon="message">
+    Triggers when your chatbot sends a message to a user.
+
+    **Use cases:**
+
+    * Log conversations to Google Sheets
+    * Send notifications to Slack
+    * Create tasks in project management tools
+  </Tab>
+
+  <Tab title="New lead" icon="user-plus">
+    Triggers when a lead is captured through your chatbot.
+
+    **Use cases:**
+
+    * Add leads to your CRM
+    * Send welcome emails
+    * Notify sales team
+    * Create follow-up tasks
+  </Tab>
+
+  <Tab title="Conversation escalated" icon="arrow-up-right">
+    Triggers when a user requests human support.
+
+    **Use cases:**
+
+    * Create support tickets
+    * Alert support team
+    * Send escalation notifications
+    * Log escalations for analysis
+  </Tab>
+</Tabs>
+
+### Actions
+
+<Tabs>
+  <Tab title="Send message" icon="paper-plane">
+    Send a message to a chatbot thread.
+
+    **Options:**
+
+    * **Send as User** - Sends a message as the user and gets an AI response
+    * **Send as Agent** - Sends a direct message without triggering AI
+
+    **Use cases:**
+
+    * Send ticket IDs back to chat after creating support tickets
+    * Update users with order confirmations from your e-commerce system
+    * Provide booking confirmations from calendar integrations
+    * Send automated follow-ups based on external triggers
+  </Tab>
+</Tabs>
+
+## Setting up Zapier integration
+
+<Steps>
+  <Step title="Navigate to integrations">
+    Go to **Integrations** in your chatbot dashboard.
+  </Step>
+
+  <Step title="Select Zapier">
+    Click **Get Started** on the Zapier integration card.
+  </Step>
+
+  <Step title="Connect to Zapier">
+    You'll be redirected to Zapier to authorize the connection.
+  </Step>
+
+  <Step title="Create your first Zap">
+    Choose a trigger (New Message, New Lead, or Conversation Escalated) and set up your automation.
+  </Step>
+</Steps>
+
+## Example workflows
+
+<AccordionGroup>
+  <Accordion title="Lead to CRM" icon="database">
+    **Trigger:** New Lead\
+    **Action:** Create contact in HubSpot/Salesforce/Pipedrive
+
+    Automatically add captured leads to your CRM with all collected information.
+  </Accordion>
+
+  <Accordion title="Escalation to ticket with confirmation" icon="ticket">
+    **Trigger:** Conversation Escalated\
+    **Action 1:** Create ticket in Zendesk/Freshdesk/Jira\
+    **Action 2:** Send Message (ContextGPT) - Send ticket ID back to user
+
+    Convert escalated conversations into support tickets and automatically send the ticket number back to the chat.
+  </Accordion>
+
+  <Accordion title="Message to Slack" icon="slack">
+    **Trigger:** New Message\
+    **Action:** Send message to Slack channel
+
+    Get real-time notifications of chatbot conversations in Slack.
+  </Accordion>
+
+  <Accordion title="Lead to email" icon="envelope">
+    **Trigger:** New Lead\
+    **Action:** Send email via Gmail/Outlook
+
+    Send personalized welcome emails to new leads immediately.
+  </Accordion>
+
+  <Accordion title="Order confirmation to chat" icon="shopping-cart">
+    **Trigger:** New order in Shopify/WooCommerce\
+    **Action:** Send Message (ContextGPT) - Notify customer in chat
+
+    Automatically send order confirmations to customers who are chatting with your bot.
+  </Accordion>
+</AccordionGroup>
+
+## Managing Zapier integration
+
+### View connected Zaps
+
+From your ContextGPT dashboard:
+
+1. Go to **Integrations**
+2. Click **Manage** next to Zapier
+3. View all active Zaps and their status
+
+### Test your Zaps
+
+Always test your Zaps before activating:
+
+1. Create a test conversation in your chatbot
+2. Verify the trigger fires correctly
+3. Check that actions complete as expected
+4. Monitor for any errors
+
+### Troubleshooting
+
+If your Zap isn't working:
+
+<AccordionGroup>
+  <Accordion title="Check connection" icon="link">
+    Verify ContextGPT is connected in Zapier and the authorization hasn't expired.
+  </Accordion>
+
+  <Accordion title="Review filters" icon="filter">
+    Ensure your filter conditions are correct and not blocking legitimate triggers.
+  </Accordion>
+
+  <Accordion title="Test trigger" icon="flask">
+    Use Zapier's test feature to check data flow and verify the trigger is firing correctly.
+  </Accordion>
+
+  <Accordion title="Check permissions" icon="lock">
+    Verify you have access to all connected apps and the necessary permissions to perform actions.
+  </Accordion>
+
+  <Accordion title="Review logs" icon="list">
+    Check Zapier's task history for errors and detailed information about failed runs.
+  </Accordion>
+</AccordionGroup>
+
+### Disconnect
+
+To remove the Zapier integration:
+
+1. Turn off all Zaps using ContextGPT triggers
+2. Go to **Integrations** in your dashboard
+3. Click **Manage** next to Zapier
+4. Click **Disconnect**
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Start simple" icon="seedling">
+    Begin with one or two Zaps to understand the workflow before creating complex automations.
+  </Accordion>
+
+  <Accordion title="Use filters" icon="filter">
+    Add filters to your Zaps to only trigger on specific conditions (e.g., leads from certain pages, escalations with specific keywords).
+  </Accordion>
+
+  <Accordion title="Monitor regularly" icon="chart-line">
+    Check your Zap history weekly to ensure automations are working correctly.
+  </Accordion>
+
+  <Accordion title="Handle errors" icon="triangle-exclamation">
+    Set up error notifications in Zapier so you're alerted when something goes wrong.
+  </Accordion>
+
+  <Accordion title="Document workflows" icon="file-lines">
+    Keep notes on what each Zap does and why you created it for future reference.
+  </Accordion>
+</AccordionGroup>
+
+## Advanced use cases
+
+<Tabs>
+  <Tab title="Multi-step workflows" icon="list-check">
+    Create complex automations with multiple actions:
+
+    <AccordionGroup>
+      <Accordion title="Lead nurture sequence" icon="seedling">
+        * **Trigger:** New Lead
+        * **Action 1:** Add to CRM
+        * **Action 2:** Add to email list
+        * **Action 3:** Send welcome email
+        * **Action 4:** Create follow-up task
+      </Accordion>
+
+      <Accordion title="Escalation with ticket ID" icon="headset">
+        * **Trigger:** Conversation Escalated
+        * **Action 1:** Create support ticket in Zendesk
+        * **Action 2:** Send Message (ContextGPT) - "Your ticket #\{\{ticket\_id}} has been created"
+        * **Action 3:** Notify support team in Slack
+        * **Action 4:** Log in analytics tool
+      </Accordion>
+
+      <Accordion title="Booking confirmation flow" icon="calendar">
+        * **Trigger:** New booking in Calendly
+        * **Action 1:** Find thread by user email
+        * **Action 2:** Send Message (ContextGPT) - "Your meeting is confirmed for \{\{date}}"
+        * **Action 3:** Add to Google Calendar
+        * **Action 4:** Send reminder email
+      </Accordion>
+    </AccordionGroup>
+  </Tab>
+
+  <Tab title="Conditional logic" icon="code-branch">
+    Use Zapier's paths feature to create different workflows based on conditions:
+
+    * Route high-value leads to sales team
+    * Send urgent escalations to priority queue
+    * Categorize messages by topic or sentiment
+    * Send different responses based on user data
+  </Tab>
+
+  <Tab title="Bidirectional sync" icon="arrows-rotate">
+    Use the Send Message action to create two-way integrations:
+
+    * Update chat when CRM records change
+    * Notify users of order status updates
+    * Send appointment reminders to active chats
+    * Provide real-time updates from external systems
+  </Tab>
+</Tabs>
+
+## Pricing
+
+Zapier integration is available on all ContextGPT plans. Zapier's own pricing applies based on your task usage.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Webhooks" icon="webhook" href="/developers/webhooks">
+    Set up custom webhooks for advanced automation
+  </Card>
+
+  <Card title="Lead collection" icon="address-book" href="/features/lead-collection">
+    Configure lead capture settings
+  </Card>
+
+  <Card title="Human support" icon="user" href="/features/human-support">
+    Set up conversation escalation
+  </Card>
+
+  <Card title="API reference" icon="code" href="/api-reference/v2/getting-started">
+    Explore the ContextGPT API
+  </Card>
+</CardGroup>

@@ -1,0 +1,428 @@
+---
+title: Zendesk (Legacy) integration
+description: Legacy API-key-based Zendesk integration for existing installs; new customers should use the primary Zendesk integration instead
+sidebarTitle: Zendesk (Legacy) integration
+icon: ticket
+---
+
+<Warning>
+  This is the **legacy** Zendesk integration — it uses a Conversations API key, requires manual webhook setup, and is kept for existing installs.
+
+  **New installs should use the [Zendesk integration](/integrations/zendesk)** — one-click OAuth, no API keys, no webhook configuration.
+</Warning>
+
+<video controls className="w-full aspect-video" src="https://mintcdn.com/" data-path="videos/zendesk-legacy.mp4" />
+
+Connect your ContextGPT chatbot to Zendesk to provide instant AI-powered support and reduce agent workload. Your bot answers customer questions through the Zendesk messaging interface, deflecting tickets and improving response times.
+
+## How it works
+
+Your chatbot integrates with Zendesk to create an intelligent support workflow:
+
+<CardGroup cols={2}>
+  <Card title="AI ticket deflection" icon="shield-check">
+    Answers common questions instantly, reducing ticket volume
+  </Card>
+
+  <Card title="Seamless escalation" icon="handshake">
+    Automatically hands off complex issues to human agents
+  </Card>
+
+  <Card title="Conversation sync" icon="arrows-rotate">
+    Syncs all interactions across Zendesk and ContextGPT
+  </Card>
+
+  <Card title="Performance analytics" icon="chart-line">
+    Tracks deflection rates and conversation metrics
+  </Card>
+</CardGroup>
+
+## Prerequisites
+
+<Check>Zendesk Suite account with Conversations API access</Check>
+<Check>Admin privileges to create API keys and webhooks</Check>
+<Check>A trained ContextGPT chatbot ready to deploy</Check>
+
+<Note>This integration requires a Zendesk Suite plan. The Conversations API is not available on basic Zendesk Support plans.</Note>
+
+## Setup
+
+<Steps>
+  <Step title="Generate a Conversations API key in Zendesk">
+    In Zendesk Admin Center, navigate to **Apps and integrations** → **APIs** → **Conversations API**.
+
+    Click **Create API key**, enter a name (e.g., "ContextGPT Bot"), and click **Next**.
+
+    Zendesk displays the **App ID**, **Key ID**, and **Secret key**. Copy both the Key ID and Secret key.
+
+    <Warning>The Secret key is shown only once. Store it securely in a password manager.</Warning>
+  </Step>
+
+  <Step title="Connect Zendesk to ContextGPT">
+    In ContextGPT, go to **Integrations** → **Zendesk** and click **Get Started**.
+
+    Paste the **Key ID** and **Secret key** from Zendesk, then click **Connect**.
+
+    ContextGPT validates the credentials and provides a **Callback URL**. Copy this URL for the next step.
+  </Step>
+
+  <Step title="Create a webhook integration in Zendesk">
+    In Zendesk Admin Center, go to **Apps and integrations** → **Integrations** → **Conversations integrations**.
+
+    Click **Create integration** and configure:
+
+    * **Name**: ContextGPT Bot
+    * **Webhook endpoint URL**: Paste the Callback URL from ContextGPT
+    * **Request method**: POST
+    * **Format**: JSON
+
+    Enable **Include full user** and **Include full source** for complete context.
+
+    <Tip>These options provide your bot with user details and device information for better responses.</Tip>
+  </Step>
+
+  <Step title="Configure webhook subscriptions">
+    Under **Webhook subscriptions**, select these events:
+
+    <Tabs>
+      <Tab title="Required events" icon="check">
+        * **Conversation created** - New conversations start
+        * **Conversation message** - New messages arrive
+      </Tab>
+
+      <Tab title="Recommended events" icon="star">
+        * **Client updated** - User device changes
+        * **Conversation deleted** - Conversations end
+        * **Conversation read** - Messages are read
+        * **User merged** - User accounts merge
+        * **User updated** - User details change
+      </Tab>
+    </Tabs>
+
+    Click **Save**. Zendesk displays a **Webhook ID** and **Shared secret**—copy these for your records.
+  </Step>
+
+  <Step title="Add a messaging channel">
+    In Admin Center, go to **Channels** → **Messaging** and click **Add channel** → **Web Widget**.
+
+    Configure the channel:
+
+    * **Name**: ContextGPT Bot
+    * **Integration**: Select the integration you created
+    * **Authentication**: Configure as needed
+    * **Pre-chat form**: Optional (e.g., ask for visitor name)
+
+    After saving, the channel shows status **Active**.
+
+    Copy the widget script and embed it on your website, or test using Zendesk's **Preview** function.
+  </Step>
+
+  <Step title="Test the integration">
+    Open a page with the Web Widget and send a test message (e.g., "What is ContextGPT?").
+
+    Zendesk forwards the message to ContextGPT via webhook, and your bot responds through the messaging interface.
+
+    <Tip>If no response appears, verify the Callback URL is correct and "Conversation message" is enabled in webhook subscriptions.</Tip>
+  </Step>
+</Steps>
+
+## Webhook events
+
+Configure which Zendesk events trigger your bot in the webhook subscription settings:
+
+**Essential for bot operation:**
+
+* `conversation.created` - Start new conversations
+* `conversation.message` - Receive new messages
+
+**Recommended events:**
+
+* `client.updated` - Adapt to device changes
+* `user.updated` - Use latest user information
+* `conversation.read` - Track message engagement
+* `conversation.deleted` - Clean up ended conversations
+* `user.merged` - Handle account consolidation
+
+<Info>More events provide better context but increase webhook volume.</Info>
+
+## Customization
+
+**In Zendesk:**
+
+* Customize widget color and branding
+* Configure welcome message
+* Set up pre-chat form fields
+* Define operating hours
+
+**In ContextGPT:**
+
+* Update bot name and avatar in [appearance settings](/features/appearance)
+* Modify response tone in [chatbot settings](/navigating-your-chatbot/settings)
+* Configure conversation starters and quick replies
+
+Changes in ContextGPT take effect immediately without reconnection.
+
+## Advanced features
+
+<AccordionGroup>
+  <Accordion title="Ticket deflection analytics" icon="chart-line">
+    Measure your bot's impact on support workload:
+
+    **Key metrics to track:**
+
+    * Conversations handled by AI vs. escalated
+    * Average resolution time
+    * Customer satisfaction scores
+    * Most common questions
+
+    **In ContextGPT dashboard:**
+
+    * Navigate to **Chat History** for conversation details
+    * Export data for custom analysis
+    * Identify knowledge gaps
+
+    **In Zendesk:**
+
+    * Use Explore to create custom reports
+    * Track ticket volume trends
+    * Monitor agent workload reduction
+
+    <Tip>Aim for 40-60% deflection rate initially, improving to 70%+ with training.</Tip>
+  </Accordion>
+
+  <Accordion title="Multi-language support" icon="globe">
+    Serve customers in their preferred language:
+
+    1. Train your ContextGPT bot with multilingual content
+    2. Enable language detection in chatbot settings
+    3. Bot automatically responds in the detected language
+    4. Zendesk tracks conversations by language
+
+    Supported languages depend on your training data and ContextGPT plan.
+  </Accordion>
+
+  <Accordion title="Custom escalation workflows" icon="route">
+    Create sophisticated handoff rules:
+
+    **Escalate based on:**
+
+    * Specific keywords (e.g., "refund", "cancel", "complaint")
+    * Low confidence scores (\<70%)
+    * Number of messages without resolution (>5)
+    * User sentiment (negative tone detected)
+    * Business hours (escalate outside hours)
+
+    Configure in ContextGPT's [human support settings](/features/human-support).
+
+    **Zendesk routing:**
+
+    * Assign escalated conversations to specific agents
+    * Route by topic or department
+    * Set priority levels automatically
+    * Trigger custom workflows
+  </Accordion>
+
+  <Accordion title="Lead capture and qualification" icon="address-book">
+    Identify and qualify leads during conversations:
+
+    1. Enable [lead collection](/features/lead-collection) in ContextGPT
+    2. Configure trigger keywords (e.g., "pricing", "demo", "enterprise")
+    3. Bot collects contact information when interest is detected
+    4. Leads sync to ContextGPT and can be exported to your CRM
+
+    **Integration with Zendesk Sell:**
+
+    * Use Zapier to create leads in Zendesk Sell automatically
+    * Sync conversation history to lead records
+    * Track lead source and qualification status
+  </Accordion>
+</AccordionGroup>
+
+## Managing the integration
+
+<Tabs>
+  <Tab title="Monitor performance" icon="chart-line">
+    Track your Zendesk bot's effectiveness:
+
+    **In ContextGPT:**
+
+    * Navigate to **Chat History** for all Zendesk conversations
+    * Review response accuracy and user satisfaction
+    * Identify frequently asked questions
+    * Export conversation data for analysis
+
+    **In Zendesk:**
+
+    * Use **Explore** for custom analytics dashboards
+    * Track ticket deflection rates
+    * Monitor first response time improvements
+    * Measure agent workload reduction
+
+    <Tip>Review performance weekly and update training data based on insights.</Tip>
+  </Tab>
+
+  <Tab title="Update your bot" icon="arrows-rotate">
+    Keep your bot current with minimal effort:
+
+    **Automatic updates:**
+
+    * Changes to training data take effect immediately
+    * Updated chatbot instructions apply to new conversations
+    * Modified escalation rules activate instantly
+
+    **No reconnection required:**
+
+    * Add new knowledge base articles
+    * Update product information
+    * Refine conversation starters
+    * Adjust response tone
+
+    Test changes by sending a message through the Web Widget.
+  </Tab>
+
+  <Tab title="Disconnect" icon="plug">
+    To remove the Zendesk integration:
+
+    **In ContextGPT:**
+
+    1. Go to **Integrations** → **Zendesk**
+    2. Click **Manage** → **Disconnect**
+
+    **In Zendesk (optional cleanup):**
+
+    1. Delete the webhook integration in Admin Center
+    2. Remove or reassign the messaging channel
+    3. Revoke the Conversations API key
+
+    Existing conversation history remains in both platforms.
+  </Tab>
+</Tabs>
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Start with high-confidence responses" icon="gauge">
+    Build trust gradually:
+
+    * Set confidence threshold to 80%+ initially
+    * Let AI handle only clear, well-documented questions
+    * Monitor escalation rates and adjust threshold
+    * Gradually lower threshold as accuracy improves
+
+    **Recommended thresholds:**
+
+    * **Week 1-2**: 85% (conservative)
+    * **Week 3-4**: 75% (moderate)
+    * **Month 2+**: 65% (aggressive)
+
+    This approach minimizes incorrect responses while building confidence.
+  </Accordion>
+
+  <Accordion title="Optimize for ticket deflection" icon="shield-check">
+    Maximize AI's impact on support workload:
+
+    **Train on common tickets:**
+
+    * Export top 50 ticket topics from Zendesk
+    * Add these topics to your ContextGPT training data
+    * Create Q\&A pairs for frequent issues
+    * Update weekly based on new ticket trends
+
+    **Strategic escalation:**
+
+    * Let AI handle tier 1 support (account questions, how-tos)
+    * Escalate tier 2+ issues (technical problems, bugs)
+    * Route sensitive topics (billing, refunds) to humans
+    * Use keywords to identify escalation needs
+
+    <Tip>Aim to deflect 60-70% of tier 1 tickets within 3 months.</Tip>
+  </Accordion>
+
+  <Accordion title="Maintain conversation quality" icon="star">
+    Ensure excellent customer experience:
+
+    **Monitor regularly:**
+
+    * Review 10-20 conversations weekly
+    * Check for incorrect or unhelpful responses
+    * Identify confusing questions
+    * Update training data based on findings
+
+    **Collect feedback:**
+
+    * Enable feedback buttons in responses
+    * Track satisfaction scores
+    * Follow up on negative feedback
+    * Use insights to improve accuracy
+
+    **Set clear expectations:**
+
+    * Identify the bot as AI in welcome messages
+    * Explain what the bot can help with
+    * Make escalation options visible
+    * Provide estimated human response times
+
+    Quality conversations build customer trust and satisfaction.
+  </Accordion>
+
+  <Accordion title="Integrate with your support workflow" icon="network-wired">
+    Create a seamless AI-human handoff:
+
+    **For agents:**
+
+    * Provide access to full conversation history
+    * Include AI confidence scores in escalations
+    * Show which knowledge base articles were used
+    * Enable agents to provide feedback on AI responses
+
+    **For customers:**
+
+    * Maintain context during handoffs
+    * Avoid asking customers to repeat information
+    * Acknowledge AI limitations transparently
+    * Thank customers for patience during escalation
+
+    **For managers:**
+
+    * Track deflection rates by topic
+    * Monitor agent workload reduction
+    * Identify training opportunities
+    * Measure ROI on AI investment
+
+    A well-integrated workflow improves efficiency and satisfaction.
+  </Accordion>
+
+  <Accordion title="Secure your integration" icon="lock">
+    Protect customer data and maintain compliance:
+
+    * Store API credentials securely (use environment variables)
+    * Enable webhook signature verification
+    * Regularly audit API key permissions
+    * Rotate credentials every 90 days
+    * Monitor webhook logs for suspicious activity
+    * Comply with GDPR and data privacy regulations
+    * Document data handling procedures
+
+    Security builds customer trust and protects your business.
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Human support" icon="user-headset" href="/features/human-support">
+    Configure escalation workflows
+  </Card>
+
+  <Card title="Lead collection" icon="address-book" href="/features/lead-collection">
+    Capture and qualify leads
+  </Card>
+
+  <Card title="Chat history" icon="messages" href="/navigating-your-chatbot/chat-history">
+    Review Zendesk conversations
+  </Card>
+
+  <Card title="Webhooks" icon="webhook" href="/developers/webhooks">
+    Set up custom integrations
+  </Card>
+</CardGroup>

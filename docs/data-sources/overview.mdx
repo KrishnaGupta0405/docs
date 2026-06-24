@@ -1,0 +1,101 @@
+---
+title: Data Sources Overview
+description: Train your ContextGPT chatbot with content from various data sources
+sidebarTitle: Overview
+icon: database
+---
+
+# Data Sources
+
+ContextGPT supports training your chatbot from multiple data sources beyond just websites. This allows you to create a comprehensive AI assistant that can answer questions based on your entire knowledge base.
+
+## Available Data Sources
+
+<CardGroup cols={2}>
+  <Card title="Website" icon="globe" href="/setup/training-your-chatbot">
+    Crawl your website automatically via sitemap or page-by-page
+  </Card>
+
+  <Card title="Google Drive" icon="google-drive" href="/data-sources/google-drive">
+    Import documents, sheets, and presentations from Google Drive
+  </Card>
+
+  <Card title="Notion" icon="file-lines" href="/data-sources/notion">
+    Connect your Notion workspace and import pages
+  </Card>
+
+  <Card title="YouTube" icon="youtube" href="/data-sources/youtube">
+    Train on video transcripts from YouTube channels or playlists
+  </Card>
+
+  <Card title="Dropbox" icon="dropbox" href="/data-sources/dropbox">
+    Import files and documents from Dropbox
+  </Card>
+
+  <Card title="OneDrive" icon="microsoft" href="/data-sources/onedrive">
+    Connect Microsoft OneDrive to import documents
+  </Card>
+
+  <Card title="Box" icon="box" href="/data-sources/box">
+    Connect Box cloud storage
+  </Card>
+
+  <Card title="GitHub" icon="github" href="/data-sources/github">
+    Import Markdown docs, READMEs, and files from GitHub repositories
+  </Card>
+</CardGroup>
+
+## How Data Source Training Works
+
+1. **Connect** - Authenticate with your data source (OAuth for most services)
+2. **Select** - Choose which files, folders, or pages to import
+3. **Train** - ContextGPT processes the content and trains your chatbot
+4. **Sync** - Enable auto-sync to keep content updated (where supported)
+
+## Supported File Types
+
+When importing from cloud storage services like Google Drive, Dropbox, OneDrive, or Box, ContextGPT can process:
+
+| File Type     | Extensions                    |
+| ------------- | ----------------------------- |
+| Documents     | .pdf, .doc, .docx, .txt, .rtf |
+| Spreadsheets  | .xls, .xlsx, .csv             |
+| Presentations | .ppt, .pptx                   |
+| Web           | .html, .htm                   |
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Organize your content before importing">
+    Create dedicated folders for chatbot training content. This makes it easier to manage what gets imported and keeps your chatbot focused.
+  </Accordion>
+
+  <Accordion title="Use multiple sources for comprehensive coverage">
+    Customers using 3+ data sources see **40% fewer "I don't know" responses**. Combine your website with internal docs and FAQs.
+  </Accordion>
+
+  <Accordion title="Keep content up to date">
+    Enable auto-sync where available, or set reminders to retrain monthly. Outdated content leads to incorrect answers.
+  </Accordion>
+
+  <Accordion title="Review what you're importing">
+    Only import content you want the chatbot to reference. Exclude internal-only documents, draft content, or sensitive information.
+  </Accordion>
+</AccordionGroup>
+
+## Adding a Data Source
+
+1. Navigate to your chatbot's **Training** tab
+2. Click **Add Data Source**
+3. Select your preferred data source type
+4. Follow the authentication prompts
+5. Select the content to import
+6. Click **Start Training**
+
+<Note>
+  Training time depends on the amount of content. A typical import of 50-100 documents takes 2-5 minutes.
+</Note>
+
+## Need Help?
+
+If you encounter issues connecting a data source, check the specific integration guide for troubleshooting steps, or contact our support team.

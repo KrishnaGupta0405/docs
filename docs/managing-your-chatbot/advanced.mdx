@@ -1,0 +1,152 @@
+---
+title: Advanced features
+description: Access team management, integrations, and advanced chatbot settings.
+sidebarTitle: Advanced
+icon: rocket
+---
+
+Advanced features give you powerful control over your chatbot's capabilities, team access, and external integrations. Access these options under the **Advanced** section in your chatbot dashboard.
+
+## Team management
+
+### Members
+
+Collaborate with your team by adding members. There are two ways to invite someone, and they behave differently:
+
+**Team members (account-level)**
+
+Invited from your account's **Team** settings. A team member is granted access to **all chatbots** in your account with the assigned role — including new chatbots created in the future.
+
+1. Navigate to **Members** under your account **Team** settings
+2. Click **Invite Member**
+3. Enter their email address
+4. Assign a role (Agent, Manager, Admin)
+5. Send the invitation
+
+Updating or downgrading a team member's role automatically propagates the change across **all chatbots** they belong to.
+
+**Chatbot members (chatbot-level)**
+
+Invited from the **Members** section inside a specific chatbot's **Advanced** tab. A chatbot member only gets access to **that chatbot** with the assigned role.
+
+1. Navigate to **Members** under **Advanced** in the chatbot dashboard
+2. Click **Invite Member**
+3. Enter their email address
+4. Assign a role (Agent, Manager, Admin)
+5. Send the invitation
+
+Updating or downgrading a chatbot member's role only affects their access to **that specific chatbot** — their role on other chatbots and their account-level role remain unchanged.
+
+**Member roles:**
+
+* **Agent** - Can view and respond to conversations
+* **Manager** - Can manage content and settings
+* **Admin** - Full access except billing
+* **Super Admin** - Complete control including deletion
+
+The number of members you can add depends on your subscription plan. Upgrade your plan to add more team members.
+
+## Playground
+
+Test chatbot changes in real-time before deploying to your live website.
+
+Use the playground to:
+
+* Test different instructions and personas
+* Compare GPT-4.1 mini vs GPT-4.1 responses
+* Verify custom responses (Q\&A)
+* Try conversation starters and follow-ups
+* Preview appearance changes
+
+Changes in the playground don't affect your live chatbot until you save and deploy them.
+
+## Integrations
+
+Connect ContextGPT with your existing communication channels and tools.
+
+### Available integrations
+
+**Messaging platforms:**
+
+* **Slack** - Answer questions in Slack channels and DMs
+* **Google Chat** - Integrate with Google Workspace
+* **Facebook Messenger** - Respond to Facebook messages
+* **Crisp Chat** - Enhance Crisp with AI responses
+* **Freshdesk Messaging** - Add AI to Freshdesk Messaging (formerly Freshchat) live chat
+* **Zendesk** - Integrate with Zendesk Chat
+* **Intercom** - Add AI to your Intercom conversations *(coming soon)*
+* **Zoho** - Connect to Zoho CRM and support tools
+
+**Automation:**
+
+* **Zapier** - Connect to 5,000+ apps and automate workflows
+* **Webhooks** - Send conversation data to any system
+
+<Tip>
+  Don't see your preferred platform? Contact support to request a new integration.
+</Tip>
+
+## Settings
+
+Configure advanced chatbot behavior and preferences.
+
+<CardGroup cols={2}>
+  <Card title="Settings" icon="gear" href="/navigating-your-chatbot/settings">
+    Adjust general settings, chat modes, localization, and advanced options.
+  </Card>
+
+  <Card title="Delete chatbot" icon="trash-xmark" href="/navigating-your-chatbot/delete-chatbot">
+    Permanently remove a chatbot from your account.
+  </Card>
+</CardGroup>
+
+### Advanced settings
+
+Access technical configuration options in **Settings** > **Advanced**:
+
+**TopK** - Controls how many relevant content chunks are retrieved to answer questions (1-5 by default, up to 50 with Advanced Controls addon)
+
+**CSS Selectors** - Specify CSS selectors to exclude when training on web pages (e.g., `header,.footer,#nav`). You must retrain your links after changing this setting.
+
+<Note>
+  **Advanced Controls Addon**
+
+  The Advanced Controls addon unlocks extended TopK values (up to 50) for more comprehensive content retrieval. This is useful for complex queries that require information from multiple sources.
+
+  To purchase this addon, visit your [billing page](/navigating-your-account/billing).
+</Note>
+
+## Additional advanced features
+
+### Webhooks
+
+Send real-time conversation data to external systems:
+
+* New messages
+* Lead captures
+* Conversation escalations
+* Custom events
+
+Configure webhooks in **Settings** > **Webhooks**.
+
+### SDK methods
+
+Control your chatbot programmatically using JavaScript:
+
+* Open/close the chat widget
+* Send messages programmatically
+* Update user information
+* Trigger specific actions
+
+Learn more in the [SDK documentation](/developers/sdk).
+
+### API access
+
+Integrate ContextGPT into your applications using the REST API:
+
+* Manage chatbots programmatically
+* Send and receive messages
+* Access conversation history
+* Manage content and settings
+
+View the [API reference](/api-reference/v2/getting-started) for complete documentation.

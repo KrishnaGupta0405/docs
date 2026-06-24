@@ -1,0 +1,245 @@
+---
+title: Human support escalation
+description: Allow users to escalate conversations to human agents when needed
+sidebarTitle: Human support escalation
+icon: user-headset
+---
+
+Human support escalation lets users seamlessly transition from AI to human agents when they need personalized assistance.
+
+## How it works
+
+When enabled, users can request human support during their conversation with your chatbot. The conversation is then flagged for human review, and you're notified to take over.
+
+## Enabling human support
+
+<Steps>
+  <Step title="Navigate to leads settings">
+    Go to your chatbot dashboard and click **Leads** > **Human Support** in the sidebar.
+  </Step>
+
+  <Step title="Enable the feature">
+    Toggle **Enable Human Support** to activate escalation functionality.
+  </Step>
+
+  <Step title="Configure escalation buttons">
+    Choose whether to show escalation buttons after each AI response.
+  </Step>
+
+  <Step title="Customize messages">
+    Set up custom prompts and confirmation messages for escalation requests.
+  </Step>
+
+  <Step title="Set up notifications">
+    Configure email notifications to alert your team when escalations occur.
+  </Step>
+</Steps>
+
+## Configuration options
+
+### Escalation buttons
+
+**Show escalation buttons after responses**\
+Display quick reply buttons after each chatbot response, allowing users to provide feedback or request human support. When disabled, users can only request human support through natural conversation.
+
+**Replace other suggestions with escalation buttons**\
+When enabled, escalation buttons replace all other suggestions (starters, follow-ups). When disabled, they appear alongside other suggestions. This setting only applies when "Show escalation buttons" is enabled.
+
+### Custom prompts
+
+**Positive feedback prompt**\
+Text shown to users after receiving a helpful response.\
+Default: "That answered my question 👍"
+
+**Request human support prompt**\
+Text shown to users to request human assistance.\
+Default: "Connect to an agent 👤"
+
+**Confirmation message**\
+Message shown after a user requests human support.\
+Default: "Your request has been forwarded to our human support team. They will respond soon."
+
+### Email notifications
+
+**Enable escalation notifications**\
+Send email alerts when users request human support escalation.
+
+**Email recipients**\
+Add email addresses (one at a time or comma-separated) to notify when escalations occur. If no emails are provided, notifications are sent to default recipients (chatbot owner). Each notification includes:
+
+* User contact information (if collected)
+* Full conversation transcript
+* Link to view the conversation
+* Timestamp of escalation request
+
+## Managing escalated conversations
+
+### View escalations
+
+All escalated conversations appear in your dashboard:
+
+1. Go to **Leads** > **Human Support**
+2. View the list of escalated conversations
+3. Click on any conversation to see the full transcript
+
+### Respond to escalations
+
+To respond to an escalated conversation:
+
+1. Open the conversation from the Human Support page
+2. Review the conversation history
+3. Use your preferred communication method to respond (email, phone, etc.)
+4. Mark the conversation as resolved when complete
+
+### Escalation analytics
+
+Track escalation metrics:
+
+* Total escalations
+* Escalation rate
+* Response time
+* Resolution rate
+
+## Best practices
+
+### Set clear expectations
+
+Let users know what to expect:
+
+* Typical response time for human support
+* Hours of operation
+* What types of questions warrant escalation
+
+### Monitor escalation patterns
+
+Review escalated conversations regularly to:
+
+* Identify gaps in your chatbot's knowledge
+* Improve training data
+* Reduce unnecessary escalations
+
+### Respond promptly
+
+Set up notifications to ensure quick response times:
+
+* Configure email alerts
+* Use Zapier to create support tickets
+* Set up Slack notifications
+
+### Train your chatbot
+
+Use escalated conversations to improve your chatbot:
+
+* Add common questions to your training data
+* Create Q\&A pairs for frequent issues
+* Update prompts and personas
+
+## Integration with other features
+
+### Webhooks
+
+Set up webhooks to receive real-time escalation notifications:
+
+```json theme={null}
+{
+  "event": "CONVERSATION_ESCALATED",
+  "data": {
+    "chatbotId": "your-chatbot-id",
+    "threadId": "thread-123",
+    "dashboardUrl": "https://app.contextgpt.in/your-chatbot-id/chat-history/thread-123",
+    "user": {
+      "id": "visitor-456",
+      "email": "user@example.com",
+      "name": "John Doe",
+      "phone": "+1234567890",
+      "verified": true,
+      "createdAt": "2024-01-15T10:25:00Z"
+    },
+    "leadInfo": {
+      "name": "John Doe",
+      "email": "user@example.com",
+      "phone": "+1234567890"
+    }
+  }
+}
+```
+
+Learn more in the [Webhooks documentation](/developers/webhooks).
+{/* 
+### Zapier
+
+Automate escalation workflows:
+
+* Create support tickets automatically
+* Notify team in Slack
+* Add to CRM for follow-up
+* Send confirmation emails
+
+Learn more in the [Zapier integration guide](/integrations/zapier). */}
+
+### Lead collection
+
+Combine escalation with lead collection to:
+
+* Capture contact information before escalating
+* Ensure you can follow up with users
+* Build your customer database
+
+Learn more in the [Lead collection documentation](/features/lead-collection).
+
+## Troubleshooting
+
+### Escalation buttons not showing
+
+If escalation buttons aren't appearing:
+
+* Verify human support is enabled
+* Check that "Show escalation buttons" is toggled on
+* Clear your browser cache
+* Test in an incognito window
+
+### Not receiving notifications
+
+If you're not getting escalation emails:
+
+* Verify email addresses are correct
+* Check spam/junk folders
+* Ensure notifications are enabled
+* Test with a sample escalation
+
+### Users can't escalate
+
+If users report they can't request human support:
+
+* Confirm the feature is enabled
+* Check that your chatbot is published
+* Verify there are no JavaScript errors
+* Test the escalation flow yourself
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Lead collection" icon="address-book" href="/features/lead-collection">
+    Capture user information during conversations
+  </Card>
+
+  <Card title="Webhooks" icon="webhook" href="/developers/webhooks">
+    Set up real-time escalation notifications
+  </Card>
+
+  <Card title="Zapier" icon="bolt" href="/integrations/zapier">
+    Automate escalation workflows
+  </Card>
+
+  <Card title="Chat history" icon="messages" href="/navigating-your-chatbot/chat-history">
+    Review conversation transcripts
+  </Card>
+
+  <Card title="Chatbot settings" icon="gear" href="/navigating-your-chatbot/settings">
+    Configure chat modes and behavior
+  </Card>
+
+  <Card title="Manage leads" icon="users" href="/navigating-your-chatbot/leads">
+    View and manage captured leads
+  </Card>
+</CardGroup>

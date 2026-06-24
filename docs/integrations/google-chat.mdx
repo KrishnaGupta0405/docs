@@ -1,0 +1,225 @@
+---
+title: Google Chat integration
+description: Integrate your ContextGPT chatbot with Google Chat
+sidebarTitle: Google Chat
+icon: google
+---
+
+Connect your ContextGPT chatbot to Google Chat to transform your workspace into a knowledge hub. Your chatbot can answer questions about your organization, website, or products directly within Google Chat.
+
+<Frame>
+  <iframe width="100%" height="400" src="https://www.youtube.com" title="Google Chat Integration Setup Tutorial" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+</Frame>
+
+<Tip>Watch the video tutorial above for a complete walkthrough of the setup process.</Tip>
+
+## Prerequisites
+
+* An active ContextGPT chatbot
+* Google Workspace account with admin access
+* Access to Google Cloud Console
+* Google Chat integration feature enabled (contact [support@ContextGPT.in](mailto:support@ContextGPT.in) to request access)
+
+## Setting up Google Chat integration
+
+<Steps>
+  <Step title="Access the integration in ContextGPT">
+    Log into your ContextGPT dashboard and click **Integrations** in the sidebar. Scroll down to find the Google Chat integration and click **Connect**.
+
+    <Note>You need to request access from [support@ContextGPT.in](mailto:support@ContextGPT.in) before you can activate this integration.</Note>
+  </Step>
+
+  <Step title="Copy the integration URL">
+    After clicking **Connect**, ContextGPT will display an integration URL. Copy this URL - you'll need it later when configuring the Google Cloud Console.
+  </Step>
+
+  <Step title="Create a new project in Google Cloud Console">
+    Go to [Google Cloud Console](https://console.cloud.google.com) and make sure you're logged into the correct Google account.
+
+    1. Click **New Project** in the top right
+    2. Enter a project name (e.g., "My ContextGPT Bot")
+    3. Click **Create**
+    4. Wait for the project to be created, then select it
+  </Step>
+
+  <Step title="Enable Google Chat API">
+    In the Google Cloud Console search bar, type "Google Chat API" and select it from the results. Click **Enable** to activate the API for your project.
+  </Step>
+
+  <Step title="Open the Chat app configuration">
+    After enabling the API, open the Google Chat API page and click **Manage**. This opens the Chat app configuration — all settings are now on a single page.
+
+    At the top, check the **Build this Chat app as a Workspace add-on** box. ContextGPT requires the Workspace add-on event format.
+  </Step>
+
+  <Step title="Application info">
+    Fill in the basic identity for your bot:
+
+    * **App name**: A name for your bot (e.g., "ContextGPT Assistant")
+    * **Avatar URL**: An HTTPS link to a square (1:1) PNG, recommended to be at least 256×256
+    * **Description**: A short description of what the bot does (max 40 characters)
+  </Step>
+
+  <Step title="Interactive features">
+    Toggle **Enable Interactive features** on. Under **Functionality**, the default **MESSAGE event** (1:1 messages) is always enabled. Also check:
+
+    * **Join spaces and group conversations** (ADDED\_TO\_SPACE event)
+
+    These let the bot respond in DMs and be added to spaces.
+  </Step>
+
+  <Step title="Connection settings">
+    Under **Connection settings**, choose **HTTP endpoint URL** as the connection type (not Apps Script, Cloud Pub/Sub, or Dialogflow).
+
+    Google will display a **Service Account Email** that looks like `service-<project-number>@gcp-sa-gsuiteaddons.iam.gserviceaccount.com`. You don't need to copy or configure it anywhere for ContextGPT — it's just shown for reference.
+  </Step>
+
+  <Step title="Triggers — paste your HTTP endpoint URL">
+    Under **Triggers**, leave the default **Use a common HTTP endpoint URL for all triggers** option selected.
+
+    Paste the integration URL you copied from ContextGPT into the **HTTP endpoint URL** field (it must be HTTPS). This is the single endpoint Google will call for every chat event (messages, slash commands, button clicks, add/remove from spaces).
+  </Step>
+
+  <Step title="Add slash commands (optional)">
+    Under **Commands**, click **Add a command** to register a slash command. For example:
+
+    * **Name**: `/clear-chat`
+    * **Command ID**: `1` (must be unique within this app)
+    * **Description**: "Resets and starts a new conversation"
+
+    Add any other commands you'd like users to have access to.
+  </Step>
+
+  <Step title="Set visibility">
+    Under **Visibility**, check **Make this Chat app available to specific people and groups in \[your domain]** and add the email addresses of users who should be able to use the bot. Multiple emails can be separated by commas. Group access changes can take up to 24 hours to propagate.
+  </Step>
+
+  <Step title="Enable logging (recommended)">
+    Under **Logs**, leave **Log errors to Logging** checked. This sends Chat app errors to Google Cloud Logging, which is invaluable for debugging.
+
+    Click **Save** at the bottom of the page when done.
+  </Step>
+
+  <Step title="Invite the bot to Google Chat">
+    Go to your Google Chat workspace (logged into the same account). To add the bot to a chat or space:
+
+    1. Open the chat or space where you want to add the bot
+    2. Click to add a member
+    3. Search for your bot by the name you gave it (e.g., "My Company Bot")
+    4. Select it to add it to the conversation
+  </Step>
+</Steps>
+
+## Using your chatbot in Google Chat
+
+### Interacting with the bot
+
+Once added to a chat or space, users can interact with your chatbot by:
+
+* Sending messages directly in the conversation
+* Using conversation starters (quick prompts) that appear automatically
+* Using slash commands you configured (e.g., `/clear-chat`)
+* Asking questions about your organization, products, or website
+
+The chatbot will display the same conversation starters and quick prompts you configured in your ContextGPT dashboard.
+
+### Testing the integration
+
+After adding the bot to a chat:
+
+1. Send a test question to verify it responds correctly
+2. Try using the conversation starters that appear
+3. Test any slash commands you configured
+4. Verify that responses match your chatbot's training data
+
+### Adding to multiple chats and spaces
+
+You can add your company bot to any chat or space in your Google Chat workspace. This makes it easy to provide consistent information across different teams and conversations.
+
+## Managing the integration
+
+### View conversation history
+
+All conversations from Google Chat are stored in your ContextGPT dashboard:
+
+1. Go to **Chat History** in your chatbot dashboard
+2. View all messages and interactions from Google Chat
+3. Monitor how users are interacting with your bot
+4. Review responses to improve your chatbot's training
+
+### Update bot configuration
+
+To modify your bot's settings:
+
+1. Return to Google Cloud Console
+2. Navigate to your project and open the Google Chat API
+3. Click **Manage** to open the Chat app configuration page
+4. Update any settings as needed
+5. Click **Save** at the bottom of the page
+
+### Development mode vs. live mode
+
+<Warning>
+  When your app is in development mode, only users with an app role (like admins) can interact with the bot. To make it available to all users in your workspace, you'll need to publish the app and set it live.
+</Warning>
+
+## Troubleshooting
+
+### Bot not responding
+
+If your chatbot isn't responding:
+
+* Verify the integration URL is correctly pasted in the **HTTP endpoint URL** field under **Triggers**
+* Confirm **Build this Chat app as a Workspace add-on** is checked — ContextGPT requires the Workspace add-on event format
+* Check that **Enable Interactive features** is on
+* Ensure the Google Chat API is enabled
+* Ensure you've saved all configuration changes
+* Confirm the bot has been added to the chat or space
+* Verify your chatbot has trained content in ContextGPT
+* Check **Logs Explorer** in Google Cloud Console for any errors from the Chat app
+
+### Can't find the bot when searching
+
+If you can't find your bot when trying to add it:
+
+* Make sure you're logged into the same Google account
+* Verify you added your email to the visibility settings
+* Check that the project is selected in Google Cloud Console
+* Ensure the bot configuration was saved
+
+### Bot only works for some users
+
+If only certain users can interact with the bot:
+
+* Check if the app is still in development mode
+* Verify all users are added to the visibility settings
+* Consider publishing the app to make it available workspace-wide
+
+## Best practices
+
+* **Choose a clear bot name** - Use a name that clearly identifies the bot's purpose (e.g., "Company Knowledge Bot")
+* **Add useful slash commands** - Commands like `/clear-chat` help users reset conversations easily
+* **Set up conversation starters** - Configure helpful quick prompts in ContextGPT to guide users
+* **Test thoroughly** - Add the bot to a test space first and verify all functionality
+* **Monitor usage** - Regularly review chat history to identify common questions and improve responses
+* **Train your bot well** - Ensure your chatbot has comprehensive training data for accurate responses
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Conversation starters" icon="bolt" href="/features/conversation-starters">
+    Set up quick prompts for common questions
+  </Card>
+
+  <Card title="Chat history" icon="message-lines" href="/navigating-your-chatbot/chat-history">
+    Monitor and analyze conversations
+  </Card>
+
+  <Card title="Other integrations" icon="plug" href="/integrations/overview">
+    Explore more integration options
+  </Card>
+
+  <Card title="Human support" icon="headset" href="/features/human-support">
+    Enable escalation to human agents
+  </Card>
+</CardGroup>

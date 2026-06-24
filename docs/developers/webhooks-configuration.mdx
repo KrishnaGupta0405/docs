@@ -1,0 +1,423 @@
+---
+title: Webhooks configuration
+description: Configure webhooks to receive real-time notifications for chatbot events
+sidebarTitle: Webhooks configuration
+icon: webhook
+---
+
+Use webhooks to receive HTTP POST requests when specific events occur in your chatbot. This allows you to integrate ContextGPT with your own systems, trigger workflows, or sync data in real-time.
+
+<Note>
+  Webhooks are available as an addon (\$59/mo or \$468/yr) or included in the Scale plan by default. Visit your [billing page](/navigating-your-account/billing) to add this feature.
+</Note>
+
+## Accessing webhook settings
+
+Navigate to your chatbot dashboard and select **Settings** → **Webhooks** to configure your webhook endpoint.
+
+## How webhooks work
+
+Each chatbot has exactly one webhook configuration. When an event fires, ContextGPT sends a signed HTTP POST request to your URL. The same endpoint receives all event types — use the `event` field in the payload to distinguish them.
+
+## Available events
+
+### `NEW_MESSAGE`
+
+Triggered for every message sent or received in a thread (both user and AI/agent messages).
+
+**Use cases:**
+
+* Log all conversations to your database
+* Trigger follow-up actions based on content
+* Sync conversations to your CRM
+* Monitor chatbot performance in real-time
+
+### `CONVERSATION_ESCALATED`
+
+Triggered when a visitor requests human support.
+
+**Use cases:**
+
+* Alert your support team immediately
+* Create tickets in your helpdesk system
+* Route escalations to specific team members
+* Track escalation patterns
+
+### `NEW_LEAD`
+
+Triggered when a visitor's contact information is captured as a lead.
+
+**Use cases:**
+
+* Add leads to your CRM automatically
+* Trigger email marketing campaigns
+* Notify your sales team of new prospects
+* Sync lead data across platforms
+
+## Configuring webhooks
+
+1. Navigate to **Settings** → **Webhooks**
+2. Enter your **Webhook URL** — must be a valid HTTPS endpoint
+3. Enter a **Webhook Secret** — minimum 16 characters, used for token verification and payload signing
+4. Select the **Events** you want to receive (`NEW_MESSAGE`, `CONVERSATION_ESCALATED`, `NEW_LEAD`). Defaults to all three.
+5. Click **Save Changes**
+
+<Tip>
+  Generate a long, random secret for your webhook. This secret is sent in every request header and used to sign payloads — it lets you verify that requests are genuinely from ContextGPT. It is shown in full only once at creation time, so save it securely.
+</Tip>
+
+## Webhook payload structure
+
+### `NEW_MESSAGE` payload
+
+```json theme={null}
+{
+  "event": "NEW_MESSAGE",
+  "data": {
+    "chatbotId": "chatbot_123",
+    "threadId": "thread_456",
+    "messageId": "msg_789",
+    "role": "assistant",
+    "question": null,
+    "answer": "Our pricing starts at $19/month...",
+    "sources": [
+      "https://example.com/pricing"
+    ],
+    "createdAt": "2025-01-15T10:30:00Z"
+  }
+}
+```
+
+For user messages, `answer` is `null` and `question` contains the user's text. For AI/agent messages, `question` is `null` and `answer` contains the response.
+
+### `CONVERSATION_ESCALATED` payload
+
+```json theme={null}
+{
+  "event": "CONVERSATION_ESCALATED",
+  "data": {
+    "chatbotId": "chatbot_123",
+    "threadId": "thread_456",
+    "dashboardUrl": "https://app.contextgpt.in/chatbot_123/chat-history/thread_456",
+    "user": {
+      "id": "visitor_321",
+      "email": "user@example.com",
+      "name": "John Doe",
+      "phone": "+1234567890",
+      "verified": true,
+      "createdAt": "2024-01-15T10:25:00Z"
+    },
+    "leadInfo": {
+      "name": "John Doe",
+      "email": "user@example.com",
+      "phone": "+1234567890"
+    }
+  }
+}
+```
+
+`user` and `leadInfo` can be `null` if the visitor had not provided contact information before escalating.
+
+### `NEW_LEAD` payload
+
+```json theme={null}
+{
+  "event": "NEW_LEAD",
+  "data": {
+    "chatbotId": "chatbot_123",
+    "chatbotName": "Support Bot",
+    "leadDetails": {
+      "id": "visitor_789",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1234567890",
+      "capturedAt": "2024-01-15T10:30:00Z"
+    }
+  }
+}
+```
+
+## Webhook headers
+
+All webhook requests include these headers:
+
+```
+Content-Type: application/json
+X-WEBHOOK-TOKEN: your_configured_secret
+X-SIGNATURE: sha256=<hmac_hex>
+User-Agent: ContextGPT-Webhooks/1.0
+```
+
+## Verifying webhooks
+
+Always verify that webhook requests are coming from ContextGPT before processing them.
+
+### Token verification
+
+Check that the `X-WEBHOOK-TOKEN` header matches your configured secret:
+
+```javascript theme={null}
+const receivedToken = request.headers['x-webhook-token'];
+const expectedToken = process.env.CONTEXTGPT_WEBHOOK_SECRET;
+
+if (receivedToken !== expectedToken) {
+  return response.status(401).send('Unauthorized');
+}
+```
+
+### Signature verification (recommended)
+
+For stronger security, verify the `X-SIGNATURE` header. The signature is an HMAC-SHA256 of the raw JSON body using your webhook secret:
+
+```javascript theme={null}
+const crypto = require('crypto');
+
+function verifySignature(rawBody, signature, secret) {
+  const expected = 'sha256=' + crypto
+    .createHmac('sha256', secret)
+    .update(rawBody)
+    .digest('hex');
+
+  return crypto.timingSafeEqual(
+    Buffer.from(signature),
+    Buffer.from(expected)
+  );
+}
+
+// Use express.raw() or capture rawBody before JSON parsing
+const isValid = verifySignature(
+  req.rawBody,
+  req.headers['x-signature'],
+  process.env.CONTEXTGPT_WEBHOOK_SECRET
+);
+
+if (!isValid) {
+  return res.status(401).send('Invalid signature');
+}
+```
+
+## Handling webhook requests
+
+Your webhook endpoint should:
+
+1. **Respond quickly:** Return a `200` status code within 10 seconds
+2. **Process asynchronously:** Queue long-running tasks for background processing
+3. **Handle retries:** Use `messageId`, `leadDetails.id`, or `threadId` as idempotency keys to skip duplicate deliveries
+4. **Log events:** Track received webhooks for debugging and audit purposes
+
+### Example endpoint (Node.js/Express)
+
+```javascript theme={null}
+app.post('/webhooks/contextgpt', async (req, res) => {
+  // Verify token
+  const token = req.headers['x-webhook-token'];
+  if (token !== process.env.CONTEXTGPT_WEBHOOK_SECRET) {
+    return res.status(401).send('Unauthorized');
+  }
+
+  // Respond immediately
+  res.status(200).send('OK');
+
+  // Process webhook asynchronously
+  const { event, data } = req.body;
+
+  try {
+    switch (event) {
+      case 'NEW_MESSAGE':
+        await handleNewMessage(data);
+        break;
+      case 'CONVERSATION_ESCALATED':
+        await handleEscalation(data);
+        break;
+      case 'NEW_LEAD':
+        await handleNewLead(data);
+        break;
+    }
+  } catch (error) {
+    console.error('Webhook processing error:', error);
+  }
+});
+
+async function handleNewMessage(data) {
+  await database.messages.create({
+    chatbotId: data.chatbotId,
+    threadId: data.threadId,
+    messageId: data.messageId,
+    role: data.role,
+    question: data.question,
+    answer: data.answer,
+    createdAt: data.createdAt,
+  });
+}
+```
+
+## Webhook retry policy
+
+If your endpoint fails to respond or returns a non-2xx status:
+
+| Attempt | Delay |
+|---------|-------|
+| 1st retry | 1 second |
+| 2nd retry | 5 seconds |
+| 3rd retry | 25 seconds |
+
+After 3 failed attempts, the delivery is marked as failed. You can manually retry individual deliveries from the **Webhooks** delivery log in your dashboard.
+
+<Warning>
+  Ensure your webhook endpoint is reliable and responds within 10 seconds. Repeated failures will cause deliveries to be marked failed and require manual retry.
+</Warning>
+
+## Delivery logs
+
+ContextGPT records every webhook delivery attempt. From the **Webhooks** page you can:
+
+* View delivery history with status, HTTP response code, and response time
+* Filter deliveries by event type or status (`PENDING`, `RETRYING`, `SUCCESS`, `FAILED`)
+* Manually retry any failed delivery
+
+## Testing webhooks
+
+### Using the built-in test
+
+From **Settings** → **Webhooks**, click **Send Test** and choose an event type. A sample payload is dispatched immediately and appears in your delivery log.
+
+### Using webhook testing tools
+
+1. **Webhook.site:** Generate a temporary URL to inspect payloads without a server
+2. **ngrok:** Expose your local development server to the internet
+3. **Postman:** Simulate webhook requests manually
+
+### Test payload example
+
+```bash theme={null}
+curl -X POST https://your-domain.com/webhooks/contextgpt \
+  -H "Content-Type: application/json" \
+  -H "X-WEBHOOK-TOKEN: your_secret" \
+  -d '{
+    "event": "NEW_MESSAGE",
+    "data": {
+      "chatbotId": "test_123",
+      "threadId": "test_thread",
+      "messageId": "test_msg",
+      "role": "assistant",
+      "question": null,
+      "answer": "Test answer",
+      "sources": [],
+      "createdAt": "2025-01-15T10:30:00Z"
+    }
+  }'
+```
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Use HTTPS endpoints only">
+    Webhooks must be delivered over HTTPS to ensure data security. HTTP endpoints are not supported.
+  </Accordion>
+
+  <Accordion title="Implement idempotency">
+    Store `messageId`, `leadDetails.id`, or `threadId` values and skip processing if already seen. Network issues can cause the same webhook to be delivered multiple times.
+  </Accordion>
+
+  <Accordion title="Process asynchronously">
+    Respond to webhooks immediately (within 10 seconds) and process data in the background to avoid timeouts.
+  </Accordion>
+
+  <Accordion title="Monitor webhook health">
+    Check the delivery log regularly and set up alerts for `FAILED` deliveries.
+  </Accordion>
+
+  <Accordion title="Secure your secret">
+    Store the webhook secret as an environment variable, never in code. If compromised, update it in **Settings** → **Webhooks** immediately.
+  </Accordion>
+
+  <Accordion title="Log all webhook events">
+    Keep logs of received webhooks for debugging and audit purposes.
+  </Accordion>
+</AccordionGroup>
+
+## Common use cases
+
+### CRM integration
+
+```javascript theme={null}
+async function handleNewLead(data) {
+  const { leadDetails } = data;
+  await salesforce.leads.create({
+    email: leadDetails.email,
+    firstName: leadDetails.name?.split(' ')[0],
+    lastName: leadDetails.name?.split(' ')[1],
+    phone: leadDetails.phone,
+    leadSource: 'ContextGPT Chatbot',
+  });
+}
+```
+
+### Support ticket creation
+
+```javascript theme={null}
+async function handleEscalation(data) {
+  await zendesk.tickets.create({
+    subject: `Chat escalation from ${data.user?.name ?? 'Anonymous'}`,
+    description: `View conversation: ${data.dashboardUrl}`,
+    requester: {
+      email: data.user?.email,
+      name: data.user?.name,
+    },
+    priority: 'high',
+    tags: ['chatbot', 'escalation'],
+  });
+}
+```
+
+### Analytics tracking
+
+```javascript theme={null}
+async function handleNewMessage(data) {
+  if (data.role !== 'assistant') return; // Only track AI responses
+  await analytics.track({
+    event: 'Chatbot Message',
+    properties: {
+      chatbotId: data.chatbotId,
+      threadId: data.threadId,
+      hasAnswer: !!data.answer,
+      sourceCount: data.sources.length,
+    },
+  });
+}
+```
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Webhooks not being received">
+    * Verify your endpoint URL is correct and accessible over HTTPS
+    * Ensure your server accepts POST requests
+    * Check that your endpoint is not behind a firewall blocking ContextGPT requests
+    * Test your endpoint with curl or Postman
+  </Accordion>
+
+  <Accordion title="Receiving 401 Unauthorized errors">
+    * Verify the webhook secret matches exactly (case-sensitive, no extra whitespace)
+    * Ensure you're reading the `X-WEBHOOK-TOKEN` header
+    * Check that your secret is at least 16 characters
+  </Accordion>
+
+  <Accordion title="Webhook deliveries timing out">
+    * Respond with a 200 status immediately upon receiving the request
+    * Move all processing to background jobs
+    * Your endpoint must respond within 10 seconds
+  </Accordion>
+
+  <Accordion title="Receiving duplicate webhooks">
+    * Use `messageId`, `leadDetails.id`, or `threadId` as idempotency keys
+    * Store processed IDs in your database and skip if already seen
+  </Accordion>
+</AccordionGroup>
+
+## Related features
+
+* [API Reference](/api-reference/v2/getting-started) - Programmatic access to ContextGPT
+* [Zapier integration](/integrations/zapier) - No-code webhook alternative
+* [Human support](/features/human-support) - Configure escalation behavior
+* [Lead collection](/features/lead-collection) - Advanced lead capture settings
