@@ -3832,7 +3832,7 @@
       }
     },
 
-    "/v0/chatbots/chatbot/{chatbotId}/settings/general": {
+    "/v1/chatbots/chatbot/{chatbotId}/settings/general": {
       "get": {
         "summary": "Get General Settings",
         "description": "Returns the general settings for a chatbot. Returns `null` if no settings row has been created yet.\n\nRequires `CHATBOT_VIEW` permission.",
@@ -3922,7 +3922,7 @@
       }
     },
 
-    "/v0/chatbots/chatbot/{chatbotId}/settings/advanced": {
+    "/v1/chatbots/chatbot/{chatbotId}/settings/advanced": {
       "get": {
         "summary": "Get Advanced Settings",
         "description": "Returns advanced settings for a chatbot. **Not yet implemented** — temperature, topK, creativity, webhookUrl, and webhookToken schema columns are pending. Returns an empty object until implemented.",
@@ -3988,7 +3988,7 @@
       }
     },
 
-    "/v0/chatbots/chatbot/{chatbotId}/settings/chat-mode": {
+    "/v1/chatbots/chatbot/{chatbotId}/settings/chat-mode": {
       "get": {
         "summary": "Get Chat Mode",
         "description": "Returns the current chat mode (`chatStart`) for a chatbot — either `\"ai\"` (conversations handled by the AI bot) or `\"agent\"` (conversations routed directly to a human agent).\n\nRequires `CHATBOT_VIEW` permission.",
@@ -4078,7 +4078,7 @@
       }
     },
 
-    "/v0/chatbots/chatbot/{chatbotId}/settings/user-data": {
+    "/v1/chatbots/chatbot/{chatbotId}/settings/user-data": {
       "get": {
         "summary": "Get User Data Settings",
         "description": "Returns the user data collection settings for a chatbot — whether to collect name, phone, email, and when to collect them.\n\nRequires `CHATBOT_VIEW` permission.",
@@ -4180,7 +4180,7 @@
       }
     },
 
-    "/v0/chatbots/chatbot/{chatbotId}/settings/icons": {
+    "/v1/chatbots/chatbot/{chatbotId}/settings/icons": {
       "get": {
         "summary": "Get Icon Settings",
         "description": "Returns the five icon URLs for a chatbot: bot icon, user icon, agent icon, bubble icon, and watermark brand icon.\n\nRequires `CHATBOT_VIEW` permission.",
