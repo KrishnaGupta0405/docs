@@ -1,0 +1,43 @@
+#### this file is used for refference about how to write the changelog, and it will not be part of the website
+# December 2025
+
+> Updates and improvements for December 2025
+
+## December 2025
+
+### New features
+
+<AccordionGroup>
+  <Accordion title="Chat history for anonymous users" icon="users">
+    New option to show conversation history for users who haven't logged in. Enable this in your widget settings to help returning visitors pick up where they left off.
+  </Accordion>
+
+  <Accordion title="Drag-and-drop reordering" icon="arrows-up-down">
+    Conversation starters and follow-up suggestions can now be reordered using intuitive drag-and-drop. Prioritize the most important prompts by placing them at the top.
+  </Accordion>
+
+  <Accordion title="Bulk actions for chat history" icon="list-check">
+    Select and manage multiple conversations at once in your chat history. Delete, export, or tag multiple conversations in a single action.
+  </Accordion>
+
+  <Accordion title="Chat history tag management" icon="tags">
+    Improved tag system for organizing conversations:
+
+    * Add tags to filter conversations
+    * Delete tags you no longer need
+    * Tags column now included in CSV exports
+  </Accordion>
+</AccordionGroup>
+
+### Improvements
+
+* **Customer tracker enhancements**: Improved Slack notifications with better formatting and more context
+* **Cancel reason tracking**: Cancellation and trial extension reasons are now saved for analytics
+* **PostHog integration**: Direct links to PostHog sessions in customer tracker for deeper analytics
+
+### Bug fixes
+
+* Fixed moderated message persistence issues
+* Resolved source sync bugs affecting content updates
+* Fixed widget behavior when explicitly closed by users
+* Improved API endpoint reliability
