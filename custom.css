@@ -1,0 +1,12 @@
+#contextgpt-status {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 100;
+}
+
+aside {
+  position: relative;
+  padding-bottom: 70px;
+}

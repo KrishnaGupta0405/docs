@@ -1,43 +1,169 @@
-#### this file is used for refference about how to write the changelog, and it will not be part of the website
-# December 2025
+> ## Documentation Index
+> Fetch the complete documentation index at: https://sitegpt.ai/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
 
-> Updates and improvements for December 2025
+# October 2025
 
-## December 2025
+> Updates from October 2025
 
-### New features
-
-<AccordionGroup>
-  <Accordion title="Chat history for anonymous users" icon="users">
-    New option to show conversation history for users who haven't logged in. Enable this in your widget settings to help returning visitors pick up where they left off.
-  </Accordion>
-
-  <Accordion title="Drag-and-drop reordering" icon="arrows-up-down">
-    Conversation starters and follow-up suggestions can now be reordered using intuitive drag-and-drop. Prioritize the most important prompts by placing them at the top.
-  </Accordion>
-
-  <Accordion title="Bulk actions for chat history" icon="list-check">
-    Select and manage multiple conversations at once in your chat history. Delete, export, or tag multiple conversations in a single action.
-  </Accordion>
-
-  <Accordion title="Chat history tag management" icon="tags">
-    Improved tag system for organizing conversations:
-
-    * Add tags to filter conversations
-    * Delete tags you no longer need
-    * Tags column now included in CSV exports
-  </Accordion>
-</AccordionGroup>
+## Week of October 20-26, 2025 (Current)
 
 ### Improvements
 
-* **Customer tracker enhancements**: Improved Slack notifications with better formatting and more context
-* **Cancel reason tracking**: Cancellation and trial extension reasons are now saved for analytics
-* **PostHog integration**: Direct links to PostHog sessions in customer tracker for deeper analytics
+* **Default bot icon colors**: Updated default bot icon colors for better visual consistency and modern appearance
+* **Marketing components**: Refactored marketing components for improved maintainability and performance
+* **CDN images**: Added CDN support for images to improve page load times and performance
+
+***
+
+## Week of October 13-19, 2025
+
+### Major updates
+
+<Card title="Modernized chat widget design" icon="sparkles">
+  Completely redesigned the chat widget interface with a modern, clean aesthetic. The new design features improved visual hierarchy, better spacing, rounded corners, and enhanced accessibility. The widget now includes an expand/collapse button for flexible viewing, a refresh button that reloads the page for easy conversation resets, and improved mobile responsiveness.
+</Card>
+
+<Card title="Pages quota system" icon="file-lines">
+  Introduced a unified pages-based quota system replacing separate links and files quotas. All content (web pages, files, documents) is now measured in pages, where 1 page = 2,500 cleaned characters. This simplifies quota management and provides more flexibility in how you train your chatbot.
+
+  **5x increase in page limits across all plans:**
+
+  * Starter plan: 200 links + 10 files → 1,000 pages (5x)
+  * Growth plan: 2,000 links + 100 files → 10,000 pages (5x)
+  * Scale plan: 10,000 links + 500 files → 50,000 pages (5x)
+  * Enterprise plan: 100,000 links + 5,000 files → 500,000 pages (5x)
+</Card>
+
+### New features
+
+<Card title="Conversation reset SDK command" icon="rotate">
+  Added new `conversation:reset` SDK command that allows you to programmatically reset the current conversation thread and return to the widget home page. This clears the conversation history and allows the user to start over, perfect for giving users a clean slate after completing a transaction or switching topics.
+
+  ```javascript theme={null}
+  window.$sitegpt.push(['do', 'conversation:reset']);
+  ```
+</Card>
+
+<Card title="Automatic page URL capture in lead collection" icon="link">
+  Lead collection now automatically captures the URL of the page where users initiated the conversation. This `page_url` field is stored in the lead's custom data (up to 2048 characters), helping you understand where your leads are coming from and what content they were viewing when they engaged with your chatbot.
+</Card>
+
+<Card title="Lead collection enabled by default" icon="address-book">
+  Lead collection is now enabled by default when creating a new chatbot, making it easier to start capturing leads immediately. You can still customize settings or disable it if needed.
+</Card>
+
+<Card title="Pages usage tracking" icon="chart-line">
+  New pages usage metrics displayed across dashboards, showing total pages consumed and remaining quota. Includes detailed page count information for each document and file.
+</Card>
+
+<Card title="Tooltips in documents table" icon="info-circle">
+  Added helpful tooltips next to the pages count in the documents table, providing clarity on what pages represent and how they're calculated.
+</Card>
+
+<Card title="Dark mode for chat widget" icon="moon">
+  Added dark mode option for the chat widget. Enable this setting in the Appearance page to apply a dark theme to the entire chat interface, providing a better experience for users who prefer dark themes or are browsing in low-light environments.
+</Card>
+
+### Improvements
+
+* **Pricing page updates**: Refreshed all pricing tiers to reflect the new pages-based quota system with clearer explanations of page calculations
+* **FAQ updates**: Added new FAQ explaining what a "page" means in the context of training limits (2,500 cleaned characters)
+* **Quota enforcement**: Implemented pages-based quota checks across all content ingestion flows (links, files, YouTube videos, sitemaps)
+* **Usage dashboards**: Updated billing, usage, and chatbot dashboards to display pages quota and usage instead of separate links/files metrics
+* **Navigation improvements**: Simplified quota restrictions in navigation to use unified pages quota
+* **Auto-refresh frequency**: Clarified auto-refresh descriptions with specific schedules (daily, weekly, monthly)
+* **Changelog link**: Fixed changelog link to point to correct documentation URL
+* **Trial extension option**: Added option to extend trial period in the cancellation modal, giving users more time to evaluate the platform
+* **Dependabot configuration**: Configured Dependabot for automated npm dependency updates on a daily schedule
+* **Account icon in widget**: Updated account icon in chat widget header for better visual consistency
+* **Docs visibility**: Fixed issue where docs link wasn't showing in navbar for non-billing users
+* **Chatbot preview sticky**: Made chatbot preview sticky on appearance page for easier customization workflow
 
 ### Bug fixes
 
-* Fixed moderated message persistence issues
-* Resolved source sync bugs affecting content updates
-* Fixed widget behavior when explicitly closed by users
-* Improved API endpoint reliability
+<Card title="Fixed pages quota validation" icon="bug">
+  Resolved a critical bug where the system was incorrectly checking files quota instead of pages quota when adding new content. This ensures proper quota enforcement across all content types.
+</Card>
+
+* Fixed issue with free user threshold detection now using pages quota (threshold: 200 pages)
+* Corrected quota validation logic across all content addition routes
+* Fixed bug with lead details slideover closing on click
+* Resolved issue with links/add and files/add route restrictions
+* **Widget console cleanup**: Removed debug console logs from the chat widget for cleaner browser console output
+* **Navigation label update**: Changed "Changelog" label to "Docs" in navigation for better clarity
+
+***
+
+## Week of October 6-12, 2025
+
+### New features
+
+<Card title="Rate limits per conversation" icon="gauge">
+  Set rate limits on a per-conversation basis to control chatbot usage and prevent abuse. This gives you fine-grained control over how many messages users can send in individual conversations.
+</Card>
+
+<Card title="Link configuration updates" icon="link">
+  Added functionality to update configuration settings for links, giving you more control over how your content sources are managed.
+</Card>
+
+<Card title="Tooltips in chat history" icon="info-circle">
+  Added helpful tooltips to icons in the chat history interface for better usability and clearer understanding of each action.
+</Card>
+
+### Improvements
+
+* **Home page navigation**: Added ability to stay on the home page when no conversation thread exists, improving the initial user experience
+* **Pricing pages in sitemap**: Added yearly and monthly pricing pages to sitemap for better SEO and discoverability
+* **Partners page updates**: Refreshed partner program page with updated information and details
+* **Chatbot preview sticky positioning**: Made the chatbot preview sticky on the appearance page so it stays visible while you customize settings
+* **Mobile widget font size**: Set minimum font size to 16px on mobile widgets to prevent unwanted zoom behavior on iOS devices, improving the mobile user experience
+* **Chat history UX**: Icons now dynamically change based on the AI model used in each conversation, making it easier to identify which model handled each chat
+* **Auto-sync job display**: Improved display of last run and next run times for auto-sync jobs with better formatting and clarity
+* **SDK page redesign**: Refactored SDK documentation page with updated icons for better navigation and improved developer experience
+* **Sign-in email**: Added copy-pastable links to sign-in emails for easier access to your account
+* **Partners page**: Updated partner program information with latest details
+* **FAQ updates**: Refreshed frequently asked questions with current information
+* **Chat history Q\&A editing**: Improved user experience when editing Q\&A pairs by pre-filling the new answer field with the existing answer
+* **Plan restrictions**: Auto-sync feature is now restricted to higher-tier plans, removed from starter plans to better align features with pricing tiers
+
+### Bug fixes
+
+* Fixed hydration errors in the application that were causing rendering issues
+* Resolved issue with mobile widget not respecting local storage state
+* Fixed Zapier integration bugs affecting workflow automation
+* Corrected account modal links to preserve query parameters when navigating
+
+***
+
+## Week of September 30 - October 5, 2025
+
+### New features
+
+<Card title="Zapier integration" icon="bolt">
+  Connect SiteGPT with 5,000+ apps through our new Zapier integration. Automate workflows and sync data across your favorite tools including CRMs, email marketing platforms, and project management software.
+</Card>
+
+<Card title="Auto-sync jobs enabled" icon="arrows-rotate">
+  Auto-sync is now available for all users. Keep your chatbot content automatically updated with scheduled syncs at daily, weekly, or monthly intervals.
+</Card>
+
+<Card title="New SDK methods" icon="code">
+  Added new methods for sending messages programmatically through the SDK, giving developers more control over chatbot interactions.
+</Card>
+
+### Improvements
+
+* **Sync frequency options**: Added dropdown to select sync frequency (daily, weekly, monthly) for links, making it easy to configure automatic content updates
+* **Auto-sync job details**: New dedicated route and improved UI for viewing specific sync job details, including run history and status
+* **Lead generation prompts**: Enhanced prompts for better lead collection and higher conversion rates
+* **Fallback message label**: Added clearer labeling for fallback messages in base prompts
+* **Chat history filtering**: Threads with no messages are now hidden from chat history for a cleaner interface
+
+### Bug fixes
+
+* Fixed issue with adding tags to conversations
+* Resolved bug with default user data values not showing as optional
+* Fixed default chat mode not being set to AI
+* Corrected toast message display issues
+* Fixed user data collection settings not being properly followed
