@@ -1,13 +1,3 @@
-function injectYandexVerification() {
-  if (document.querySelector("meta[name='yandex-verification']")) return;
-  const meta = document.createElement("meta");
-  meta.name = "yandex-verification";
-  meta.content = "5ef1a93a7ba11a78";
-  document.head.appendChild(meta);
-}
-
-injectYandexVerification();
-
 function injectStatusBadge() {
   const style = document.getElementById("contextgpt-status-style");
   if (!style) {
