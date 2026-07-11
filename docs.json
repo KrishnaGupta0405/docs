@@ -34,6 +34,11 @@
     "openapi": "/openapi.json"
   },
   "favicon": "/favicon.png",
+  "seo": {
+    "metatags": {
+      "yandex-verification": "5ef1a93a7ba11a78"
+    }
+  },
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
