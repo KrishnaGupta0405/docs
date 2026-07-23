@@ -328,12 +328,12 @@
       "anchors": [
         {
           "anchor": "Dashboard",
-          "href": "https://www.contextgpt.in",
+          "href": "https://www.contextgpt.co",
           "icon": "browser"
         },
         {
           "anchor": "System Status",
-          "href": "https://status.contextgpt.in",
+          "href": "https://status.contextgpt.co",
           "icon": "circle-check"
         }
       ]
@@ -347,13 +347,13 @@
       },
       {
         "label": "Status",
-        "href": "https://status.contextgpt.in"
+        "href": "https://status.contextgpt.co"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Create Your chatbot now",
-      "href": "https://www.contextgpt.in"
+      "href": "https://www.contextgpt.co"
     }
   },
   "footer": {

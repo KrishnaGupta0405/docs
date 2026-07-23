@@ -16,7 +16,7 @@ The ContextGPT API allows you to programmatically manage chatbots, send messages
 All API requests are made to:
 
 ```
-https://ContextGPT.in/api/v1
+https://ContextGPT.co/api/v1
 ```
 
 ## Authentication
@@ -44,12 +44,12 @@ Authorization: Bearer YOUR_API_KEY
 
 <CodeGroup>
   ```bash cURL theme={null}
-  curl https://ContextGPT.in/api/v1/chatbots \
+  curl https://ContextGPT.co/api/v1/chatbots \
     -H "Authorization: Bearer YOUR_API_KEY"
   ```
 
   ```javascript JavaScript theme={null}
-  const response = await fetch('https://ContextGPT.in/api/v1/chatbots', {
+  const response = await fetch('https://ContextGPT.co/api/v1/chatbots', {
     headers: {
       'Authorization': 'Bearer YOUR_API_KEY'
     }
@@ -62,7 +62,7 @@ Authorization: Bearer YOUR_API_KEY
   import requests
 
   response = requests.get(
-      'https://ContextGPT.in/api/v1/chatbots',
+      'https://ContextGPT.co/api/v1/chatbots',
       headers={'Authorization': 'Bearer YOUR_API_KEY'}
   )
 
@@ -251,7 +251,7 @@ Paginated responses include metadata:
 
 <CodeGroup>
   ```bash cURL theme={null}
-  curl -X POST https://ContextGPT.in/api/v1/chatbots \
+  curl -X POST https://ContextGPT.co/api/v1/chatbots \
     -H "Authorization: Bearer YOUR_API_KEY" \
     -H "Content-Type: application/json" \
     -d '{
@@ -260,7 +260,7 @@ Paginated responses include metadata:
   ```
 
   ```javascript JavaScript theme={null}
-  const response = await fetch('https://ContextGPT.in/api/v1/chatbots', {
+  const response = await fetch('https://ContextGPT.co/api/v1/chatbots', {
     method: 'POST',
     headers: {
       'Authorization': 'Bearer YOUR_API_KEY',
@@ -278,7 +278,7 @@ Paginated responses include metadata:
   import requests
 
   response = requests.post(
-      'https://ContextGPT.in/api/v1/chatbots',
+      'https://ContextGPT.co/api/v1/chatbots',
       headers={
           'Authorization': 'Bearer YOUR_API_KEY',
           'Content-Type': 'application/json'
@@ -293,7 +293,7 @@ Paginated responses include metadata:
 
   ```php PHP theme={null}
   <?php
-  $ch = curl_init('https://ContextGPT.in/api/v1/chatbots');
+  $ch = curl_init('https://ContextGPT.co/api/v1/chatbots');
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   curl_setopt($ch, CURLOPT_POST, true);
   curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -461,7 +461,7 @@ Check our community forum for user-contributed libraries and wrappers.
 Need help with the API?
 
 * **Documentation** - Browse the API reference
-* **Email** - [support@ContextGPT.in](mailto:support@ContextGPT.in)
+* **Email** - [support@ContextGPT.co](mailto:support@ContextGPT.co)
 * **Community** - Join our Slack or forum
 * **Enterprise** - Dedicated support for enterprise customers
 

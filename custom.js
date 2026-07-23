@@ -24,7 +24,7 @@ function injectStatusBadge() {
   }
 
   const anchors = Array.from(
-    document.querySelectorAll("a[href='https://status.contextgpt.in']")
+    document.querySelectorAll("a[href='https://status.contextgpt.co']")
   ).filter((el) => el.textContent.includes("System Status") && !el.dataset.statusEnhanced);
 
   if (anchors.length === 0) {

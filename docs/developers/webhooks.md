@@ -147,7 +147,7 @@ Fired when a visitor requests to speak with a human.
   "data": {
     "chatbotId": "chatbot_123",
     "threadId": "thread_456",
-    "dashboardUrl": "https://app.contextgpt.in/chatbot_123/chat-history/thread_456",
+    "dashboardUrl": "https://app.contextgpt.co/chatbot_123/chat-history/thread_456",
     "user": {
       "id": "visitor_321",
       "email": "user@example.com",
